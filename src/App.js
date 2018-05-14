@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Cable from 'actioncable'
 import './App.css'
+import { WEBSOCKET_HOST } from "../config/endpoints.js"
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class App extends Component {
   }
 
   createSocket() {
-    let cable = Cable.createConsumer('ws://localhost:3001/cable')
+    let cable = Cable.createConsumer(WEBSOCKET_HOST)
     this.chats = cable.subscriptions.create({
       channel: 'ChatChannel', game_id: '1'
     }, {
