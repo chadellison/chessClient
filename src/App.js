@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Cable from 'actioncable'
 import './App.css'
-import { WEBSOCKET_HOST } from "../config/endpoints.js"
+import { WEBSOCKET_HOST } from "./config/endpoints.js"
 
 class App extends Component {
   constructor(props) {
