@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Cable from 'actioncable'
 import './App.css'
+import Home from './components/Home'
+import { Route } from 'react-router-dom'
 import { WEBSOCKET_HOST } from "./config/endpoints.js"
 
 class App extends Component {
@@ -71,27 +73,30 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <div className='stage'>
-          <h1>Chat</h1>
-          <div className='chat-logs'>
-          </div>
-          <input
-            type='text'
-            value={ this.state.currentChatMessage }
-            onChange={ (e) => this.updateCurrentChatMessage(e) }
-            placeholder='Enter your message...'
-            className='chat-input'
-            onKeyPress={ (e) => this.handleChatInputKeyPress(e) }
-          />
+        <main>
+        <Route exact path='/' component={Home} />
+          <div className='stage'>
+            <h1>Chat</h1>
+            <div className='chat-logs'>
+            </div>
+            <input
+              type='text'
+              value={ this.state.currentChatMessage }
+              onChange={ (e) => this.updateCurrentChatMessage(e) }
+              placeholder='Enter your message...'
+              className='chat-input'
+              onKeyPress={ (e) => this.handleChatInputKeyPress(e) }
+            />
 
-          <button className='send'
-            onClick={ (e) => this.handleSendEvent(e) }>
-            Send
-          </button>
-          <ul className='chat-logs'>
-            { this.renderChatLog() }
-          </ul>
-        </div>
+            <button className='send'
+              onClick={ (e) => this.handleSendEvent(e) }>
+              Send
+            </button>
+            <ul className='chat-logs'>
+              { this.renderChatLog() }
+            </ul>
+          </div>
+        </main>
       </div>
     )
   }
