@@ -7,6 +7,10 @@ export default class Square extends Component {
   }
 
   render() {
-    return <div className={`square ${this.findColor()}`}></div>
+    return (
+      <div className={`square ${this.findColor()}`}
+        id={this.props.id}>
+      </div>
+    )
   }
 }

@@ -4,19 +4,19 @@ import Square from './Square'
 
 export default class Board extends Component {
   renderBoard = () => {
-    let rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-    let columns = ['8', '7', '6', '5', '4', '3', '2', '1']
+    let rows = ['8', '7', '6', '5', '4', '3', '2', '1']
+    let columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
     return rows.map((row, rowIndex) => {
       let eachRow = columns.map((column, columnIndex) => {
         return (
           <Square key={`square${rowIndex + columnIndex + 1}`}
-            id={row + column}
+            id={column + row}
             value={rowIndex + columnIndex + 1}
           />
         )
       })
-      return <div key={`row${rowIndex}`} className='boardRow row'>{eachRow}</div>
+      return <div key={`row${rowIndex}`} className='boardRow row justify-content-center'>{eachRow}</div>
     })
   }
 
