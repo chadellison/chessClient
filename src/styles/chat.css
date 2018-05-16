@@ -5,7 +5,7 @@
 
 .chatTitle {
   font-family: 'Pacifico', cursive;
-  background-color: rgba(30, 228, 148, 0.7);
+  background: #ffa109;
   color: #FFF;
   height: 40px;
   font-size: 20px;
@@ -46,7 +46,7 @@
 .inputForm input[type="text"] {
   background: rgba(255, 255, 255, 0.5);
   outline: 0;
-  border: 2px solid #1EE494;
+  border: 2px solid #ffa109;
   padding: 0 5px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -57,7 +57,7 @@
 
 .inputForm input[type="submit"] {
   background: transparent;
-  border: 1px solid #1EE494;
+  border: 1px solid #ffa109;
   height: 30px;
   font-size: 14px;
   border-top-right-radius: 5px;
@@ -67,7 +67,7 @@
 }
 
 .inputForm input[type="submit"]:hover {
-  background: #1EE494;
+  background: #ffa109;
   color: #FFF;
 }
 
