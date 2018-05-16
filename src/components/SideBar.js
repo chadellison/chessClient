@@ -5,7 +5,7 @@ import Chat from './Chat'
 export default class SideBar extends Component {
   render() {
     return(
-      <div className='col-md-3 sideBar'>
+      <div className='sideBar col-lg-3 col-md-12'>
         <Chat />
       </div>
     )
