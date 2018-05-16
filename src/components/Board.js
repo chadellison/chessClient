@@ -3,39 +3,21 @@ import '../styles/board.css'
 import Square from './Square'
 
 export default class Board extends Component {
-  // setOffset(index) {
-  //   if(index % 8 === 0) {
-  //     return ' col-xs-offset-2'
-  //   } else {
-  //     return ''
-  //   }
-  // }
-  //
-  // squareColor(id) {
-  //   let sum = id.split('').reduce((value, character) => {
-  //     if(LETTER_KEY[character]) {
-  //       character = LETTER_KEY[character]
-  //     }
-  //     return value + parseInt(character, 10)
-  //   }, 0)
-  //
-  //   return sum % 2 === 0 ? 'white' : 'black'
-  // }
-
-
   renderBoard = () => {
-    // return this.boardRows().map((row, rowIndex) => {
-    //   let eachRow = row.map((square, columnIndex) => {
-    //     return(
-    //       <Square key={columnIndex}
-    //         styles={`col-xs-1 square${this.setOffset(columnIndex)} ${this.squareColor(square)}`}
-    //         id={square}
-    //       />
-    //     )
-    //   })
-    // return <div key={rowIndex} className="row">{eachRow}</div>
-    // })
-    <div>Board</div>
+    let rows = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    let columns = ['8', '7', '6', '5', '4', '3', '2', '1']
+
+    return rows.map((row, rowIndex) => {
+      let eachRow = columns.map((column, columnIndex) => {
+        return (
+          <Square key={`square${rowIndex + columnIndex + 1}`}
+            id={row + column}
+            value={rowIndex + columnIndex + 1}
+          />
+        )
+      })
+      return <div key={`row${rowIndex}`} className='boardRow row'>{eachRow}</div>
+    })
   }
 
   render() {

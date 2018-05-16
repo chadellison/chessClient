@@ -6,7 +6,7 @@ import SideBar from './SideBar'
 export default class Home extends Component {
   render() {
     return(
-      <div className='container-fluid'>
+      <div className='container'>
         <div className='row'>
           <Board />
           <SideBar />
