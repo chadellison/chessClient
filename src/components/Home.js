@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import '../styles/home.css'
-import { connect } from 'react-redux'
+import Board from './Board'
+import SideBar from './SideBar'
 
-class Home extends Component {
+export default class Home extends Component {
   render() {
-    return <div>Home</div>
+    return(
+      <div className='container'>
+        <div className='row'>
+          <Board />
+          <SideBar />
+        </div>
+      </div>
+    )
   }
 }
-
-const mapStateToProps = ({}) => {
-  return {}
-}
-
-export default connect(mapStateToProps)(Home)
