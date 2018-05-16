@@ -35,7 +35,6 @@
   float: left;
   clear: both;
   margin: 10px 0;
-  max-width: 100%;
   word-wrap: break-word;
 }
 
@@ -55,7 +54,6 @@
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   height: 30px;
-  width: 100%;
   font-size: 14px;
 }
 

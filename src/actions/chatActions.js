@@ -1,7 +1,14 @@
-export const addChat = (content) => {
+export const updateChatField = (content) => {
+  return {
+    type: 'UPDATE_CHAT_FIELD',
+    payload: { currentChatMessage: content }
+  }
+}
+
+export const addChat = (newChat) => {
   return {
     type: 'ADD_CHAT',
-    payload: { currentChatMessage: content }
+    newChat: newChat
   }
 }
 
