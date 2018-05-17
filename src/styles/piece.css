@@ -1,0 +1,14 @@
+.piece {
+  font-size: 3vw;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.piece-black {
+  color: #262638;
+}
+
+.piece-white {
+  color: #e3e3ed;
+}

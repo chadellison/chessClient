@@ -9,4 +9,10 @@
 .square {
   width: 7.5%;
   padding-top: 7.5%;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
 }

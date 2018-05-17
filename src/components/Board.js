@@ -1,11 +1,26 @@
 import React, { Component } from 'react'
 import '../styles/board.css'
+import { connect } from 'react-redux'
 import Square from './Square'
+import {loadPieces} from '../actions/gameActions'
 
-export default class Board extends Component {
+class Board extends Component {
+  componentWillMount() {
+    this.props.dispatch(loadPieces())
+  }
+
+  mapPiecesToBoard = () => {
+    let pieces = {}
+    this.props.game.pieces.forEach((piece) => {
+      pieces[piece.position] = piece
+    })
+    return pieces
+  }
+
   renderBoard = () => {
     let rows = ['8', '7', '6', '5', '4', '3', '2', '1']
     let columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    let gamePieces = this.mapPiecesToBoard()
 
     return rows.map((row, rowIndex) => {
       let eachRow = columns.map((column, columnIndex) => {
@@ -13,6 +28,7 @@ export default class Board extends Component {
           <Square key={`square${rowIndex + columnIndex + 1}`}
             id={column + row}
             value={rowIndex + columnIndex + 1}
+            piece={gamePieces[column + row]}
           />
         )
       })
@@ -28,3 +44,9 @@ export default class Board extends Component {
     )
   }
 }
+
+const mapStateToProps = ({game}) => {
+  return {game}
+}
+
+export default connect(mapStateToProps)(Board)

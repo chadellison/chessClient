@@ -27,8 +27,11 @@ class Chat extends Component {
 
   handleSendEvent = (e) => {
     e.preventDefault()
-    this.chats.create(this.props.chat.currentChatMessage)
-    this.props.dispatch(clearChat(''))
+
+    if(this.props.chat.currentChatMessage) {
+      this.chats.create(this.props.chat.currentChatMessage)
+      this.props.dispatch(clearChat(''))
+    }
   }
 
   updateCurrentChatMessage = (e) => {

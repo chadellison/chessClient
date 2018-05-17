@@ -17,7 +17,8 @@
 .chats {
   padding: 0 20px;
   margin: 10px 0 0;
-  height: 572px;
+  height: 565px;
+  max-height: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column-reverse;
@@ -73,4 +74,8 @@
 
 .submitButton {
   color: white;
+}
+
+.submitButton:focus {
+  outline:0;
 }
