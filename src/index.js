@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import store, { history } from './store'
 
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/css/bootstrap-theme.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import registerServiceWorker from './registerServiceWorker'
 
