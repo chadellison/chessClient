@@ -1,8 +1,7 @@
 .piece {
-  font-size: 3vw;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 25%;
+  font-size: 3.5vw;
+  vertical-align: middle;
 }
 
 .piece-black {

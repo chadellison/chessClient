@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/square.css'
 import Piece from './Piece'
+import { DropTarget } from 'react-drag-drop-container'
 
 export default class Square extends Component {
   findColor() {
@@ -11,11 +12,18 @@ export default class Square extends Component {
     return this.props.piece ? <Piece piece={this.props.piece} /> : ''
   }
 
+  handleMove() {
+    console.log('bingo')
+    return true
+  }
+
   render() {
     return (
-      <div className={`square ${this.findColor()}`} id={this.props.id}>
-        {this.renderPiece()}
-      </div>
+      <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
+        <div className={`square ${this.findColor()}`} id={this.props.id}>
+          {this.renderPiece()}
+        </div>
+      </DropTarget>
     )
   }
 }
