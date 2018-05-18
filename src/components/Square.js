@@ -2,8 +2,16 @@ import React, { Component } from 'react'
 import '../styles/square.css'
 import Piece from './Piece'
 import { DropTarget } from 'react-drag-drop-container'
+import moveAudio from '../audio/moveAudio.wav'
+import { connect } from 'react-redux'
+import {loadPiecesAction} from '../actions/gameActions'
 
-export default class Square extends Component {
+class Square extends Component {
+  constructor() {
+    super()
+    this.moveAudio = new Audio(moveAudio)
+  }
+
   findColor() {
     return this.props.value % 2 === 0 ? 'white' : 'black'
   }
@@ -12,9 +20,22 @@ export default class Square extends Component {
     return this.props.piece ? <Piece piece={this.props.piece} /> : ''
   }
 
-  handleMove() {
-    console.log('bingo')
-    return true
+  handleMove = () => {
+    // if(move is valid and turn is correct) {
+      this.props.dispatch(loadPiecesAction(this.updateBoard(this.props.game.selected, this.props.id)))
+      this.moveAudio.play()
+    // }
+  }
+
+  updateBoard = (selectedPiece, newPosition) => {
+    return this.props.game.pieces.filter((piece) => {
+      return piece.position !== newPosition
+    }).map((piece) => {
+      if(piece.positionIndex === selectedPiece.positionIndex) {
+        piece.position = newPosition
+      }
+      return piece
+    })
   }
 
   render() {
@@ -27,3 +48,9 @@ export default class Square extends Component {
     )
   }
 }
+
+const mapStateToProps = ({game}) => {
+  return {game}
+}
+
+export default connect(mapStateToProps)(Square)

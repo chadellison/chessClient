@@ -2,19 +2,20 @@ import React, { Component } from 'react'
 import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
-import {loadPieces} from '../actions/gameActions'
+import {loadPiecesAction} from '../actions/gameActions'
+import pieces from '../json/pieces'
 
 class Board extends Component {
   componentWillMount() {
-    this.props.dispatch(loadPieces())
+    this.props.dispatch(loadPiecesAction(pieces))
   }
 
   mapPiecesToBoard = () => {
-    let pieces = {}
+    let gamePieces = {}
     this.props.game.pieces.forEach((piece) => {
-      pieces[piece.position] = piece
+      gamePieces[piece.position] = piece
     })
-    return pieces
+    return gamePieces
   }
 
   renderBoard = () => {
