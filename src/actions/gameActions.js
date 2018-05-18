@@ -11,3 +11,10 @@ export const selectPieceAction = (piece) => {
     selected: piece
   }
 }
+
+export const updateTurnAction = (nextTurn) => {
+  return {
+    type: 'NEXT_TURN',
+    currentTurn: nextTurn
+  }
+}
