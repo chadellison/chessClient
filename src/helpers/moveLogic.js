@@ -247,12 +247,9 @@ export default class MoveLogic {
   }
 
   isEnPassant(piece, coordinates, pieces) {
-    if(coordinates[0] !== piece.position[0] &&
-      !this.findPieceByPosition(coordinates, pieces) &&
-      piece.pieceType === 'pawn') {
-        pieces = pieces.filter((piece) => piece.position !== (coordinates[0] + piece.position[1]))
-    }
-    return pieces
+    return coordinates[0] !== piece.position[0] &&
+      this.isOpen(coordinates, pieces) &&
+      piece.pieceType === 'pawn'
   }
 
   canCapturePiece(position, pieces) {
@@ -319,26 +316,30 @@ export default class MoveLogic {
     }
   }
 
-  filterByPosition(position, pieces) {
-    return pieces.filter((piece) => piece.position !== position)
+  removeCapturedPiece(position, pieces) {
+    return pieces.filter((piece) => (piece.position !== position))
+  }
+
+  mapPieceToBoard(piece, position, pieces) {
+    return pieces.map((gamePiece) => {
+      if (gamePiece.positionIndex === piece.positionIndex) {
+        gamePiece.position = position
+      }
+      return gamePiece
+    })
   }
 
   kingIsSafe(piece, nextMove, pieces) {
     let result = true
     let positions = [nextMove]
 
-    if (this.kingCastle(piece, nextMove)) {
+    if (this.isCastle(piece, nextMove)) {
       positions.push(piece.position[0] > nextMove[0] ? this.oneLeft(piece.position) : this.oneRight(piece.position))
       positions.push(piece.position)
     }
 
     positions.forEach((position) => {
-      let updatedPieces = this.filterByPosition(nextMove, pieces).map((gamePiece) => {
-        if (gamePiece.positionIndex === piece.positionIndex) {
-          gamePiece.position = position
-        }
-        return gamePiece
-      })
+      let updatedPieces = this.piecesWithNextMove(piece, position, pieces)
 
       this.piecesByColor(updatedPieces, this.opponentColor(piece.color)).forEach((eachPiece) => {
         if (this.inCheck(eachPiece, updatedPieces, piece.color)) {
@@ -349,34 +350,38 @@ export default class MoveLogic {
     return result
   }
 
+  piecesWithNextMove(piece, nextMove, pieces) {
+    return this.mapPieceToBoard(piece, nextMove, this.removeCapturedPiece(nextMove, pieces))
+  }
+
   piecesByColor(pieces, color) {
     return pieces.filter((piece) => piece.color === color)
   }
 
-  kingCastle(piece, nextMove) {
+  isCastle(piece, nextMove) {
     return piece.pieceType === 'king' &&
       Math.abs(LETTER_KEY[piece.position[0]] - LETTER_KEY[nextMove[0]]) === 2
   }
 
-  isCastle(piece, coordinates, updatedBoard) {
-    if(piece.pieceType === 'king' && piece.position[0] === 'e' && ['c', 'g'].includes(coordinates[0])) {
-      let oldColumn
-      let newColumn
+  pawnMovedTwo(piece, nextMove) {
+    return Math.abs(parseInt(piece.position[1], 10) - parseInt(nextMove[1], 10)) === 2
+  }
 
-      if (piece.position[0] > coordinates[0]) {
-        oldColumn = 'a'
-        newColumn = 'd'
-      } else {
-        oldColumn = 'h'
-        newColumn = 'f'
-      }
-      let rook = updatedBoard[oldColumn + coordinates[1]].piece
+  handleCastle(piece, coordinates, pieces) {
+    let oldColumn
+    let newColumn
 
-      rook.position = (newColumn + coordinates[1])
-      updatedBoard[oldColumn + coordinates[1]].piece = null
-      updatedBoard[newColumn + coordinates[1]].piece = rook
+    if (piece.position[0] > coordinates[0]) {
+      oldColumn = 'a'
+      newColumn = 'd'
+    } else {
+      oldColumn = 'h'
+      newColumn = 'f'
     }
-    return updatedBoard
+    let rook = this.findPieceByPosition(oldColumn + coordinates[1], pieces)
+    rook.position = (newColumn + coordinates[1])
+
+    return this.mapPieceToBoard(rook, rook.position, pieces)
   }
 
   kingLocation(pieces, color) {
@@ -416,8 +421,8 @@ export default class MoveLogic {
   threeFoldRepitition(gameMoves) {
     if (gameMoves.length > 9) {
       return gameMoves.slice(gameMoves.length - 10, gameMoves.length - 1)
-               .map((move) => move.value)
-               .filter((move, index, self) => index === self.indexOf(move)).length < 5
+        .map((move) => move.value)
+        .filter((move, index, self) => index === self.indexOf(move)).length < 5
     }
   }
 

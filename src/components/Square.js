@@ -43,7 +43,7 @@ class Square extends Component {
   }
 
   updatePiece = (piece, newPosition) => {
-    if (this.pawnMovedTwo(piece, newPosition)) {
+    if (this.moveLogic.pawnMovedTwo(piece, newPosition)) {
       piece = {...piece, movedTwo: true}
     }
     piece = {...piece, position: newPosition}
@@ -51,12 +51,7 @@ class Square extends Component {
     return piece
   }
 
-  pawnMovedTwo = (piece, newPosition) => {
-    return (piece.pieceType === 'pawn' && Math.abs(parseInt(newPosition[1], 10) - parseInt(this.props.game.selected.position[1], 10)) === 2)
-  }
-
   updateBoard = (selectedPiece, newPosition) => {
-    let additionalBoardUpdates = { movedTwo: false, didEnPassant: false, didCastle: false }
     let pieces = JSON.parse(JSON.stringify(this.props.game.pieces))
 
     pieces = this.props.game.pieces.filter((piece) => {
@@ -64,29 +59,28 @@ class Square extends Component {
     }).map((piece) => {
       if (piece.positionIndex === selectedPiece.positionIndex) {
         piece = this.updatePiece(piece, newPosition)
-        additionalBoardUpdates[piece.movedTwo]
-        additionalBoardUpdates[piece.didEnPassant]
-        additionalBoardUpdates[piece.didCastle]
       }
       return piece
     })
 
-    return this.handleAdditionalBoardUpdates(additionalBoardUpdates, pieces, newPosition)
+    return this.handleAdditionalBoardUpdates(pieces, newPosition)
   }
 
-  handleAdditionalBoardUpdates = (additionalBoardUpdates, pieces, newPosition) => {
+  handleAdditionalBoardUpdates = (pieces, newPosition) => {
     let updatedPieces = pieces
+    let piece = this.props.game.selected
 
-    if (!additionalBoardUpdates.movedTwo) {
-      updatedPieces = pieces.map((gamePiece) => gamePiece.movedTwo = false)
+    if (!this.moveLogic.pawnMovedTwo(piece, newPosition)) {
+      pieces.forEach((gamePiece) => gamePiece.movedTwo = false)
     }
-    if (additionalBoardUpdates.didEnPassant) {
-      // remove taken pawn
+    if (this.moveLogic.isEnPassant(piece, newPosition, this.props.game.pieces)) {
+      let positionToRemove = newPosition[0] + piece.position[1]
+      updatedPieces = pieces.filter((piece) => piece.position !== positionToRemove)
     }
-    if (additionalBoardUpdates.didCastle) {
-      // update rook
+    if (this.moveLogic.isCastle(piece, newPosition)) {
+      updatedPieces = this.moveLogic.handleCastle(piece, newPosition, pieces)
     }
-    return pieces
+    return updatedPieces
   }
 
   render() {
