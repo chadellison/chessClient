@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../styles/activeGames.css'
 import Thumbnail from './Thumbnail'
-import {loadActiveGames} from '../actions/activeGamesActions'
+import {fetchActiveGamesAction} from '../actions/activeGamesActions'
 
 class ActiveGames extends Component {
   componentWillMount() {
     // fetch all active games
     // connect to all games socket
+    this.props.dispatch(fetchActiveGamesAction())
   }
 
   renderActiveGames = () => {
