@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './styles/App.css'
-import Home from './components/Home'
+import Layout from './components/Layout'
 import { Route } from 'react-router-dom'
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className='App'>
         <main>
-          <Route exact path='/' component={Home} />
+          <Layout />
         </main>
       </div>
     )
