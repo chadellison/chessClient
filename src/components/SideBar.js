@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import '../styles/sideBar.css'
 import Chat from './Chat'
+import { push } from 'react-router-redux'
+import { connect } from 'react-redux'
 
-export default class SideBar extends Component {
+class SideBar extends Component {
   render() {
     return(
       <div className='sideBar col-lg-3 col-md-12'>
         <div className='sideBarBackground'>
           <h3 className='sideBarTitle'>Chess Machine</h3>
-          <div className='navButton'>
+          <div className='navButton' onClick={() => this.props.dispatch(push('/games'))}>
             <i className='glyphicon glyphicon-knight navIcon'/>
             <span className='navText'>Play</span>
           </div>
@@ -34,3 +36,9 @@ export default class SideBar extends Component {
     )
   }
 }
+
+const mapStateToProps = ({}) => {
+  return {}
+}
+
+export default connect(mapStateToProps)(SideBar)
