@@ -3,12 +3,8 @@
 }
 
 .sideBarTitle {
-  font-family: 'Pacifico', cursive;
-  background: #373f4f;
-  /* background: #193a66; */
-  /* background: #2c66b2; */
-  /* background: #418aea; */
-  /* background: #ffa109; */
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  background: #2c66b2;
   color: #FFF;
   height: 3em;
   font-size: 25px;
