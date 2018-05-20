@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './styles/App.css'
 import Layout from './components/Layout'
-import { Route } from 'react-router-dom'
 
 class App extends Component {
   render() {

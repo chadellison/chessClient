@@ -1,15 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import '../styles/activeGames.css'
-import Thumbnail from './Thumbnail'
-import {loadActiveGames} from '../actions/activeGamesActions'
+import '../styles/thumbnail.css'
 
-class ActiveGames extends Component {
-  componentWillMount() {
-    // fetch all active games
-    // connect to all games socket
-  }
-
+class Thumbnail extends Component {
   renderActiveGames = () => {
     return this.props.activeGames.map((game) => {
       return (
@@ -29,8 +22,8 @@ class ActiveGames extends Component {
   }
 }
 
-const mapStateToProps = ({activeGames}) => {
-  return {activeGames}
+const mapStateToProps = ({}) => {
+  return {}
 }
 
-export default connect(mapStateToProps)(ActiveGames)
+export default connect(mapStateToProps)(Thumbnail)
