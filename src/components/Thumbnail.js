@@ -31,13 +31,30 @@ export default class Thumbnail extends Component {
     })
   }
 
+  buttonText() {
+    if(this.props.game.attributes.status === 'active') {
+      return <div className='enterGameButton'>Watch</div>
+    } else {
+      return <div className='enterGameButton'>Join</div>
+    }
+  }
+
+  statusText() {
+    if(this.props.game.attributes.status === 'active') {
+      return <div className='statusTitle'>In Progress</div>
+    } else {
+      return <div className='statusTitle'>Awaiting Player</div>
+    }
+  }
+
   render() {
     return(
       <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'>
         <div className='justify-content-center'>
-          <div id={this.props.game.id} className='thumbNailBoard'
-            onClick={() => console.log('thumbnail click')}>
-              {this.renderBoard()}
+          <div id={this.props.game.id} className='thumbNailBoard'>
+            {this.statusText()}
+            {this.renderBoard()}
+            {this.buttonText()}
           </div>
         </div>
       </div>
