@@ -1,9 +1,12 @@
 import {API_HOST} from "../config/endpoints.js"
 
-const HEADERS = {'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json'}
+const HEADERS = {
+  'Accept': 'application/json, text/plain, */*',
+  'Content-Type': 'application/json'
+}
 
 export const fetchGames = async () => {
-  const response = await fetch(`${API_HOST}/`, {
+  const response = await fetch(`${API_HOST}/games`, {
     method: 'GET',
     headers: HEADERS
   })

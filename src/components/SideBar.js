@@ -9,7 +9,9 @@ class SideBar extends Component {
     return(
       <div className='sideBar col-lg-3 col-md-12'>
         <div className='sideBarBackground'>
-          <h3 className='sideBarTitle'>Chess Machine</h3>
+          <h3 className='sideBarTitle' onClick={() => this.props.dispatch(push('/'))}>
+            Chess Machine
+          </h3>
           <div className='navButton' onClick={() => this.props.dispatch(push('/games'))}>
             <i className='glyphicon glyphicon-knight navIcon'/>
             <span className='navText'>Play</span>
