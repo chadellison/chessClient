@@ -12,9 +12,8 @@ class Chat extends Component {
 
   createChatSocket() {
     let cable = Cable.createConsumer(WEBSOCKET_HOST)
-    this.chats = cable.subscriptions.create({
-      channel: 'ChatChannel', game_id: '1'
-    }, {
+    this.chats = cable.subscriptions.create({ channel: 'GroupChatChannel' },
+    {
       connected: () => {},
       received: (data) => this.props.dispatch(addChat(data)),
       create: function(chatContent) {

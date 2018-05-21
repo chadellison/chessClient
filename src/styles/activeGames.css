@@ -1,0 +1,13 @@
+.activeGames {
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.activeGamesTitle {
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  height: 3em;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

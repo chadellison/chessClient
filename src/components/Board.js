@@ -7,7 +7,7 @@ import pieces from '../json/pieces'
 
 class Board extends Component {
   componentWillMount() {
-    this.props.dispatch(loadPiecesAction(pieces))
+    this.props.dispatch(loadPiecesAction(pieces.map((piece) => piece.data.attributes)))
   }
 
   mapPiecesToBoard = () => {

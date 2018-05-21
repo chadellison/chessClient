@@ -1,0 +1,18 @@
+.miniPiece {
+  margin-top: 15%;
+  font-size: 1.3em;
+  vertical-align: middle;
+}
+
+.black {
+  background-color: #8b4513;
+}
+
+.white {
+  background-color: #cd853f;
+}
+
+.miniSquare {
+  width: 2.5em;
+  height: 2.5em;
+}
