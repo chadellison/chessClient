@@ -6,7 +6,7 @@ const HEADERS = {
 }
 
 export const fetchGames = async () => {
-  const response = await fetch(`${API_HOST}/games`, {
+  const response = await fetch(`${API_HOST}/api/v1/games`, {
     method: 'GET',
     headers: HEADERS
   })

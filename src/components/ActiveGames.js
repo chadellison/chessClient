@@ -12,9 +12,9 @@ class ActiveGames extends Component {
   }
 
   renderActiveGames = () => {
-    return this.props.activeGames.map((game) => {
+    return this.props.activeGames.map((game, index) => {
       return (
-        <Thumbnail thumbnailGame={game} />
+        <Thumbnail key={`thumbnail${index}`} thumbnailGame={game} />
       )
     })
   }

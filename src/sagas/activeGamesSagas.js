@@ -8,9 +8,8 @@ export function* watchFetchActiveGames() {
 
 export function* fetchActiveGames() {
   try {
-    console.log('load active games!')
     const activeGames = yield call(fetchGames)
-    put(loadActiveGamesAction([]))
+    yield put(loadActiveGamesAction(activeGames.data))
   }
   catch(err) {
     console.log(err)
