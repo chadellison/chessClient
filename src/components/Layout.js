@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import '../styles/home.css'
+import '../styles/layout.css'
 import Board from './Board'
 import SideBar from './SideBar'
 import ActiveGames from './ActiveGames'

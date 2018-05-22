@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Square from './Square'
 import {loadPiecesAction} from '../actions/gameActions'
 import pieces from '../json/pieces'
+import PlayerInfo from './PlayerInfo'
 
 class Board extends Component {
   componentWillMount() {
@@ -39,8 +40,12 @@ class Board extends Component {
 
   render() {
     return(
-      <div className='col-lg-9 col-md-12 board'>
-        {this.renderBoard()}
+      <div className='col-lg-9 col-md-12 '>
+        <PlayerInfo/>
+        <div className='board'>
+          {this.renderBoard()}
+        </div>
+        <PlayerInfo/>
       </div>
     )
   }
