@@ -31,19 +31,19 @@ export default class Thumbnail extends Component {
     })
   }
 
+  statusText() {
+    if(this.props.game.attributes.status === 'active') {
+      return <h3 className='statusTitle'>In Progress</h3>
+    } else {
+      return <h3 className='statusTitle'>Awaiting Player</h3>
+    }
+  }
+
   buttonText() {
     if(this.props.game.attributes.status === 'active') {
       return <div className='enterGameButton'>Watch</div>
     } else {
       return <div className='enterGameButton'>Join</div>
-    }
-  }
-
-  statusText() {
-    if(this.props.game.attributes.status === 'active') {
-      return <div className='statusTitle'>In Progress</div>
-    } else {
-      return <div className='statusTitle'>Awaiting Player</div>
     }
   }
 

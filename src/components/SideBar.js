@@ -11,15 +11,25 @@ class SideBar extends Component {
     this.props.dispatch(loginModalAction(true))
   }
 
-  render() {
-    return(
-      <div className='sideBar col-lg-3 col-md-12'>
-        <Credentials handleLoginModal={this.handleLoginModal}/>
-        <div className='sideBarBackground'>
-          <h3 className='sideBarTitle' onClick={() => this.props.dispatch(push('/'))}>
-            Chess Machine
-          </h3>
+  sideBarContent() {
+    if(this.props.routing.location.pathname === '/games') {
+      return (
+        <div>
+          <div className='navButton' onClick={() => console.log('create game')}>
+            <i className='glyphicon glyphicon-plus navIcon'/>
+            <span className='navText'>Create Game</span>
+          </div>
           <hr/>
+          <div className='navButton' onClick={() => console.log('join game')}>
+            <i className='glyphicon glyphicon-search navIcon'/>
+            <span className='navText'>Find Game</span>
+          </div>
+          <hr/>
+        </div>
+      )
+    } else {
+      return (
+        <div>
           <div className='navButton' onClick={() => this.props.dispatch(push('/games'))}>
             <i className='glyphicon glyphicon-knight navIcon'/>
             <span className='navText'>Play</span>
@@ -39,6 +49,21 @@ class SideBar extends Component {
             <i className='glyphicon glyphicon-triangle-left navIcon'/>
             <span>Reset</span>
           </div>
+        </div>
+      )
+    }
+  }
+
+  render() {
+    return(
+      <div className='sideBar col-lg-3 col-md-12'>
+        <Credentials handleLoginModal={this.handleLoginModal}/>
+        <div className='sideBarBackground'>
+          <h3 className='sideBarTitle' onClick={() => this.props.dispatch(push('/'))}>
+            Chess Machine
+          </h3>
+          <hr/>
+          {this.sideBarContent()}
           <hr/>
         </div>
         <Chat />
@@ -47,8 +72,8 @@ class SideBar extends Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({routing}) => {
+  return {routing}
 }
 
 export default connect(mapStateToProps)(SideBar)
