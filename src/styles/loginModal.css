@@ -1,0 +1,106 @@
+.modalContainer {
+  padding-top: 10em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.loginModal {
+  background-color: white;
+  animation-name: slideDown;
+  -webkit-animation-name: slideDown;
+  animation-duration: .5s;
+  -webkit-animation-duration: .5s;
+  animation-timing-function: ease;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+@keyframes slideDown {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+@-webkit-keyframes slideDown {
+	0% {
+		-webkit-transform: translateY(-100%);
+	}
+	100% {
+		-webkit-transform: translateY(0%);
+	}
+}
+
+.emailTitle {
+  padding-top: 2em;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  color: rgba(0,0,0, .7);
+}
+
+.emailInput {
+  margin: 1em;
+  width: 90%;
+  margin: 10px;
+  height: 30px;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  font-size: 16px;
+  padding: .5em;
+  outline: none;
+  color: rgba(0,0,0, .7);
+}
+
+.passwordTitle {
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  color: rgba(0,0,0, .7);
+}
+
+.passwordInput {
+  margin: 1em;
+  width: 90%;
+  margin: 10px;
+  height: 30px;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  outline: none;
+  font-size: 16px;
+  padding: .5em;
+  color: rgba(0,0,0, .7);
+}
+
+.submitLogin {
+  margin: 1em;
+  width: 90%;
+  margin: 10px;
+  height: 30px;
+  background: #2c66b2;
+  color: white;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  font-size: 16px;
+}
+
+.cancelButton {
+  margin: 1em;
+  width: 90%;
+  margin: 10px;
+  height: 30px;
+  background-color: rgba(0,0,0, .7);
+  color: white;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  font-size: 16px;
+}
+
+.signUpLink {
+  margin-bottom: 2em;
+  color: #2c66b2;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  font-size: 16px;
+}
+
+.signUpLink:hover {
+  cursor: pointer;
+}

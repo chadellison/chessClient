@@ -1,4 +1,4 @@
-import {LETTER_KEY, PIECE_NOTATION_KEY} from './boardLogic'
+import {LETTER_KEY} from './boardLogic'
 // import emptyBoard from '../emptyBoard'
 
 export default class MoveLogic {

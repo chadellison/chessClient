@@ -51,8 +51,8 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = ({game}) => {
-  return {game}
+const mapStateToProps = ({game, modals}) => {
+  return {game, modals}
 }
 
 export default connect(mapStateToProps)(Board)

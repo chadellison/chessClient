@@ -4,12 +4,17 @@ import Chat from './Chat'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
+import {loginModalAction} from '../actions/modalActions'
 
 class SideBar extends Component {
+  handleLoginModal = () => {
+    this.props.dispatch(loginModalAction(true))
+  }
+
   render() {
     return(
       <div className='sideBar col-lg-3 col-md-12'>
-        <Credentials />
+        <Credentials handleLoginModal={this.handleLoginModal}/>
         <div className='sideBarBackground'>
           <h3 className='sideBarTitle' onClick={() => this.props.dispatch(push('/'))}>
             Chess Machine
