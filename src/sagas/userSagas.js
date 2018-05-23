@@ -1,6 +1,6 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import {successfulLoginAction, failedLoginAction} from '../actions/userActions'
-import {loginModalAction} from '../actions/modalActions'
+import {loginModalAction, spinnerAction} from '../actions/modalActions'
 import {login} from './apiHelper'
 
 export function* watchLogin() {
@@ -17,4 +17,5 @@ export function* postForLogin(credentials) {
     yield put(failedLoginAction())
     console.log(err)
   }
+  yield put(spinnerAction(false))
 }

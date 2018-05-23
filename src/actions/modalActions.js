@@ -4,3 +4,10 @@ export const loginModalAction = (active) => {
     active: active
   }
 }
+
+export const spinnerAction = (active) => {
+  return {
+    type: 'SPINNER',
+    active: active
+  }
+}

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import '../styles/loginModal.css'
 import { connect } from 'react-redux'
-import {loginModalAction} from '../actions/modalActions'
+import {loginModalAction, spinnerAction} from '../actions/modalActions'
 import {loginAction, updateUserAction} from '../actions/userActions'
+import Spinner from './Spinner'
 
 class LoginModal extends Component {
   handleCancel = (e) => {
@@ -16,13 +17,13 @@ class LoginModal extends Component {
     let credentials = {
       email: e.target.emailInput.value, password: e.target.passwordInput.value
     }
-    // set spinner to true
+    this.props.dispatch(spinnerAction(true))
     this.props.dispatch(updateUserAction({loginFailed: false}))
     this.props.dispatch(loginAction(credentials))
   }
 
   handleSignUpLink = () => {
-    console.log('login')
+    console.log('signUp')
   }
 
   invalidCredentials() {
@@ -35,11 +36,20 @@ class LoginModal extends Component {
     }
   }
 
+  displaySpinner() {
+    if(this.props.modals.spinnerActive) {
+      return <Spinner />
+    } else {
+      return ''
+    }
+  }
+
   loginModal = () => {
     if(this.props.modals.loginModalActive) {
       return (
         <div className='modalContainer'>
           <form className='loginModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleLogin(e)}>
+            {this.displaySpinner()}
             {this.invalidCredentials()}
             <h4 className='emailTitle'>Email</h4>
             <input className='emailInput' id='emailInput'></input>

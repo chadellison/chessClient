@@ -2,12 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../styles/activeGames.css'
 import Thumbnail from './Thumbnail'
+import { push } from 'react-router-redux'
 import {fetchActiveGamesAction} from '../actions/activeGamesActions'
+import {loginModalAction} from '../actions/modalActions'
 
 class ActiveGames extends Component {
   componentWillMount() {
-    // connect to all games socket
-    this.props.dispatch(fetchActiveGamesAction())
+    if(this.props.user.token) {
+      this.props.dispatch(fetchActiveGamesAction())
+    } else {
+      this.props.dispatch(push('/'))
+      this.props.dispatch(loginModalAction(true))
+    }
   }
 
   renderActiveGames = () => {
@@ -31,8 +37,8 @@ class ActiveGames extends Component {
   }
 }
 
-const mapStateToProps = ({activeGames}) => {
-  return {activeGames}
+const mapStateToProps = ({activeGames, user}) => {
+  return {activeGames, user}
 }
 
 export default connect(mapStateToProps)(ActiveGames)
