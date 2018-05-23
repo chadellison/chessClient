@@ -18,3 +18,10 @@ export const updateTurnAction = (nextTurn) => {
     currentTurn: nextTurn
   }
 }
+
+export const updateGamePayload = (payload) => {
+  return {
+    type: 'UPDATE_GAME',
+    payload: payload
+  }
+}

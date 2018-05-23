@@ -6,6 +6,8 @@ const gameReducer = (state = { pieces: [], currentTurn: 'white' }, action) => {
       return {...state, currentTurn: action.currentTurn}
     case 'SELECT_PIECE':
       return {...state, selected: action.selected}
+    case 'UPDATE_GAME':
+      return Object.assign({}, state, action.payload)
     default:
       return state
   }

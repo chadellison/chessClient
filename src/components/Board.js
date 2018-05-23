@@ -3,12 +3,12 @@ import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
 import {loadPiecesAction} from '../actions/gameActions'
-import pieces from '../json/pieces'
+import jsonPieces from '../json/pieces'
 import PlayerInfo from './PlayerInfo'
 
 class Board extends Component {
   componentWillMount() {
-    this.props.dispatch(loadPiecesAction(pieces.map((piece) => piece.data.attributes)))
+    this.props.dispatch(loadPiecesAction(jsonPieces.map((piece) => piece.data.attributes)))
   }
 
   mapPiecesToBoard = () => {
