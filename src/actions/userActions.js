@@ -5,6 +5,12 @@ export const loginAction = (credentials) => {
   }
 }
 
+export const logoutAction = () => {
+  return {
+    type: 'LOGOUT'
+  }
+}
+
 export const successfulLoginAction = (userData) => {
   return {
     type: 'SUCCESSFUL_LOGIN',
