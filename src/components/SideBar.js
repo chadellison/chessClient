@@ -4,8 +4,17 @@ import Chat from './Chat'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
+import {loginModalAction} from '../actions/modalActions'
 
 class SideBar extends Component {
+  handlePlayButton = () => {
+    if(this.props.user.token) {
+      this.props.dispatch(push('/games'))
+    } else {
+      this.props.dispatch(loginModalAction(true))
+    }
+  }
+
   sideBarContent() {
     if(this.props.routing.location.pathname === '/games') {
       return (
@@ -25,7 +34,7 @@ class SideBar extends Component {
     } else {
       return (
         <div>
-          <div className='navButton' onClick={() => this.props.dispatch(push('/games'))}>
+          <div className='navButton' onClick={() => this.handlePlayButton()}>
             <i className='glyphicon glyphicon-knight navIcon'/>
             <span className='navText'>Play</span>
           </div>
