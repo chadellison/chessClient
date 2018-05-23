@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/credentials.css'
 import { connect } from 'react-redux'
-import {loginModalAction} from '../actions/modalActions'
+import {loginModalAction, signUpModalAction} from '../actions/modalActions'
 import {logoutAction} from '../actions/userActions'
 import { push } from 'react-router-redux'
 
@@ -33,7 +33,9 @@ class Credentials extends Component {
             <div className='login' onClick={() => this.props.dispatch(loginModalAction(true))}>
               Login
             </div>
-          <div className='signUp' onClick={() => console.log('sign up')}>Sign Up</div>
+          <div className='signUp' onClick={() => this.props.dispatch(signUpModalAction(true))}>
+            Sign Up
+          </div>
         </div>
       )
     }

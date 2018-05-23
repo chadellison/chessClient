@@ -95,7 +95,6 @@
 }
 
 .signUpLink {
-  padding-bottom: 2em;
   color: #2c66b2;
   font-family: 'Pacifico', Sans, Lato, Droid Sans;
   font-size: 16px;
@@ -108,4 +107,8 @@
 .invalidCredentialsText {
   color: #bc2525;
   padding-top: 2em;
+}
+
+.modalPadding{
+  height: 2em;
 }

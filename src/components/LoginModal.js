@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/loginModal.css'
 import { connect } from 'react-redux'
-import {loginModalAction, spinnerAction} from '../actions/modalActions'
+import {loginModalAction, spinnerAction, signUpModalAction} from '../actions/modalActions'
 import {loginAction, updateUserAction} from '../actions/userActions'
 import Spinner from './Spinner'
 
@@ -23,13 +23,14 @@ class LoginModal extends Component {
   }
 
   handleSignUpLink = () => {
-    console.log('signUp')
+    this.props.dispatch(signUpModalAction(true))
+    this.props.dispatch(loginModalAction(false))
   }
 
   invalidCredentials() {
     if(this.props.user.loginFailed) {
       return (
-        <h3 className='invalidCredentialsText'>Invalid Credentials</h3>
+        <h3 className='invalidCredentialsText'>Incorrect email or password</h3>
       )
     } else {
       return ''
@@ -60,6 +61,7 @@ class LoginModal extends Component {
             <br/>
             <button className='cancelButton' onClick={(e) => this.handleCancel(e)}>Cancel</button>
             <div className='signUpLink' onClick={this.handleSignUpLink}>Sign Up</div>
+            <div className='modalPadding'></div>
           </form>
         </div>
       )

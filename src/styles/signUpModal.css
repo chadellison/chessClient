@@ -1,0 +1,27 @@
+.firstNameTitle, .lastNameTitle {
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  color: rgba(0,0,0, .7);
+}
+
+.firstNameInput, .lastNameInput {
+  margin: 1em;
+  width: 90%;
+  margin: 10px;
+  height: 30px;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  font-size: 16px;
+  padding: .5em;
+  outline: none;
+  color: rgba(0,0,0, .7);
+}
+
+.submitSignUp {
+  margin: 1em;
+  width: 90%;
+  margin: 10px;
+  height: 30px;
+  background: #2c66b2;
+  color: white;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  font-size: 16px;
+}
