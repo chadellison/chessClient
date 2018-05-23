@@ -2,20 +2,37 @@ import React, { Component } from 'react'
 import '../styles/loginModal.css'
 import { connect } from 'react-redux'
 import {loginModalAction} from '../actions/modalActions'
+import {loginAction, updateUserAction} from '../actions/userActions'
 
 class LoginModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
     this.props.dispatch(loginModalAction(false))
+    this.props.dispatch(updateUserAction({loginFailed: false}))
   }
 
   handleLogin = (e) => {
     e.preventDefault()
-    console.log(e, 'login')
+    let credentials = {
+      email: e.target.emailInput.value, password: e.target.passwordInput.value
+    }
+    // set spinner to true
+    this.props.dispatch(updateUserAction({loginFailed: false}))
+    this.props.dispatch(loginAction(credentials))
   }
 
   handleSignUpLink = () => {
     console.log('login')
+  }
+
+  invalidCredentials() {
+    if(this.props.user.loginFailed) {
+      return (
+        <h3 className='invalidCredentialsText'>Invalid Credentials</h3>
+      )
+    } else {
+      return ''
+    }
   }
 
   loginModal = () => {
@@ -23,10 +40,11 @@ class LoginModal extends Component {
       return (
         <div className='modalContainer'>
           <form className='loginModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleLogin(e)}>
+            {this.invalidCredentials()}
             <h4 className='emailTitle'>Email</h4>
-            <input className='emailInput'></input>
+            <input className='emailInput' id='emailInput'></input>
             <h4 className='passwordTitle'>Password</h4>
-            <input className='passwordInput' type='password'/>
+            <input className='passwordInput' id='passwordInput' type='password'/>
             <br/>
             <input type='submit' className='submitLogin'/>
             <br/>
@@ -45,8 +63,8 @@ class LoginModal extends Component {
   }
 }
 
-const mapStateToProps = ({modals}) => {
-  return {modals}
+const mapStateToProps = ({modals, user}) => {
+  return {modals, user}
 }
 
 export default connect(mapStateToProps)(LoginModal)

@@ -6,9 +6,24 @@ const HEADERS = {
 }
 
 export const fetchGames = async () => {
-  const response = await fetch(`${API_HOST}/api/v1/games`, {
-    method: 'GET',
-    headers: HEADERS
+  try {
+    const response = await fetch(`${API_HOST}/api/v1/games`, {
+      method: 'GET',
+      headers: HEADERS
+    })
+    const data = await response.json()
+    return data
+  } catch(error) {
+    return error
+  }
+}
+
+export const login = async (action) => {
+  let body = JSON.stringify({ credentials: action.credentials })
+  const response = await fetch(`${API_HOST}/api/v1/authentication`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: body
   })
   const data = await response.json()
   return data

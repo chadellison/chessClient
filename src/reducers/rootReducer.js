@@ -4,11 +4,13 @@ import chatReducer from './chatReducer'
 import gameReducer from './gameReducer'
 import activeGamesReducer from './activeGamesReducer'
 import modalReducer from './modalReducer'
+import userReducer from './userReducer'
 
 export default combineReducers({
   routing: routerReducer,
   chat: chatReducer,
   game: gameReducer,
   activeGames: activeGamesReducer,
-  modals: modalReducer
+  modals: modalReducer,
+  user: userReducer,
 })

@@ -4,13 +4,8 @@ import Chat from './Chat'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
-import {loginModalAction} from '../actions/modalActions'
 
 class SideBar extends Component {
-  handleLoginModal = () => {
-    this.props.dispatch(loginModalAction(true))
-  }
-
   sideBarContent() {
     if(this.props.routing.location.pathname === '/games') {
       return (
@@ -57,7 +52,7 @@ class SideBar extends Component {
   render() {
     return(
       <div className='sideBar col-lg-3 col-md-12'>
-        <Credentials handleLoginModal={this.handleLoginModal}/>
+        <Credentials />
         <div className='sideBarBackground'>
           <h3 className='sideBarTitle' onClick={() => this.props.dispatch(push('/'))}>
             Chess Machine
@@ -72,8 +67,8 @@ class SideBar extends Component {
   }
 }
 
-const mapStateToProps = ({routing}) => {
-  return {routing}
+const mapStateToProps = ({routing, user}) => {
+  return {routing, user}
 }
 
 export default connect(mapStateToProps)(SideBar)
