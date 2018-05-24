@@ -9,6 +9,7 @@ class SignUpModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
     this.props.dispatch(signUpModalAction(false))
+    this.props.dispatch(updateUserAction({signUpFailed: false}))
   }
 
   handleSignUp = (e) => {
@@ -58,7 +59,7 @@ class SignUpModal extends Component {
             <br/>
             <h4 className='firstNameTitle'>First Name</h4>
             <input className='firstNameInput' id='firstNameInput'></input>
-            <h4 className='lastNameTitle'>Password</h4>
+            <h4 className='lastNameTitle'>Last Name</h4>
             <input className='lastNameInput' id='lastNameInput'/>
             <br/>
             <input type='submit' className='submitSignUp'/>
