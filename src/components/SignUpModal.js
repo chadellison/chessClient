@@ -3,29 +3,33 @@ import '../styles/signUpModal.css'
 import { connect } from 'react-redux'
 import Spinner from './Spinner'
 import {signUpModalAction, spinnerAction} from '../actions/modalActions'
+import {signUpAction, updateUserAction} from '../actions/userActions'
 
 class SignUpModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
     this.props.dispatch(signUpModalAction(false))
-    // this.props.dispatch(updateUserAction({loginFailed: false}))
   }
 
   handleSignUp = (e) => {
     e.preventDefault()
-    // let credentials = {
-    //   email: e.target.emailInput.value, password: e.target.passwordInput.value
-    // }
-    // this.props.dispatch(spinnerAction(true))
-    // this.props.dispatch(updateUserAction({loginFailed: false}))
-    // this.props.dispatch(loginAction(credentials))
-    console.log('signUp')
+    let signUpInfo = {
+      email: e.target.emailInput.value,
+      password: e.target.passwordInput.value,
+      first_name: e.target.firstNameInput.value,
+      last_name: e.target.lastNameInput.value
+    }
+    this.props.dispatch(spinnerAction(true))
+    this.props.dispatch(updateUserAction({signUpFailed: false}))
+    this.props.dispatch(signUpAction(signUpInfo))
   }
 
   invalidSignUp() {
     if(this.props.user.signUpFailed) {
       return (
-        <h3 className='invalidCredentialsText'>{this.props.user.errors}</h3>
+        <h3 className='invalidCredentialsText'>
+          Submission failed, please try again
+        </h3>
       )
     } else {
       return ''

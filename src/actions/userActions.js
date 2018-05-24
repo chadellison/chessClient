@@ -5,23 +5,30 @@ export const loginAction = (credentials) => {
   }
 }
 
+export const signUpAction = (signUpInfo) => {
+  return {
+    type: 'SIGN_UP',
+    signUpInfo: signUpInfo
+  }
+}
+
 export const logoutAction = () => {
   return {
     type: 'LOGOUT'
   }
 }
 
-export const successfulLoginAction = (userData) => {
+export const failedLoginAction = () => {
   return {
-    type: 'SUCCESSFUL_LOGIN',
-    userData: userData
+    type: 'UPDATE_USER_FIELD',
+    userData: { loginFailed: true }
   }
 }
 
-export const failedLoginAction = () => {
+export const failedSignUpAction = () => {
   return {
-    type: 'FAILED_LOGIN',
-    userData: { loginFailed: true }
+    type: 'UPDATE_USER_FIELD',
+    userData: { signUpFailed: true }
   }
 }
 

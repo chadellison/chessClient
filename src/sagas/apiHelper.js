@@ -28,3 +28,14 @@ export const login = async (action) => {
   const data = await response.json()
   return data
 }
+
+export const signUp = async (action) => {
+  let body = JSON.stringify({ user: action.signUpInfo })
+  const response = await fetch(`${API_HOST}/api/v1/users`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: body
+  })
+  const data = await response.json()
+  return data
+}

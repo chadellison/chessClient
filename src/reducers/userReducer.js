@@ -1,11 +1,9 @@
 const userReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'SUCCESSFUL_LOGIN':
+    case 'UPDATE_USER_FIELD':
       return action.userData
     case 'LOGOUT':
       return {}
-    case 'FAILED_LOGIN':
-      return action.userData
     case 'UPDATE_USER':
       return Object.assign({}, state, action.payload)
     default:
