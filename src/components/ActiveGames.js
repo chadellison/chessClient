@@ -9,7 +9,7 @@ import {loginModalAction} from '../actions/modalActions'
 class ActiveGames extends Component {
   componentWillMount() {
     if(this.props.user.token) {
-      this.props.dispatch(fetchActiveGamesAction())
+      this.props.dispatch(fetchActiveGamesAction(this.props.user.token))
     } else {
       this.props.dispatch(push('/'))
       this.props.dispatch(loginModalAction(true))

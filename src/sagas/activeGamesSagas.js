@@ -6,9 +6,9 @@ export function* watchFetchActiveGames() {
   yield takeEvery('FETCH_ACTIVE_GAMES', fetchActiveGames)
 }
 
-export function* fetchActiveGames() {
+export function* fetchActiveGames(token) {
   try {
-    const activeGames = yield call(fetchGames)
+    const activeGames = yield call(fetchGames, token)
     yield put(loadActiveGamesAction(activeGames.data))
   }
   catch(err) {

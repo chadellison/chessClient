@@ -49,12 +49,12 @@ class SideBar extends Component {
             <span className='navText'>Play</span>
           </div>
           <hr/>
-          <div className='navButton'>
+          <div className='navButton' onClick={() => console.log('move log')}>
             <i className='glyphicon glyphicon-tasks navIcon'/>
             <span>Move Log</span>
           </div>
           <hr/>
-          <div className='navButton'>
+          <div className='navButton' onClick={() => console.log('analytics')}>
             <i className='glyphicon glyphicon-signal navIcon'/>
             <span>Analytics</span>
           </div>

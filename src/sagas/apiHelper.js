@@ -5,9 +5,9 @@ const HEADERS = {
   'Content-Type': 'application/json'
 }
 
-export const fetchGames = async () => {
+export const fetchGames = async (action) => {
   try {
-    const response = await fetch(`${API_HOST}/api/v1/games`, {
+    const response = await fetch(`${API_HOST}/api/v1/games?token=${action.token}`, {
       method: 'GET',
       headers: HEADERS
     })

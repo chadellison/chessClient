@@ -5,8 +5,9 @@ export const loadActiveGamesAction = (activeGames) => {
   }
 }
 
-export const fetchActiveGamesAction = (activeGames) => {
+export const fetchActiveGamesAction = (token) => {
   return {
-    type: 'FETCH_ACTIVE_GAMES'
+    type: 'FETCH_ACTIVE_GAMES',
+    token: token
   }
 }
