@@ -6,6 +6,7 @@ import SideBar from './SideBar'
 import ActiveGames from './ActiveGames'
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal'
+import CreateGameModal from './CreateGameModal'
 
 export default class Layout extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class Layout extends Component {
         <div className='row'>
           <LoginModal />
           <SignUpModal />
+          <CreateGameModal />
           <Switch>
             <Route exact path='/' component={Board} />
             <Route exact path='/games' component={ActiveGames} />

@@ -12,6 +12,13 @@ export const signUpModalAction = (active) => {
   }
 }
 
+export const createGameModalAction = (active) => {
+  return {
+    type: 'CREATE_GAME_MODAL',
+    active: active
+  }
+}
+
 export const spinnerAction = (active) => {
   return {
     type: 'SPINNER',

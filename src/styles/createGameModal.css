@@ -1,4 +1,4 @@
-.signUpModal {
+.createGameModal {
   background-color: white;
   animation-name: slideDown;
   -webkit-animation-name: slideDown;
@@ -8,12 +8,14 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
-.firstNameTitle, .lastNameTitle {
+.createGameTitle {
+  padding: 1.5em;
+  font-size: 20px;
   font-family: 'Pacifico', Sans, Lato, Droid Sans;
   color: rgba(0,0,0, .7);
 }
 
-.firstNameInput, .lastNameInput {
+#gameType, #colorSelecttion {
   margin: 1em;
   width: 90%;
   margin: 10px;
@@ -25,7 +27,7 @@
   color: rgba(0,0,0, .7);
 }
 
-.submitSignUp {
+.submitCreateGame {
   margin: 1em;
   width: 90%;
   margin: 10px;

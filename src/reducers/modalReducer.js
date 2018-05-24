@@ -4,6 +4,8 @@ const modalReducer = (state = { loginModalActive: false, spinnerActive: false },
       return {...state, loginModalActive: action.active}
     case 'SIGN_UP_MODAL':
       return {...state, signUpModalActive: action.active}
+    case 'CREATE_GAME_MODAL':
+      return {...state, createGameModalActive: action.active}
     case 'SPINNER':
       return {...state, spinnerActive: action.active}
     default:

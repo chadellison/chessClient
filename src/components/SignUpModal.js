@@ -49,7 +49,7 @@ class SignUpModal extends Component {
     if(this.props.modals.signUpModalActive) {
       return (
         <div className='modalContainer'>
-          <form className='loginModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleSignUp(e)}>
+          <form className='signUpModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleSignUp(e)}>
             {this.displaySpinner()}
             {this.invalidSignUp()}
             <h4 className='emailTitle'>Email</h4>
