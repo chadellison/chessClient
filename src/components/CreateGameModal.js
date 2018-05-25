@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import '../styles/createGameModal.css'
 import { connect } from 'react-redux'
 import {createGameModalAction} from '../actions/modalActions'
-import {createGameAction} from '../actions/gameActions'
+import {createGameAction, updateGamePayload} from '../actions/gameActions'
 
 class CreateGameModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
     this.props.dispatch(createGameModalAction(false))
+    this.props.dispatch(updateGamePayload({errors: false}))
   }
 
   handleCreateGame = (e) => {
@@ -16,6 +17,7 @@ class CreateGameModal extends Component {
       game_type: e.target.gameType.value, color: e.target.colorSelection.value
     }
     this.props.dispatch(createGameAction(gameData, this.props.user.token))
+    this.props.dispatch(updateGamePayload({errors: false}))
   }
 
   submissionFailed() {
@@ -39,7 +41,6 @@ class CreateGameModal extends Component {
             <select id='gameType' name='gameType'>
               <option value='human vs human'>Human vs Human</option>
               <option value='human vs machine'>Human vs Machine</option>
-              <option value='machine vs machine'>Machine vs Machine</option>
             </select>
             <br/>
 

@@ -9,29 +9,28 @@ import PlayerInfo from './PlayerInfo'
 
 class Board extends Component {
   componentWillMount() {
-    if(this.userNotAllowed()) {
+    let gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
+    let currentGame = this.props.activeGames.filter((game) => game.id === gameId)[0]
+
+    if(!currentGame || this.userNotAllowed(currentGame)) {
       this.props.dispatch(push('/'))
     }
-    let boardPieces = []
-    if(this.props.game.id) {
-      boardPieces = this.props.game.pieces
-    } else {
-      boardPieces = jsonPieces
-    }
 
-    this.props.dispatch(updateGamePayload({pieces: boardPieces.map((piece) => piece.data.attributes)}))
+    if(currentGame) {
+      this.props.dispatch(updateGamePayload(currentGame))
+    } else {
+      this.props.dispatch(updateGamePayload({pieces: jsonPieces}))
+    }
   }
 
-  userNotAllowed() {
-    let gameId = this.props.routing.location.pathname.split('/')[2]
-    return gameId &&
-      (![this.props.game.whitePlayer, this.props.game.blackPlayer].includes(this.props.user.id) || !this.props.user.id)
+  userNotAllowed(currentGame) {
+    return ![currentGame.attributes.whitePlayer, currentGame.attributes.blackPlayer].includes(this.props.user.id) || !this.props.user.id
   }
 
   mapPiecesToBoard = () => {
     let gamePieces = {}
     this.props.game.pieces.forEach((piece) => {
-      gamePieces[piece.position] = piece
+      gamePieces[piece.data.attributes.position] = piece.data.attributes
     })
     return gamePieces
   }
@@ -68,8 +67,8 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = ({routing, game, modals, user}) => {
-  return {routing, game, modals, user}
+const mapStateToProps = ({routing, game, modals, user, activeGames}) => {
+  return {routing, game, modals, user, activeGames}
 }
 
 export default connect(mapStateToProps)(Board)

@@ -5,6 +5,13 @@ export const loadActiveGamesAction = (activeGames) => {
   }
 }
 
+export const addActiveGameAction = (activeGame) => {
+  return {
+    type: 'ADD_ACTIVE_GAME',
+    activeGame: activeGame
+  }
+}
+
 export const fetchActiveGamesAction = (token) => {
   return {
     type: 'FETCH_ACTIVE_GAMES',

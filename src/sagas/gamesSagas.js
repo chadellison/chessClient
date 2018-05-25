@@ -1,5 +1,5 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
-import {loadActiveGamesAction} from '../actions/activeGamesActions'
+import {loadActiveGamesAction, addActiveGameAction} from '../actions/activeGamesActions'
 import {updateGamePayload} from '../actions/gameActions'
 import {createGameModalAction} from '../actions/modalActions'
 import {getData, postData} from './apiHelper'
@@ -27,11 +27,9 @@ export function* createGame(action) {
   let body = JSON.stringify({ game_data: action.gameData })
   try {
     const response = yield call(postData, `/api/v1/games?token=${action.token}`, body)
-    let updatedGame = response.data.attributes
-    updatedGame.id = response.data.id
-    yield put(updateGamePayload(updatedGame))
+    yield put(addActiveGameAction(response.data))
     yield put(createGameModalAction(false))
-    yield put(push(`/games/${updatedGame.id}`))
+    yield put(push(`/games/${response.data.id}`))
   }
   catch(err) {
     yield put(updateGamePayload({errors: true}))
