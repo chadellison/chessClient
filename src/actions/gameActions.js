@@ -1,3 +1,10 @@
+export const createGameAction = (gameData) => {
+  return {
+    type: 'CREATE_GAME',
+    gameData: gameData
+  }
+}
+
 export const loadPiecesAction = (pieces) => {
   return {
     type: 'LOAD_PIECES',

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../styles/createGameModal.css'
 import { connect } from 'react-redux'
 import {createGameModalAction} from '../actions/modalActions'
-import Spinner from './Spinner'
+import {createGameAction} from '../actions/gameActions'
 
 class CreateGameModal extends Component {
   handleCancel = (e) => {
@@ -12,12 +12,10 @@ class CreateGameModal extends Component {
 
   handleCreateGame = (e) => {
     e.preventDefault()
-    // let credentials = {
-    //   email: e.target.emailInput.value, password: e.target.passwordInput.value
-    // }
-    // this.props.dispatch(spinnerAction(true))
-    // this.props.dispatch(updateUserAction({loginFailed: false}))
-    // this.props.dispatch(loginAction(credentials))
+    let gameData = {
+      gameType: e.target.gameType.valuee, color: e.target.colorSelection.value
+    }
+    this.props.dispatch(createGameAction(gameData))
   }
 
   createGameModal = () => {
@@ -35,7 +33,7 @@ class CreateGameModal extends Component {
             <br/>
 
             <label>Select Color:</label>
-            <select id='colorSelecttion' name='colorSelecttion'>
+            <select id='colorSelection' name='colorSelection'>
               <option value='white'>White</option>
               <option value='black'>Black</option>
             </select>

@@ -5,9 +5,9 @@ const HEADERS = {
   'Content-Type': 'application/json'
 }
 
-export const fetchGames = async (action) => {
+export const getData = async (path, action) => {
   try {
-    const response = await fetch(`${API_HOST}/api/v1/games?token=${action.token}`, {
+    const response = await fetch(`${API_HOST}${path}`, {
       method: 'GET',
       headers: HEADERS
     })
@@ -18,20 +18,8 @@ export const fetchGames = async (action) => {
   }
 }
 
-export const login = async (action) => {
-  let body = JSON.stringify({ credentials: action.credentials })
-  const response = await fetch(`${API_HOST}/api/v1/authentication`, {
-    method: 'POST',
-    headers: HEADERS,
-    body: body
-  })
-  const data = await response.json()
-  return data
-}
-
-export const signUp = async (action) => {
-  let body = JSON.stringify({ user: action.signUpInfo })
-  const response = await fetch(`${API_HOST}/api/v1/users`, {
+export const postData = async (path, body) => {
+  const response = await fetch(`${API_HOST}${path}`, {
     method: 'POST',
     headers: HEADERS,
     body: body
