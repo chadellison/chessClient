@@ -5,7 +5,6 @@ import {loginModalAction, signUpModalAction} from '../actions/modalActions'
 import {logoutAction} from '../actions/userActions'
 import {resetGameAction} from '../actions/gameActions'
 import { push } from 'react-router-redux'
-import jsonPieces from '../json/pieces'
 
 class Credentials extends Component {
   gravatar() {
