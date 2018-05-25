@@ -6,6 +6,7 @@ import { push } from 'react-router-redux'
 import {updateGamePayload} from '../actions/gameActions'
 import jsonPieces from '../json/pieces'
 import PlayerInfo from './PlayerInfo'
+import {rows, columns} from '../helpers/boardLogic'
 
 class Board extends Component {
   componentWillMount() {
@@ -36,12 +37,12 @@ class Board extends Component {
   }
 
   renderBoard = () => {
-    let rows = ['8', '7', '6', '5', '4', '3', '2', '1']
-    let columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     let gamePieces = this.mapPiecesToBoard()
+    let userId = this.props.user.id
+    let blackPlayerId = this.props.game.attributes.blackPlayer
 
-    return rows.map((row, rowIndex) => {
-      let eachRow = columns.map((column, columnIndex) => {
+    return rows(userId, blackPlayerId).map((row, rowIndex) => {
+      let eachRow = columns(userId, blackPlayerId).map((column, columnIndex) => {
         return (
           <Square key={`square${rowIndex + columnIndex + 1}`}
             id={column + row}

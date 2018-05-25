@@ -3,7 +3,9 @@ import '../styles/credentials.css'
 import { connect } from 'react-redux'
 import {loginModalAction, signUpModalAction} from '../actions/modalActions'
 import {logoutAction} from '../actions/userActions'
+import {updateGamePayload} from '../actions/gameActions'
 import { push } from 'react-router-redux'
+import jsonPieces from '../json/pieces'
 
 class Credentials extends Component {
   gravatar() {
@@ -12,6 +14,11 @@ class Credentials extends Component {
 
   handleLogout = () => {
     this.props.dispatch(logoutAction())
+    let resetGame = {
+      pieces: jsonPieces, currentTurn: 'white', attributes: {}, id: null
+    }
+
+    this.props.dispatch(updateGamePayload(resetGame))
     if(this.props.routing !== '/') {
       this.props.dispatch(push('/'))
     }

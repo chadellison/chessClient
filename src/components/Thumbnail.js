@@ -3,25 +3,26 @@ import '../styles/thumbnail.css'
 import MiniSquare from './MiniSquare'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import {rows, columns} from '../helpers/boardLogic'
 
 class Thumbnail extends Component {
   mapPiecesToBoard = () => {
     let gamePieces = {}
-    this.props.game.pieces.forEach((piece) => {
+    this.props.thumbnailGame.pieces.forEach((piece) => {
       gamePieces[piece.position] = piece
     })
     return gamePieces
   }
 
   renderBoard = () => {
-    let rows = ['8', '7', '6', '5', '4', '3', '2', '1']
-    let columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     let gamePieces = this.mapPiecesToBoard()
 
-    let gameId = this.props.game.id
+    let gameId = this.props.thumbnailGame.id
+    let userId = this.props.user.id
+    let blackPlayerId = this.props.thumbnailGame.attributes.blackPlayer
 
-    return rows.map((row, rowIndex) => {
-      let eachRow = columns.map((column, columnIndex) => {
+    return rows(userId, blackPlayerId).map((row, rowIndex) => {
+      let eachRow = columns(userId, blackPlayerId).map((column, columnIndex) => {
         return (
           <MiniSquare key={`miniSquare${rowIndex + columnIndex + gameId}`}
             value={rowIndex + columnIndex + 1}
@@ -34,7 +35,7 @@ class Thumbnail extends Component {
   }
 
   statusText() {
-    if(this.props.game.attributes.status === 'active') {
+    if(this.props.thumbnailGame.attributes.status === 'active') {
       return <h3 className='statusTitle'>In Progress</h3>
     } else {
       return <h3 className='statusTitle'>Awaiting Player</h3>
@@ -42,14 +43,14 @@ class Thumbnail extends Component {
   }
 
   handleEnterGame = () => {
-    this.props.dispatch(push(`/games/${this.props.game.id}`))
+    this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`))
   }
 
   render() {
     return(
       <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12 thumbnailCard'>
         <div className='justify-content-center'>
-          <div id={this.props.game.id} className='thumbNailBoard'>
+          <div id={this.props.thumbnailGame.id} className='thumbNailBoard'>
             {this.statusText()}
             {this.renderBoard()}
             <div className='enterGameButton'
@@ -63,8 +64,8 @@ class Thumbnail extends Component {
   }
 }
 
-const mapStateToProps = ({}) => {
-  return {}
+const mapStateToProps = ({user}) => {
+  return {user}
 }
 
 export default connect(mapStateToProps)(Thumbnail)

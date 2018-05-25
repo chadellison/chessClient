@@ -1,4 +1,4 @@
-const gameReducer = (state = { pieces: [], currentTurn: 'white' }, action) => {
+const gameReducer = (state = { pieces: [], currentTurn: 'white', attributes: {} }, action) => {
   switch (action.type) {
     case 'NEXT_TURN':
       return {...state, currentTurn: action.currentTurn}
