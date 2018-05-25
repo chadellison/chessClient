@@ -26,3 +26,9 @@ export const updateGamePayload = (payload) => {
     payload: payload
   }
 }
+
+export const resetGameAction = () => {
+  return {
+    type: 'RESET_GAME'
+  }
+}

@@ -8,16 +8,11 @@
   background: FFF;
 }
 
-.thumbNailBoard:hover {
-  cursor: pointer;
-}
-
 .enterGameButton {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 .statusTitle {
-  padding: 1em;
   font-family: 'Pacifico', Sans, Lato, Droid Sans;
   color: rgba(0,0,0, .7);
 }
@@ -39,4 +34,15 @@
   background: #2c66b2;
   color: white;
   transition: all 0.2s ease-in-out 0s;
+  cursor: pointer;
+}
+
+.playerVsPlayer {
+  margin-bottom: 1.5em;
+}
+
+.thumbnailGravatar {
+  padding: 1em;
+  border-radius: 50%;
+  width: 5em;
 }

@@ -25,7 +25,7 @@ class Board extends Component {
   }
 
   userNotAllowed(currentGame) {
-    return ![currentGame.attributes.whitePlayer, currentGame.attributes.blackPlayer].includes(this.props.user.id) || !this.props.user.id
+    return ![currentGame.attributes.whitePlayer.id, currentGame.attributes.blackPlayer.id].includes(this.props.user.id) || !this.props.user.id
   }
 
   mapPiecesToBoard = () => {
@@ -39,7 +39,7 @@ class Board extends Component {
   renderBoard = () => {
     let gamePieces = this.mapPiecesToBoard()
     let userId = this.props.user.id
-    let blackPlayerId = this.props.game.attributes.blackPlayer
+    let blackPlayerId = this.props.game.attributes.blackPlayer.id
 
     return rows(userId, blackPlayerId).map((row, rowIndex) => {
       let eachRow = columns(userId, blackPlayerId).map((column, columnIndex) => {
@@ -55,14 +55,22 @@ class Board extends Component {
     })
   }
 
+  findOpponentColor() {
+    return this.props.game.attributes.whitePlayer.id === this.props.user.id ? 'blackPlayer' : 'whitePlayer'
+  }
+
+  findColor() {
+    return this.props.game.attributes.whitePlayer.id === this.props.user.id ? 'whitePlayer' : 'blackPlayer'
+  }
+
   render() {
     return(
       <div className='col-lg-9 col-md-12 '>
-        <PlayerInfo/>
+        <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} />
         <div className='board'>
           {this.renderBoard()}
         </div>
-        <PlayerInfo/>
+        <PlayerInfo playerColor={this.findColor()} game={this.props.game} />
       </div>
     )
   }
