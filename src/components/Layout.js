@@ -19,6 +19,7 @@ export default class Layout extends Component {
           <Switch>
             <Route exact path='/' component={Board} />
             <Route exact path='/games' component={ActiveGames} />
+            <Route exact path='/games/:id' component={Board} />
           </Switch>
           <SideBar/>
         </div>

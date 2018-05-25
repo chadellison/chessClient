@@ -13,9 +13,19 @@ class CreateGameModal extends Component {
   handleCreateGame = (e) => {
     e.preventDefault()
     let gameData = {
-      gameType: e.target.gameType.valuee, color: e.target.colorSelection.value
+      game_type: e.target.gameType.value, color: e.target.colorSelection.value
     }
-    this.props.dispatch(createGameAction(gameData))
+    this.props.dispatch(createGameAction(gameData, this.props.user.token))
+  }
+
+  submissionFailed() {
+    if(this.props.game.errors) {
+      return (
+        <h3 className='submissionFailedText'>Submission Failed. Please try again</h3>
+      )
+    } else {
+      return ''
+    }
   }
 
   createGameModal = () => {
@@ -23,6 +33,7 @@ class CreateGameModal extends Component {
       return (
         <div className='modalContainer'>
           <form className='createGameModal col-sm-offset-4 col-md-4' onSubmit={(e) => this.handleCreateGame(e)}>
+            {this.submissionFailed()}
             <h4 className='createGameTitle'>Create Game</h4>
             <label>Select Type:</label>
             <select id='gameType' name='gameType'>
@@ -56,8 +67,8 @@ class CreateGameModal extends Component {
   }
 }
 
-const mapStateToProps = ({modals, user}) => {
-  return {modals, user}
+const mapStateToProps = ({modals, user, game}) => {
+  return {modals, user, game}
 }
 
 export default connect(mapStateToProps)(CreateGameModal)

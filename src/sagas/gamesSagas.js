@@ -1,6 +1,7 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import {loadActiveGamesAction} from '../actions/activeGamesActions'
 import {updateGamePayload} from '../actions/gameActions'
+import {createGameModalAction} from '../actions/modalActions'
 import {getData, postData} from './apiHelper'
 import { push } from 'react-router-redux'
 
@@ -29,9 +30,11 @@ export function* createGame(action) {
     let updatedGame = response.data.attributes
     updatedGame.id = response.data.id
     yield put(updateGamePayload(updatedGame))
+    yield put(createGameModalAction(false))
     yield put(push(`/games/${updatedGame.id}`))
   }
   catch(err) {
+    yield put(updateGamePayload({errors: true}))
     console.log(err)
   }
 }

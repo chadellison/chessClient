@@ -1,7 +1,8 @@
-export const createGameAction = (gameData) => {
+export const createGameAction = (gameData, token) => {
   return {
     type: 'CREATE_GAME',
-    gameData: gameData
+    gameData: gameData,
+    token: token
   }
 }
 
