@@ -12,7 +12,14 @@ class Board extends Component {
     if(this.userNotAllowed()) {
       this.props.dispatch(push('/'))
     }
-    this.props.dispatch(updateGamePayload({pieces: jsonPieces.map((piece) => piece.data.attributes)}))
+    let boardPieces = []
+    if(this.props.game.id) {
+      boardPieces = this.props.game.pieces
+    } else {
+      boardPieces = jsonPieces
+    }
+
+    this.props.dispatch(updateGamePayload({pieces: boardPieces.map((piece) => piece.data.attributes)}))
   }
 
   userNotAllowed() {

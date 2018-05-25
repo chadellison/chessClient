@@ -7,7 +7,7 @@ import { push } from 'react-router-redux'
 class Thumbnail extends Component {
   mapPiecesToBoard = () => {
     let gamePieces = {}
-    this.props.game.attributes.pieces.forEach((piece) => {
+    this.props.game.pieces.forEach((piece) => {
       gamePieces[piece.data.attributes.position] = piece.data.attributes
     })
     return gamePieces
