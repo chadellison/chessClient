@@ -19,7 +19,7 @@ class SideBar extends Component {
 
   handleResetButton = () => {
     let payload = {
-      pieces: jsonPieces.map((piece) => piece.data.attributes),
+      pieces: jsonPieces,
       currentTurn: 'white'
     }
     this.props.dispatch(updateGamePayload(payload))

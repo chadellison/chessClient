@@ -54,7 +54,7 @@ class Square extends Component {
   updateBoard = (selectedPiece, newPosition) => {
     let pieces = JSON.parse(JSON.stringify(this.props.game.pieces))
 
-    pieces = this.props.game.pieces.filter((piece) => {
+    pieces = pieces.filter((piece) => {
       return piece.position !== newPosition
     }).map((piece) => {
       if (piece.positionIndex === selectedPiece.positionIndex) {

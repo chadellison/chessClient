@@ -30,7 +30,7 @@ class Board extends Component {
   mapPiecesToBoard = () => {
     let gamePieces = {}
     this.props.game.pieces.forEach((piece) => {
-      gamePieces[piece.data.attributes.position] = piece.data.attributes
+      gamePieces[piece.position] = piece
     })
     return gamePieces
   }
