@@ -2,13 +2,23 @@ import React, { Component } from 'react'
 import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
-import {loadPiecesAction} from '../actions/gameActions'
+import { push } from 'react-router-redux'
+import {updateGamePayload} from '../actions/gameActions'
 import jsonPieces from '../json/pieces'
 import PlayerInfo from './PlayerInfo'
 
 class Board extends Component {
   componentWillMount() {
-    this.props.dispatch(loadPiecesAction(jsonPieces.map((piece) => piece.data.attributes)))
+    if(this.userNotAllowed()) {
+      this.props.dispatch(push('/'))
+    }
+    this.props.dispatch(updateGamePayload({pieces: jsonPieces.map((piece) => piece.data.attributes)}))
+  }
+
+  userNotAllowed() {
+    let gameId = this.props.routing.location.pathname.split('/')[2]
+    return gameId &&
+      (![this.props.game.whitePlayer, this.props.game.blackPlayer].includes(this.props.user.id) || !this.props.user.id)
   }
 
   mapPiecesToBoard = () => {
@@ -51,8 +61,8 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = ({game, modals}) => {
-  return {game, modals}
+const mapStateToProps = ({routing, game, modals, user}) => {
+  return {routing, game, modals, user}
 }
 
 export default connect(mapStateToProps)(Board)

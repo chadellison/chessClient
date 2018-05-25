@@ -4,7 +4,7 @@ import Piece from './Piece'
 import { DropTarget } from 'react-drag-drop-container'
 import moveAudio from '../audio/moveAudio.wav'
 import { connect } from 'react-redux'
-import {loadPiecesAction, updateTurnAction} from '../actions/gameActions'
+import {updateGamePayload, updateTurnAction} from '../actions/gameActions'
 import MoveLogic from '../helpers/moveLogic'
 
 class Square extends Component {
@@ -24,7 +24,7 @@ class Square extends Component {
 
   handleMove = () => {
     if(this.isValid(this.props.id)) {
-      this.props.dispatch(loadPiecesAction(this.updateBoard(this.props.game.selected, this.props.id)))
+      this.props.dispatch(updateGamePayload({pieces: this.updateBoard(this.props.game.selected, this.props.id)}))
       this.props.dispatch(updateTurnAction(this.nextTurn()))
       this.moveAudio.play()
     }

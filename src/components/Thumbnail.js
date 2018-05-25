@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import '../styles/thumbnail.css'
 import MiniSquare from './MiniSquare'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 
-export default class Thumbnail extends Component {
+class Thumbnail extends Component {
   mapPiecesToBoard = () => {
     let gamePieces = {}
     this.props.game.attributes.pieces.forEach((piece) => {
@@ -39,25 +41,30 @@ export default class Thumbnail extends Component {
     }
   }
 
-  buttonText() {
-    if(this.props.game.attributes.status === 'active') {
-      return <div className='enterGameButton'>Watch</div>
-    } else {
-      return <div className='enterGameButton'>Join</div>
-    }
+  handleEnterGame = () => {
+    this.props.dispatch(push(`/games/${this.props.game.id}`))
   }
 
   render() {
     return(
-      <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'>
+      <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12 thumbnailCard'>
         <div className='justify-content-center'>
           <div id={this.props.game.id} className='thumbNailBoard'>
             {this.statusText()}
             {this.renderBoard()}
-            {this.buttonText()}
+            <div className='enterGameButton'
+              onClick={this.handleEnterGame}>
+                Join
+            </div>
           </div>
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = ({}) => {
+  return {}
+}
+
+export default connect(mapStateToProps)(Thumbnail)

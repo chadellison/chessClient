@@ -9,7 +9,7 @@ import jsonPieces from '../json/pieces'
 import {updateGamePayload} from '../actions/gameActions'
 
 class SideBar extends Component {
-  handlePlayButton = () => {
+  handleAllGamesButton = () => {
     if(this.props.user.token) {
       this.props.dispatch(push('/games'))
     } else {
@@ -23,6 +23,28 @@ class SideBar extends Component {
       currentTurn: 'white'
     }
     this.props.dispatch(updateGamePayload(payload))
+  }
+
+  allGamesText() {
+    if(this.props.user.token && this.props.game.id) {
+      return 'My Games'
+    } else {
+      return 'Play'
+    }
+  }
+
+  resetButton() {
+    if(!this.props.game.id) {
+      return (
+        <div className='navButton'
+          onClick={this.handleResetButton}>
+          <i className='glyphicon glyphicon-triangle-left navIcon'/>
+          <span>Reset</span>
+        </div>
+      )
+    } else {
+      return ''
+    }
   }
 
   sideBarContent() {
@@ -44,9 +66,9 @@ class SideBar extends Component {
     } else {
       return (
         <div>
-          <div className='navButton' onClick={() => this.handlePlayButton()}>
+          <div className='navButton' onClick={() => this.handleAllGamesButton()}>
             <i className='glyphicon glyphicon-knight navIcon'/>
-            <span className='navText'>Play</span>
+            <span className='navText'>{this.allGamesText()}</span>
           </div>
           <hr/>
           <div className='navButton' onClick={() => console.log('move log')}>
@@ -59,11 +81,7 @@ class SideBar extends Component {
             <span>Analytics</span>
           </div>
           <hr/>
-          <div className='navButton'
-            onClick={this.handleResetButton}>
-            <i className='glyphicon glyphicon-triangle-left navIcon'/>
-            <span>Reset</span>
-          </div>
+          {this.resetButton()}
         </div>
       )
     }
@@ -74,7 +92,7 @@ class SideBar extends Component {
       <div className='sideBar col-lg-3 col-md-12'>
         <Credentials />
         <div className='sideBarBackground'>
-          <h3 className='sideBarTitle' onClick={() => this.props.dispatch(push('/'))}>
+          <h3 className='sideBarTitle'>
             Chess Machine
           </h3>
           <hr/>
@@ -87,8 +105,8 @@ class SideBar extends Component {
   }
 }
 
-const mapStateToProps = ({routing, user}) => {
-  return {routing, user}
+const mapStateToProps = ({routing, user, game}) => {
+  return {routing, user, game}
 }
 
 export default connect(mapStateToProps)(SideBar)

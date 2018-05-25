@@ -15,7 +15,9 @@ export function* login(action) {
   let body = JSON.stringify({ credentials: action.credentials })
   try {
     const response = yield call(postData, '/api/v1/authentication', body)
-    yield put(updateUserAction(response.data.attributes))
+    let user = response.data.attributes
+    user.id = response.data.id
+    yield put(updateUserAction(user))
     yield put(loginModalAction(false))
   }
   catch(err) {
@@ -30,7 +32,9 @@ export function* signUp(action) {
   let body = JSON.stringify({ user: action.signUpInfo })
   try {
     const response = yield call(postData, '/api/v1/users', body)
-    yield put(updateUserAction(response.data.attributes))
+    let user = response.data.attributes
+    user.id = response.data.id
+    yield put(updateUserAction(user))
     yield put(signUpModalAction(false))
   }
   catch(err) {
