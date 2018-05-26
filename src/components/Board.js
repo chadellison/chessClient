@@ -5,40 +5,60 @@ import Square from './Square'
 import { push } from 'react-router-redux'
 import {updateGamePayload} from '../actions/gameActions'
 import {updateChatChannelAction} from '../actions/chatActions'
+import {createGameSocketAction} from '../actions/socketActions'
 import PlayerInfo from './PlayerInfo'
 import {rows, columns} from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
+import moveAudio from '../audio/moveAudio.wav'
 import Cable from 'actioncable'
 
 class Board extends Component {
+  constructor() {
+    super()
+    this.moveAudio = new Audio(moveAudio)
+  }
+
   componentWillMount() {
     let gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
     let currentGame = this.props.activeGames.filter((game) => game.id === gameId)[0]
 
-    if(gameId && (!currentGame || this.userNotAllowed(currentGame))) {
+    if (gameId && (!currentGame || this.userNotAllowed(currentGame))) {
       this.props.dispatch(push('/'))
     }
 
-    if(currentGame) {
+    if (currentGame) {
       this.props.dispatch(updateGamePayload(currentGame))
       this.props.dispatch(updateChatChannelAction('ChatChannel'))
-      // this.createGameSocket()
     }
   }
 
-  // createGameChatSocket() {
-  //   let cable = Cable.createConsumer(WEBSOCKET_HOST)
-  //   this.chats = cable.subscriptions.create({ channel: 'ChatChannel' },
-  //   {
-  //     connected: () => {},
-  //     received: (data) => this.props.dispatch(addChat(data)),
-  //     create: function(chatContent) {
-  //       this.perform('create', {
-  //         content: chatContent
-  //       })
-  //     }
-  //   })
-  // }
+  componentDidUpdate(oldProps) {
+    if (oldProps.game.id !== this.props.game.id) {
+      this.createGameSocket()
+    }
+  }
+
+  createGameSocket = () => {
+    let cable = Cable.createConsumer(WEBSOCKET_HOST)
+
+    let gameSocket = cable.subscriptions.create(
+      { channel: 'GameChannel', game_id: this.props.game.id },
+      { connected: () => {},
+        received: (data) => {
+          this.moveAudio.play()
+          this.props.dispatch(updateGamePayload(data))
+        },
+        update: function(gameData) {
+          this.perform('update', gameData)
+        }
+      }
+    )
+    this.props.dispatch(createGameSocketAction(gameSocket))
+  }
+
+  sendMoveToServer = (gameData) => {
+    this.props.sockets.gameSocket.update(gameData)
+  }
 
   userNotAllowed(currentGame) {
     return ![currentGame.attributes.whitePlayer.id, currentGame.attributes.blackPlayer.id].includes(this.props.user.id) || !this.props.user.id
@@ -64,6 +84,7 @@ class Board extends Component {
             id={column + row}
             value={rowIndex + columnIndex + 1}
             piece={gamePieces[column + row]}
+            sendMoveToServer={this.sendMoveToServer}
           />
         )
       })
@@ -92,8 +113,8 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = ({routing, game, modals, user, activeGames}) => {
-  return {routing, game, modals, user, activeGames}
+const mapStateToProps = ({routing, game, modals, user, activeGames, sockets}) => {
+  return {routing, game, modals, user, activeGames, sockets}
 }
 
 export default connect(mapStateToProps)(Board)

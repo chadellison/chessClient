@@ -29,13 +29,20 @@ class Square extends Component {
   }
 
   move = () => {
+    this.props.dispatch(updateGamePayload({pieces: this.updateBoard(this.props.game.selected, this.props.id)}))
+    this.props.dispatch(updateTurnAction(this.nextTurn()))
+
     if(this.props.game.id) {
-      // send to server
+      let gameData = {
+        game_id: this.props.game.id,
+        position_index: this.props.game.selected.positionIndex,
+        new_position: this.props.id,
+        // upgraded_type: handle promoted pawn here
+      }
+      this.props.sendMoveToServer(gameData)
     } else {
-      this.props.dispatch(updateGamePayload({pieces: this.updateBoard(this.props.game.selected, this.props.id)}))
-      this.props.dispatch(updateTurnAction(this.nextTurn()))
+      this.moveAudio.play()
     }
-    this.moveAudio.play()
   }
 
   nextTurn = () => {

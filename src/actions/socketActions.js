@@ -5,3 +5,11 @@ export const createChatSocketAction = (subscription) => {
     payload: subscription
   }
 }
+
+export const createGameSocketAction = (subscription) => {
+  console.log('subscribed to game')
+  return {
+    type: 'HANDLE_GAME_SOCKET',
+    payload: subscription
+  }
+}
