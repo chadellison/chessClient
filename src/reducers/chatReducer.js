@@ -1,4 +1,6 @@
-const chatReducer = (state = { chatLogs: [], currentChatMessage: ''}, action) => {
+const defaultChat = { chatLogs: [], currentChatMessage: '', channel: 'GroupChatChannel'}
+
+const chatReducer = (state = defaultChat, action) => {
   switch (action.type) {
     case 'ADD_CHAT':
       let updateDatedChats = state.chatLogs
@@ -8,6 +10,8 @@ const chatReducer = (state = { chatLogs: [], currentChatMessage: ''}, action) =>
       return Object.assign({}, state, action.payload)
     case 'CLEAR_CHAT':
       return Object.assign({}, state, { currentChatMessage: '' })
+    case 'UPDATE_CHAT_CHANNEL':
+      return Object.assign({}, state, { channel: action.channel })
     default:
       return state
   }

@@ -24,10 +24,18 @@ class Square extends Component {
 
   handleMove = () => {
     if(this.isValid(this.props.id)) {
+      this.move()
+    }
+  }
+
+  move = () => {
+    if(this.props.game.id) {
+      // send to server
+    } else {
       this.props.dispatch(updateGamePayload({pieces: this.updateBoard(this.props.game.selected, this.props.id)}))
       this.props.dispatch(updateTurnAction(this.nextTurn()))
-      this.moveAudio.play()
     }
+    this.moveAudio.play()
   }
 
   nextTurn = () => {

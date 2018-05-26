@@ -5,6 +5,7 @@ import gameReducer from './gameReducer'
 import activeGamesReducer from './activeGamesReducer'
 import modalReducer from './modalReducer'
 import userReducer from './userReducer'
+import socketReducer from './socketReducer'
 
 export default combineReducers({
   routing: routerReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   activeGames: activeGamesReducer,
   modals: modalReducer,
   user: userReducer,
+  sockets: socketReducer
 })

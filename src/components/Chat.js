@@ -3,7 +3,8 @@ import '../styles/chat.css'
 import { connect } from 'react-redux'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
 import Cable from 'actioncable'
-import {clearChat, addChat, updateChatField} from '../actions/chatActions'
+import {clearChatAction, addChatAction, updateChatFieldAction} from '../actions/chatActions'
+import {createChatSocketAction} from '../actions/socketActions'
 
 class Chat extends Component {
   componentWillMount() {
@@ -12,29 +13,31 @@ class Chat extends Component {
 
   createChatSocket() {
     let cable = Cable.createConsumer(WEBSOCKET_HOST)
-    this.chats = cable.subscriptions.create({ channel: 'GroupChatChannel' },
+    // save chats in store to unsubscribe
+    let chatSocket = cable.subscriptions.create({ channel: this.props.chat.channel },
     {
       connected: () => {},
-      received: (data) => this.props.dispatch(addChat(data)),
+      received: (data) => this.props.dispatch(addChatAction(data)),
       create: function(chatContent) {
         this.perform('create', {
           content: chatContent
         })
       }
     })
+    this.props.dispatch(createChatSocketAction(chatSocket))
   }
 
   handleSendEvent = (e) => {
     e.preventDefault()
 
     if(this.props.chat.currentChatMessage) {
-      this.chats.create(this.props.chat.currentChatMessage)
-      this.props.dispatch(clearChat(''))
+      this.props.sockets.chatSocket.create(this.props.chat.currentChatMessage)
+      this.props.dispatch(clearChatAction(''))
     }
   }
 
   updateCurrentChatMessage = (e) => {
-    this.props.dispatch(updateChatField(e.target.value))
+    this.props.dispatch(updateChatFieldAction(e.target.value))
   }
 
   renderChatLog = () => {
@@ -68,8 +71,8 @@ class Chat extends Component {
   }
 }
 
-const mapStateToProps = ({chat}) => {
-  return {chat}
+const mapStateToProps = ({chat, sockets}) => {
+  return {chat, sockets}
 }
 
 export default connect(mapStateToProps)(Chat)
