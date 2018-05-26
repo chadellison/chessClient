@@ -1,5 +1,7 @@
+import jsonPieces from '../json/pieces'
+
 const defaultGame = {
-  pieces: [],
+  pieces: jsonPieces,
   attributes: {
     currentTurn: 'white',
     whitePlayer: {},

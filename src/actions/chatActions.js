@@ -24,3 +24,9 @@ export const updateChatChannelAction = (channel) => {
     channel: channel
   }
 }
+
+export const clearAllChatsAction = () => {
+  return {
+    type: 'CLEAR_ALL_CHATS'
+  }
+}

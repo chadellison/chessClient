@@ -5,11 +5,15 @@ import Thumbnail from './Thumbnail'
 import { push } from 'react-router-redux'
 import {fetchActiveGamesAction} from '../actions/activeGamesActions'
 import {loginModalAction} from '../actions/modalActions'
+import {resetGameAction} from '../actions/gameActions'
+import {updateChatChannelAction} from '../actions/chatActions'
 
 class ActiveGames extends Component {
   componentWillMount() {
-    if(this.props.user.token) {
+    if(this.props.user.id) {
       this.props.dispatch(fetchActiveGamesAction(this.props.user.token))
+      this.props.dispatch(updateChatChannelAction('GroupChatChannel'))
+      this.props.dispatch(resetGameAction())
     } else {
       this.props.dispatch(push('/'))
       this.props.dispatch(loginModalAction(true))

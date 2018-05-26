@@ -5,7 +5,6 @@ import Square from './Square'
 import { push } from 'react-router-redux'
 import {updateGamePayload} from '../actions/gameActions'
 import {updateChatChannelAction} from '../actions/chatActions'
-import jsonPieces from '../json/pieces'
 import PlayerInfo from './PlayerInfo'
 import {rows, columns} from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
@@ -24,9 +23,6 @@ class Board extends Component {
       this.props.dispatch(updateGamePayload(currentGame))
       this.props.dispatch(updateChatChannelAction('ChatChannel'))
       // this.createGameSocket()
-      // this.createGameChatSocket()
-    } else {
-      this.props.dispatch(updateGamePayload({pieces: jsonPieces}))
     }
   }
 

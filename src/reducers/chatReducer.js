@@ -10,6 +10,8 @@ const chatReducer = (state = defaultChat, action) => {
       return Object.assign({}, state, action.payload)
     case 'CLEAR_CHAT':
       return Object.assign({}, state, { currentChatMessage: '' })
+    case 'CLEAR_ALL_CHATS':
+      return Object.assign({}, state, { chatLogs: [] })
     case 'UPDATE_CHAT_CHANNEL':
       return Object.assign({}, state, { channel: action.channel })
     default:
