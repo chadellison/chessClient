@@ -43,15 +43,24 @@ class Thumbnail extends Component {
   }
 
   renderPlayers() {
-    return (
-      <div className='playerVsPlayer'>
-        <img src={findGravater(this.props.thumbnailGame.attributes.whitePlayer)}
-          className='thumbnailGravatar' alt='gravatar'/>
-          VS
-        <img src={findGravater(this.props.thumbnailGame.attributes.blackPlayer)}
-          className='thumbnailGravatar' alt='gravatar'/>
-      </div>
-    )
+    if (this.props.thumbnailGame.attributes.status === 'active') {
+      return (
+        <div className='playerVsPlayer'>
+          <img src={findGravater(this.props.thumbnailGame.attributes.whitePlayer)}
+            className='thumbnailGravatar' alt='gravatar'/>
+              VS
+          <img src={findGravater(this.props.thumbnailGame.attributes.blackPlayer)}
+            className='thumbnailGravatar' alt='gravatar'/>
+        </div>
+      )
+    } else {
+      return (
+        <div className='playerVsPlayer'>
+          <img src={findGravater(this.props.user)}
+            className='thumbnailGravatar' alt='gravatar'/>
+        </div>
+      )
+    }
   }
 
   handleEnterGame = () => {
