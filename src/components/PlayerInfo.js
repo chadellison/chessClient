@@ -1,20 +1,13 @@
 import React, { Component } from 'react'
 import '../styles/playerInfo.css'
+import {findGravater} from '../helpers/boardLogic'
 
 export default class PlayerInfo extends Component {
-  findGravater(player) {
-    if (player.id) {
-      return `https://www.gravatar.com/avatar/${player.hashedEmail}`
-    } else {
-      return `https://robohash.org/${player.hashedEmail}`
-    }
-  }
-
   renderPlayer() {
     if (this.props.game.attributes[this.props.playerColor].name) {
       return(
         <div className='playerInfo row'>
-          <img src={this.findGravater(this.props.game.attributes[this.props.playerColor])}
+          <img src={findGravater(this.props.game.attributes[this.props.playerColor])}
             className='playerGravatar' alt='gravatar'/>
           <div className='playerName'>{this.props.game.attributes[this.props.playerColor].name}</div>
         </div>

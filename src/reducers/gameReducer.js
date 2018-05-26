@@ -1,7 +1,7 @@
 const defaultGame = {
   pieces: [],
-  currentTurn: 'white',
   attributes: {
+    currentTurn: 'white',
     whitePlayer: {},
     blackPlayer: {}
   }
@@ -10,7 +10,9 @@ const defaultGame = {
 const gameReducer = (state = defaultGame, action) => {
   switch (action.type) {
     case 'NEXT_TURN':
-      return {...state, currentTurn: action.currentTurn}
+      let attributes = state.attributes
+      attributes = Object.assign({}, attributes, {currentTurn: action.currentTurn})
+      return {...state, attributes: attributes}
     case 'SELECT_PIECE':
       return {...state, selected: action.selected}
     case 'UPDATE_GAME':

@@ -31,14 +31,37 @@ class Square extends Component {
   }
 
   nextTurn = () => {
-    return this.props.game.currentTurn === 'white' ? 'black' : 'white'
+    return this.props.game.attributes.currentTurn === 'white' ? 'black' : 'white'
+  }
+
+  playerColor() {
+    if (this.props.user.id && this.props.game.id) {
+      if (this.props.user.id === this.props.game.attributes.whitePlayer.id) {
+        return 'white'
+      } else {
+        return 'black'
+      }
+    }
+  }
+
+  notValidForPlayer() {
+    if (this.props.game.id) {
+      let gameTurn = this.props.game.attributes.currentTurn
+      if (this.props.game.attributes.status !== 'active' || this.playerColor() !== gameTurn) {
+        return true
+      }
+    }
   }
 
   isValid = (nextMove) => {
+    if (this.notValidForPlayer()) {
+      return false
+    }
+
     let piece = JSON.parse(JSON.stringify(this.props.game.selected))
     let pieces = JSON.parse(JSON.stringify(this.props.game.pieces))
 
-    return this.props.game.currentTurn === this.props.game.selected.color &&
+    return this.props.game.attributes.currentTurn === this.props.game.selected.color &&
       this.moveLogic.isValidMove(piece, nextMove, pieces)
   }
 
@@ -94,8 +117,8 @@ class Square extends Component {
   }
 }
 
-const mapStateToProps = ({game}) => {
-  return {game}
+const mapStateToProps = ({game, user}) => {
+  return {game, user}
 }
 
 export default connect(mapStateToProps)(Square)

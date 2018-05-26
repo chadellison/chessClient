@@ -17,3 +17,11 @@ export const columns = (userId, blackPlayerId) => {
     return columns
   }
 }
+
+export const findGravater = (player) => {
+  if (player.id) {
+    return `https://www.gravatar.com/avatar/${player.hashedEmail}`
+  } else {
+    return `https://robohash.org/${player.hashedEmail}`
+  }
+}

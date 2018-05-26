@@ -3,7 +3,7 @@ import '../styles/thumbnail.css'
 import MiniSquare from './MiniSquare'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import {rows, columns} from '../helpers/boardLogic'
+import {rows, columns, findGravater} from '../helpers/boardLogic'
 
 class Thumbnail extends Component {
   mapPiecesToBoard = () => {
@@ -42,21 +42,13 @@ class Thumbnail extends Component {
     }
   }
 
-  findGravater(player) {
-    if (player.id) {
-      return `https://www.gravatar.com/avatar/${player.hashedEmail}`
-    } else {
-      return `https://robohash.org/${player.hashedEmail}`
-    }
-  }
-
   renderPlayers() {
     return (
       <div className='playerVsPlayer'>
-        <img src={this.findGravater(this.props.thumbnailGame.attributes.whitePlayer)}
+        <img src={findGravater(this.props.thumbnailGame.attributes.whitePlayer)}
           className='thumbnailGravatar' alt='gravatar'/>
           VS
-        <img src={this.findGravater(this.props.thumbnailGame.attributes.blackPlayer)}
+        <img src={findGravater(this.props.thumbnailGame.attributes.blackPlayer)}
           className='thumbnailGravatar' alt='gravatar'/>
       </div>
     )
