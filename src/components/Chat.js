@@ -39,14 +39,23 @@ class Chat extends Component {
   handleSendEvent = (e) => {
     e.preventDefault()
 
-    if(this.props.chat.currentChatMessage) {
-      this.props.sockets.chatSocket.create(this.props.chat.currentChatMessage)
+    if (this.props.chat.currentChatMessage) {
+      let message = this.sender() + this.props.chat.currentChatMessage
+      this.props.sockets.chatSocket.create(message)
       this.props.dispatch(clearChatAction(''))
     }
   }
 
   updateCurrentChatMessage = (e) => {
     this.props.dispatch(updateChatFieldAction(e.target.value))
+  }
+
+  sender() {
+    if (this.props.user.id) {
+      return `${this.props.user.firstName} ${this.props.user.lastName}: `
+    } else {
+      return ''
+    }
   }
 
   renderChatLog = () => {
@@ -80,8 +89,8 @@ class Chat extends Component {
   }
 }
 
-const mapStateToProps = ({chat, sockets, game}) => {
-  return {chat, sockets, game}
+const mapStateToProps = ({chat, sockets, game, user}) => {
+  return {chat, sockets, game, user}
 }
 
 export default connect(mapStateToProps)(Chat)
