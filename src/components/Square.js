@@ -38,17 +38,20 @@ class Square extends Component {
     } else {
       this.props.dispatch(updateGamePayload({pieces: updateBoard(this.props.game, this.props.id)}))
       this.props.dispatch(updateTurnAction(nextTurn(this.props.game.attributes.currentTurn)))
+      this.handleActiveGame()
+    }
+  }
 
-      if(this.props.game.id) {
-        let gameData = {
-          game_id: this.props.game.id,
-          position_index: this.props.game.selected.positionIndex,
-          new_position: this.props.id
-        }
-        this.props.sendMoveToServer(gameData)
-      } else {
-        this.moveAudio.play()
+  handleActiveGame() {
+    if(this.props.game.id) {
+      let gameData = {
+        game_id: this.props.game.id,
+        position_index: this.props.game.selected.positionIndex,
+        new_position: this.props.id
       }
+      this.props.sendMoveToServer(gameData)
+    } else {
+      this.moveAudio.play()
     }
   }
 

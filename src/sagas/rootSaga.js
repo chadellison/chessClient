@@ -1,5 +1,5 @@
 import { all, fork } from 'redux-saga/effects'
-import {watchFetchActiveGames, watchCreateGame} from './gamesSagas'
+import {watchFetchActiveGames, watchCreateGame, watchJoinGame} from './gamesSagas'
 import {watchLogin, watchSignUp} from './userSagas'
 
 export default function* rootSaga() {
@@ -7,6 +7,7 @@ export default function* rootSaga() {
     fork(watchFetchActiveGames),
     fork(watchLogin),
     fork(watchSignUp),
-    fork(watchCreateGame)
+    fork(watchCreateGame),
+    fork(watchJoinGame)
   ])
 }

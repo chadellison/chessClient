@@ -13,6 +13,10 @@ export function* watchCreateGame() {
   yield takeEvery('CREATE_GAME', createGame)
 }
 
+export function* watchJoinGame() {
+  yield takeEvery('JOIN_GAME', joinGame)
+}
+
 export function* fetchGames(action) {
   try {
     const response = yield call(getData, `/api/v1/games?token=${action.token}`)
@@ -33,6 +37,21 @@ export function* createGame(action) {
   }
   catch(err) {
     yield put(updateGamePayload({errors: true}))
+    console.log(err)
+  }
+}
+
+export function* joinGame(action) {
+  try {
+    const response = yield call(getData, `/api/v1/find_game?token=${action.token}`)
+    if (response.data.id) {
+      yield put(addActiveGameAction(response.data))
+      yield put(push(`/games/${response.data.id}`))
+    } else {
+      alert('There are no open games at this time. Would you like to create one?')
+    }
+  }
+  catch(err) {
     console.log(err)
   }
 }

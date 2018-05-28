@@ -6,6 +6,13 @@ export const createGameAction = (gameData, token) => {
   }
 }
 
+export const joinGameAction = (token) => {
+  return {
+    type: 'JOIN_GAME',
+    token: token
+  }
+}
+
 export const selectPieceAction = (piece) => {
   return {
     type: 'SELECT_PIECE',

@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
 import {loginModalAction, createGameModalAction} from '../actions/modalActions'
-import {resetGameAction} from '../actions/gameActions'
+import {resetGameAction, joinGameAction} from '../actions/gameActions'
 
 class SideBar extends Component {
   handleAllGamesButton = () => {
@@ -38,6 +38,10 @@ class SideBar extends Component {
     }
   }
 
+  handleJoinGame = () => {
+    this.props.dispatch(joinGameAction(this.props.user.token))
+  }
+
   sideBarContent() {
     if(this.props.routing.location.pathname === '/games') {
       return (
@@ -47,7 +51,7 @@ class SideBar extends Component {
             <span className='navText'>Create Game</span>
           </div>
           <hr/>
-          <div className='navButton' onClick={() => console.log('join game')}>
+          <div className='navButton' onClick={this.handleJoinGame}>
             <i className='glyphicon glyphicon-search navIcon'/>
             <span className='navText'>Find Game</span>
           </div>
