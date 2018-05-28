@@ -11,7 +11,14 @@
   align-items: center;
   justify-content: center;
   height: 15em;
-  background: #2c66b2;
+}
+
+.promoteWhitePawn {
+  background: rgba(0,0,0, .7);
+}
+
+.promoteBlackPawn {
+
 }
 
 .promotePawn {

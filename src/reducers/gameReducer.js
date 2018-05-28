@@ -5,8 +5,9 @@ const defaultGame = {
   attributes: {
     currentTurn: 'white',
     whitePlayer: {},
-    blackPlayer: {}
-  }
+    blackPlayer: {},
+  },
+  selected: {}
 }
 
 const gameReducer = (state = defaultGame, action) => {

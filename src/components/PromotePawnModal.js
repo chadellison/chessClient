@@ -47,11 +47,19 @@ class PromotePawnModal extends Component {
     })
   }
 
+  backgroundColor() {
+    if (this.props.game.attributes.currentTurn === 'white') {
+      return 'promoteWhitePawn'
+    } else {
+      return 'promoteBlackPawn'
+    }
+  }
+
   promotePawnModal = () => {
     if(this.props.modals.promotePawnModalActive) {
       return (
         <div className='modalContainer'>
-          <div className='promotePawnModal col-sm-offset-4 col-md-4'>
+          <div className={`promotePawnModal ${this.backgroundColor()} col-sm-offset-4 col-md-4`}>
             <div className='row'>
               <i
                 id={'knight'}

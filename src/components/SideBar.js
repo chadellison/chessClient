@@ -5,8 +5,7 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
 import {loginModalAction, createGameModalAction} from '../actions/modalActions'
-import jsonPieces from '../json/pieces'
-import {updateGamePayload} from '../actions/gameActions'
+import {resetGameAction} from '../actions/gameActions'
 
 class SideBar extends Component {
   handleAllGamesButton = () => {
@@ -15,14 +14,6 @@ class SideBar extends Component {
     } else {
       this.props.dispatch(loginModalAction(true))
     }
-  }
-
-  handleResetButton = () => {
-    let payload = {
-      pieces: jsonPieces,
-      currentTurn: 'white'
-    }
-    this.props.dispatch(updateGamePayload(payload))
   }
 
   allGamesText() {
@@ -37,7 +28,7 @@ class SideBar extends Component {
     if(!this.props.game.id) {
       return (
         <div className='navButton'
-          onClick={this.handleResetButton}>
+          onClick={() => this.props.dispatch(resetGameAction())}>
           <i className='glyphicon glyphicon-triangle-left navIcon'/>
           <span>Reset</span>
         </div>
