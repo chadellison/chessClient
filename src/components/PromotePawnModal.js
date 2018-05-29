@@ -29,10 +29,10 @@ class PromotePawnModal extends Component {
       let gameData = {
         game_id: this.props.game.id,
         position_index: this.props.game.selected.positionIndex,
-        new_position: this.props.id,
+        new_position: this.props.game.selected.crossedPawnPosition,
         upgraded_type: pieceType
       }
-      this.props.sendMoveToServer(gameData)
+      this.props.sockets.gameSocket.update(gameData)
     } else {
       this.moveAudio.play()
     }
@@ -107,8 +107,8 @@ class PromotePawnModal extends Component {
   }
 }
 
-const mapStateToProps = ({modals, game}) => {
-  return {modals, game}
+const mapStateToProps = ({modals, game, sockets}) => {
+  return {modals, game, sockets}
 }
 
 export default connect(mapStateToProps)(PromotePawnModal)
