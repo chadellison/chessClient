@@ -47,6 +47,9 @@ class Board extends Component {
         received: (data) => {
           this.moveAudio.play()
           this.props.dispatch(updateGamePayload(data))
+          if (data.attributes.outcome) {
+            alert(data.attributes.outcome)
+          }
         },
         update: function(gameData) {
           this.perform('update', gameData)
