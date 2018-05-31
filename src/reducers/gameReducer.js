@@ -6,6 +6,7 @@ const defaultGame = {
     currentTurn: 'white',
     whitePlayer: {},
     blackPlayer: {},
+    aiPlayer: {}
   },
   selected: {}
 }

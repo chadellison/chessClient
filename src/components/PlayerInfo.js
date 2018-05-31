@@ -3,13 +3,24 @@ import '../styles/playerInfo.css'
 import {findGravater} from '../helpers/boardLogic'
 
 export default class PlayerInfo extends Component {
+  playerName() {
+    let game = this.props.game
+    debugger;
+    if (game.attributes[this.props.playerColor].name) {
+      return game.attributes[this.props.playerColor].name
+    } else {
+      return game.attributes.aiPlayer.name
+    }
+  }
+
   renderPlayer() {
-    if (this.props.game.attributes[this.props.playerColor].name) {
+    let game = this.props.game
+    if (game.attributes[this.props.playerColor].name || game.attributes.aiPlayer.name) {
       return(
         <div className='playerInfo row'>
-          <img src={findGravater(this.props.game.attributes[this.props.playerColor])}
+          <img src={findGravater(game.attributes[this.props.playerColor], game)}
             className='playerGravatar' alt='gravatar'/>
-          <div className='playerName'>{this.props.game.attributes[this.props.playerColor].name}</div>
+          <div className='playerName'>{this.playerName()}</div>
         </div>
       )
     } else {
