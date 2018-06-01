@@ -385,9 +385,12 @@ export default class MoveLogic {
   }
 
   kingLocation(pieces, color) {
-    return pieces.filter((piece) => {
+    let king = pieces.filter((piece) => {
       return piece.pieceType === 'king' && piece.color === color
-    })[0].position
+    })[0]
+    if(king) {
+      return king.position
+    }
   }
 
   opponentColor(color) {
@@ -399,6 +402,11 @@ export default class MoveLogic {
   }
 
   inCheck(piece, pieces, color) {
+    let kingPosition = this.kingLocation(pieces, color)
+    if (!kingPosition) {
+      return true
+    }
+
     return this.isValidMove(piece, this.kingLocation(pieces, color), pieces)
   }
 
