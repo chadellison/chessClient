@@ -6,7 +6,7 @@ import { push } from 'react-router-redux'
 import {updateGamePayload} from '../actions/gameActions'
 import {updateChatChannelAction} from '../actions/chatActions'
 import {createGameSocketAction} from '../actions/socketActions'
-import {gameOverModalAction} from '../actions/modalActions'
+import {handleModalAction} from '../actions/modalActions'
 import PlayerInfo from './PlayerInfo'
 import {rows, columns} from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
@@ -49,7 +49,7 @@ class Board extends Component {
           this.moveAudio.play()
           this.props.dispatch(updateGamePayload(data))
           if (data.attributes.outcome) {
-            this.props.dispatch(gameOverModalAction(true))
+            this.props.dispatch(handleModalAction({gameOver: true}))
           }
         },
         update: function(gameData) {

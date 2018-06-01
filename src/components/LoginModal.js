@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import '../styles/loginModal.css'
 import { connect } from 'react-redux'
-import {loginModalAction, spinnerAction, signUpModalAction} from '../actions/modalActions'
+import {handleModalAction, spinnerAction} from '../actions/modalActions'
 import {loginAction, updateUserAction} from '../actions/userActions'
 import Spinner from './Spinner'
 
 class LoginModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
-    this.props.dispatch(loginModalAction(false))
+    this.props.dispatch(handleModalAction({login: false}))
     this.props.dispatch(updateUserAction({loginFailed: false}))
   }
 
@@ -23,8 +23,7 @@ class LoginModal extends Component {
   }
 
   handleSignUpLink = () => {
-    this.props.dispatch(signUpModalAction(true))
-    this.props.dispatch(loginModalAction(false))
+    this.props.dispatch(handleModalAction({signUp: true, login: false}))
   }
 
   invalidCredentials() {
@@ -46,7 +45,7 @@ class LoginModal extends Component {
   }
 
   loginModal = () => {
-    if(this.props.modals.loginModalActive) {
+    if(this.props.modals.login) {
       return (
         <div className='modalContainer'>
           <form className='loginModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleLogin(e)}>

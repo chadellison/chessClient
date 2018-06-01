@@ -3,7 +3,7 @@ import '../styles/promotePawnModal.css'
 import { connect } from 'react-redux'
 import moveAudio from '../audio/moveAudio.wav'
 import {updateGamePayload, updateTurnAction} from '../actions/gameActions'
-import {promotePawnModalAction} from '../actions/modalActions'
+import {handleModalAction} from '../actions/modalActions'
 import { nextTurn, updateBoard } from '../helpers/boardLogic'
 
 class PromotePawnModal extends Component {
@@ -13,7 +13,7 @@ class PromotePawnModal extends Component {
   }
 
   handlePawnPromotion = (e) => {
-    this.props.dispatch(promotePawnModalAction(false))
+    this.props.dispatch(handleModalAction({promotePawn: true}))
     this.handleMove(e.target.id)
   }
 
@@ -56,7 +56,7 @@ class PromotePawnModal extends Component {
   }
 
   promotePawnModal = () => {
-    if(this.props.modals.promotePawnModalActive) {
+    if(this.props.modals.promotePawn) {
       return (
         <div className='modalContainer'>
           <div className={`promotePawnModal ${this.backgroundColor()} col-sm-offset-4 col-md-4`}>

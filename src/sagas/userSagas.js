@@ -1,6 +1,6 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import {updateUserAction, failedLoginAction, failedSignUpAction} from '../actions/userActions'
-import {loginModalAction, spinnerAction, signUpModalAction} from '../actions/modalActions'
+import {handleModalAction, spinnerAction} from '../actions/modalActions'
 import {postData} from './apiHelper'
 
 export function* watchLogin() {
@@ -18,7 +18,7 @@ export function* login(action) {
     let user = response.data.attributes
     user.id = response.data.id
     yield put(updateUserAction(user))
-    yield put(loginModalAction(false))
+    yield put(handleModalAction((false)))
   }
   catch(err) {
     yield put(failedLoginAction())
@@ -35,7 +35,7 @@ export function* signUp(action) {
     let user = response.data.attributes
     user.id = response.data.id
     yield put(updateUserAction(user))
-    yield put(signUpModalAction(false))
+    yield put(handleModalAction({signUp: true}))
   }
   catch(err) {
     yield put(failedSignUpAction())

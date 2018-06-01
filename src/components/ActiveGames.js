@@ -4,7 +4,7 @@ import '../styles/activeGames.css'
 import Thumbnail from './Thumbnail'
 import { push } from 'react-router-redux'
 import {fetchActiveGamesAction} from '../actions/activeGamesActions'
-import {loginModalAction} from '../actions/modalActions'
+import {handleModalAction} from '../actions/modalActions'
 import {resetGameAction} from '../actions/gameActions'
 import {updateChatChannelAction} from '../actions/chatActions'
 
@@ -16,7 +16,7 @@ class ActiveGames extends Component {
       this.props.dispatch(resetGameAction())
     } else {
       this.props.dispatch(push('/'))
-      this.props.dispatch(loginModalAction(true))
+      this.props.dispatch(handleModalAction({login: true}))
     }
   }
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import '../styles/createGameModal.css'
 import { connect } from 'react-redux'
-import {createGameModalAction} from '../actions/modalActions'
+import {handleModalAction} from '../actions/modalActions'
 import {createGameAction, updateGamePayload} from '../actions/gameActions'
 
 class CreateGameModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
-    this.props.dispatch(createGameModalAction(false))
+    this.props.dispatch(handleModalAction({createGame: false}))
     this.props.dispatch(updateGamePayload({errors: false}))
   }
 
@@ -31,7 +31,7 @@ class CreateGameModal extends Component {
   }
 
   createGameModal = () => {
-    if(this.props.modals.createGameModalActive) {
+    if(this.props.modals.createGame) {
       return (
         <div className='modalContainer'>
           <form className='createGameModal col-sm-offset-4 col-md-4' onSubmit={(e) => this.handleCreateGame(e)}>

@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import '../styles/messagePromptModal.css'
 import { connect } from 'react-redux'
-import {
-  messagePromptModalAction,
-  createGameModalAction
-} from '../actions/modalActions'
+import { handleModalAction } from '../actions/modalActions'
 
 class MessagePromptModal extends Component {
   handleCreateGameModal = () => {
-    this.props.dispatch(createGameModalAction(true))
-    this.props.dispatch(messagePromptModalAction(false))
+    this.props.dispatch(handleModalAction({createGame: true, messagePrompt: false}))
   }
 
   messagePromptModal = () => {
-    if(this.props.modals.messagePromptModalActive) {
+    if(this.props.modals.messagePrompt) {
       return (
         <div className='modalContainer'>
           <div className='messagePromptModal col-sm-offset-4 col-md-4'>
@@ -24,7 +20,7 @@ class MessagePromptModal extends Component {
             <div onClick={this.handleCreateGameModal} className='yesPromptButton'>
                 Yes
             </div>
-            <div onClick={() => this.props.dispatch(messagePromptModalAction(false))}
+            <div onClick={() => this.props.dispatch(handleModalAction({messagePrompt: false}))}
               className='noPromptButton'>
                 No
             </div>

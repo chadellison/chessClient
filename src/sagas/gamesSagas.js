@@ -1,7 +1,7 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import {loadActiveGamesAction, addActiveGameAction} from '../actions/activeGamesActions'
 import {updateGamePayload} from '../actions/gameActions'
-import {createGameModalAction, messagePromptModalAction} from '../actions/modalActions'
+import {handleModalAction} from '../actions/modalActions'
 import {getData, postData} from './apiHelper'
 import { push } from 'react-router-redux'
 
@@ -32,7 +32,7 @@ export function* createGame(action) {
   try {
     const response = yield call(postData, `/api/v1/games?token=${action.token}`, body)
     yield put(addActiveGameAction(response.data))
-    yield put(createGameModalAction(false))
+    yield put(handleModalAction({createGame: false}))
     yield put(push(`/games/${response.data.id}`))
   }
   catch(err) {
@@ -48,7 +48,7 @@ export function* joinGame(action) {
       yield put(addActiveGameAction(response.data))
       yield put(push(`/games/${response.data.id}`))
     } else {
-      yield put(messagePromptModalAction(true))
+      yield put(handleModalAction({messagePrompt: true}))
     }
   }
   catch(err) {

@@ -5,7 +5,7 @@ import { DropTarget } from 'react-drag-drop-container'
 import moveAudio from '../audio/moveAudio.wav'
 import { connect } from 'react-redux'
 import {updateGamePayload, updateTurnAction, selectPieceAction} from '../actions/gameActions'
-import {promotePawnModalAction} from '../actions/modalActions'
+import {handleModalAction} from '../actions/modalActions'
 import MoveLogic from '../helpers/moveLogic'
 import { nextTurn, updateBoard } from '../helpers/boardLogic'
 
@@ -32,7 +32,7 @@ class Square extends Component {
 
   move = () => {
     if (this.isCrossedPawn()) {
-      this.props.dispatch(promotePawnModalAction(true))
+      this.props.dispatch(handleModalAction({promotePawn: true}))
       let crossedPawn = {...this.props.game.selected, crossedPawnPosition: this.props.id}
       this.props.dispatch(selectPieceAction(crossedPawn))
     } else {

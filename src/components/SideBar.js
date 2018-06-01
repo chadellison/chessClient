@@ -4,7 +4,7 @@ import Chat from './Chat'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
-import {loginModalAction, createGameModalAction} from '../actions/modalActions'
+import {handleModalAction} from '../actions/modalActions'
 import {resetGameAction, joinGameAction} from '../actions/gameActions'
 
 class SideBar extends Component {
@@ -12,7 +12,7 @@ class SideBar extends Component {
     if(this.props.user.token) {
       this.props.dispatch(push('/games'))
     } else {
-      this.props.dispatch(loginModalAction(true))
+      this.props.dispatch(handleModalAction({login: true}))
     }
   }
 
@@ -46,7 +46,7 @@ class SideBar extends Component {
     if(this.props.routing.location.pathname === '/games') {
       return (
         <div>
-          <div className='navButton' onClick={() => this.props.dispatch(createGameModalAction(true))}>
+          <div className='navButton' onClick={() => this.props.dispatch(handleModalAction({createGame: true}))}>
             <i className='glyphicon glyphicon-plus navIcon'/>
             <span className='navText'>Create Game</span>
           </div>

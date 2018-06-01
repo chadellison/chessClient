@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import '../styles/signUpModal.css'
 import { connect } from 'react-redux'
 import Spinner from './Spinner'
-import {signUpModalAction, spinnerAction} from '../actions/modalActions'
+import {handleModalAction, spinnerAction} from '../actions/modalActions'
 import {signUpAction, updateUserAction} from '../actions/userActions'
 
 class SignUpModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
-    this.props.dispatch(signUpModalAction(false))
+    this.props.dispatch(handleModalAction({signUp: false}))
     this.props.dispatch(updateUserAction({signUpFailed: false}))
   }
 
@@ -46,7 +46,7 @@ class SignUpModal extends Component {
   }
 
   signUpModal = () => {
-    if(this.props.modals.signUpModalActive) {
+    if(this.props.modals.signUp) {
       return (
         <div className='modalContainer'>
           <form className='signUpModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleSignUp(e)}>
