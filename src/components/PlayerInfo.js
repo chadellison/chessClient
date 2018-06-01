@@ -5,7 +5,6 @@ import {findGravater} from '../helpers/boardLogic'
 export default class PlayerInfo extends Component {
   playerName() {
     let game = this.props.game
-    debugger;
     if (game.attributes[this.props.playerColor].name) {
       return game.attributes[this.props.playerColor].name
     } else {

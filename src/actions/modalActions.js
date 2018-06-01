@@ -26,6 +26,13 @@ export const promotePawnModalAction = (active) => {
   }
 }
 
+export const gameOverModalAction = (active) => {
+  return {
+    type: 'GAME_OVER_MODAL',
+    active: active
+  }
+}
+
 export const spinnerAction = (active) => {
   return {
     type: 'SPINNER',

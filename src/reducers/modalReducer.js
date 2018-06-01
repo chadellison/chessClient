@@ -1,4 +1,13 @@
-const modalReducer = (state = { loginModalActive: false, spinnerActive: false }, action) => {
+const defaultState = {
+  loginModalActive: false,
+  signUpModalActive: false,
+  createGameModalActive: false,
+  promotePawnModalActive: false,
+  gameOverModalActive: false,
+  spinnerActive: false,
+}
+
+const modalReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'LOGIN_MODAL':
       return {...state, loginModalActive: action.active}
@@ -8,6 +17,8 @@ const modalReducer = (state = { loginModalActive: false, spinnerActive: false },
       return {...state, createGameModalActive: action.active}
     case 'PROMOTE_PAWN_MODAL':
       return {...state, promotePawnModalActive: action.active}
+    case 'GAME_OVER_MODAL':
+      return {...state, gameOverModalActive: action.active}
     case 'SPINNER':
       return {...state, spinnerActive: action.active}
     default:
