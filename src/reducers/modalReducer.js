@@ -4,6 +4,7 @@ const defaultState = {
   createGameModalActive: false,
   promotePawnModalActive: false,
   gameOverModalActive: false,
+  messagePromptModalActive: false,
   spinnerActive: false,
 }
 
@@ -19,6 +20,8 @@ const modalReducer = (state = defaultState, action) => {
       return {...state, promotePawnModalActive: action.active}
     case 'GAME_OVER_MODAL':
       return {...state, gameOverModalActive: action.active}
+    case 'MESSAGE_PROMPT_MODAL':
+      return {...state, messagePromptModalActive: action.active}
     case 'SPINNER':
       return {...state, spinnerActive: action.active}
     default:

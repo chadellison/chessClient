@@ -9,6 +9,7 @@ import SignUpModal from './SignUpModal'
 import CreateGameModal from './CreateGameModal'
 import PromotePawnModal from './PromotePawnModal'
 import GameOverModal from './GameOverModal'
+import MessagePromptModal from './MessagePromptModal'
 
 export default class Layout extends Component {
   render() {
@@ -20,6 +21,7 @@ export default class Layout extends Component {
           <CreateGameModal />
           <PromotePawnModal />
           <GameOverModal />
+          <MessagePromptModal />
           <Switch>
             <Route exact path='/' component={Board} />
             <Route exact path='/games' component={ActiveGames} />

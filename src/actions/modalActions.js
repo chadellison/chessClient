@@ -33,6 +33,13 @@ export const gameOverModalAction = (active) => {
   }
 }
 
+export const messagePromptModalAction = (active) => {
+  return {
+    type: 'MESSAGE_PROMPT_MODAL',
+    active: active
+  }
+}
+
 export const spinnerAction = (active) => {
   return {
     type: 'SPINNER',

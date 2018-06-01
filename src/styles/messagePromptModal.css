@@ -1,5 +1,5 @@
-.gameOverModal {
-  background-color: white;
+.messagePromptModal {
+  background: white;
   animation-name: slideDown;
   -webkit-animation-name: slideDown;
   animation-duration: .5s;
@@ -9,20 +9,31 @@
   padding-bottom: 3em;
 }
 
-.gameOverModalTop {
+.messagePromptModalTop {
   height: 3em;
   background: #ffa109;
   width: 100%;
   margin-top: 2em;
 }
 
-.outcomeText {
+.messageText {
   font-family: 'Pacifico', Sans, Lato, Droid Sans;
-  font-size: 20px;
+  font-size: 16px;
   margin-top: 1em;
 }
 
-.gameOverButton {
+.yesPromptButton {
+  margin-top: 1em;
+  padding-top: .1em;
+  font-size: 16px;
+  height: 30px;
+  border: 1px solid #2c66b2;
+  color: #2c66b2;
+  font-family: 'Pacifico', Sans, Lato, Droid Sans;
+  width: 100%;
+}
+
+.noPromptButton {
   margin-top: 1em;
   padding-top: .1em;
   font-size: 16px;
@@ -33,7 +44,7 @@
   width: 100%;
 }
 
-.gameOverButton:hover {
+.yesPromptButton:hover, .noPromptButton:hover {
   cursor: pointer;
   box-shadow: 0 0 8px 0 rgba(0,0,0, 0.3);
 }

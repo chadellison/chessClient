@@ -1,7 +1,7 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import {loadActiveGamesAction, addActiveGameAction} from '../actions/activeGamesActions'
 import {updateGamePayload} from '../actions/gameActions'
-import {createGameModalAction} from '../actions/modalActions'
+import {createGameModalAction, messagePromptModalAction} from '../actions/modalActions'
 import {getData, postData} from './apiHelper'
 import { push } from 'react-router-redux'
 
@@ -48,7 +48,7 @@ export function* joinGame(action) {
       yield put(addActiveGameAction(response.data))
       yield put(push(`/games/${response.data.id}`))
     } else {
-      alert('There are no open games at this time. Would you like to create one?')
+      yield put(messagePromptModalAction(true))
     }
   }
   catch(err) {
