@@ -35,7 +35,7 @@ export function* signUp(action) {
     let user = response.data.attributes
     user.id = response.data.id
     yield put(updateUserAction(user))
-    yield put(handleModalAction({signUp: true}))
+    yield put(handleModalAction({signUp: false}))
   }
   catch(err) {
     yield put(failedSignUpAction())
