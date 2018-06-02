@@ -1,7 +1,7 @@
 import {LETTER_KEY, PIECE_CODE} from './boardLogic'
 
 export default class MoveLogic {
-  createNotation(game, piece, newPosition) {
+  createNotation(game, piece, newPosition, pieceType) {
     if (piece.pieceType === 'king' && newPosition[0] &&
       Math.abs(LETTER_KEY[piece.position[0]] - LETTER_KEY[newPosition[0]]) === 2) {
         return newPosition[0] === 'c' ? 'O-O-O.' : 'O-O.'
@@ -11,14 +11,13 @@ export default class MoveLogic {
     notation += this.findStartNotation(piece, newPosition, game.pieces)
     notation += this.capturePiece(notation, newPosition, piece, game.pieces)
     notation += newPosition
-    notation += this.upgradedPawn(piece)
+    notation += this.upgradedPawn(piece, pieceType)
     return notation + '.'
   }
 
-  upgradedPawn(piece) {
-    let pawnIndices = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
-    if (pawnIndices.includes(piece.positionIndex) && piece.pieceType !== 'pawn') {
-      return '=' + PIECE_CODE[piece.pieceType]
+  upgradedPawn(piece, pieceType) {
+    if (pieceType && pieceType !== piece.pieceType) {
+      return '=' + PIECE_CODE[pieceType]
     } else {
       return ''
     }
