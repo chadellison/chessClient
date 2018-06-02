@@ -13,7 +13,7 @@ class PromotePawnModal extends Component {
   }
 
   handlePawnPromotion = (e) => {
-    this.props.dispatch(handleModalAction({promotePawn: true}))
+    this.props.dispatch(handleModalAction({promotePawn: false}))
     this.handleMove(e.target.id)
   }
 
