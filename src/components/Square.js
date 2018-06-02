@@ -43,19 +43,6 @@ class Square extends Component {
     }
   }
 
-  // updateGameNotation(game) {
-  //   let attributes = JSON.parse(JSON.stringify(game.attributes))
-  //
-  //   if (!game.id) {
-  //     let piece = JSON.parse(JSON.stringify(game.selected))
-  //     let clonedGame = JSON.parse(JSON.stringify(game))
-  //     attributes.notation = attributes.notation + this.moveLogic.createNotation(clonedGame, piece, this.props.id)
-  //     return attributes
-  //   } else {
-  //     return attributes
-  //   }
-  // }
-
   handleActiveGame() {
     if(this.props.game.id) {
       let gameData = {
