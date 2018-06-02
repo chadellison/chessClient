@@ -1,10 +1,11 @@
 .moveLog {
   margin-top: 1em;
   background: #c4c4c4;
-  margin-left: 12%;
-  margin-right: 12%;
+  margin-left: 10%;
+  margin-right: 10%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   max-height: 30em;
 }
 
