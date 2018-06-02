@@ -410,21 +410,21 @@ export default class MoveLogic {
     return this.isValidMove(piece, this.kingLocation(pieces, color), pieces)
   }
 
-  checkmate(pieces, color) {
-    return this.cannotMove(pieces, color) &&
-      this.currentThreats(pieces, color).length > 0
-  }
-
-  stalemate(pieces, color, gameMoves) {
-    let caseOne = (this.cannotMove(pieces, color) &&
-      this.currentThreats(pieces, color).length === 0)
-
-    let caseTwo = this.insufficientPieces(pieces, 'white') &&
-      this.insufficientPieces(pieces, 'black')
-
-    let caseThree = this.threeFoldRepitition(gameMoves)
-    return caseOne || caseTwo || caseThree
-  }
+  // checkmate(pieces, color) {
+  //   return this.cannotMove(pieces, color) &&
+  //     this.currentThreats(pieces, color).length > 0
+  // }
+  //
+  // stalemate(pieces, color, gameMoves) {
+  //   let caseOne = (this.cannotMove(pieces, color) &&
+  //     this.currentThreats(pieces, color).length === 0)
+  //
+  //   let caseTwo = this.insufficientPieces(pieces, 'white') &&
+  //     this.insufficientPieces(pieces, 'black')
+  //
+  //   let caseThree = this.threeFoldRepitition(gameMoves)
+  //   return caseOne || caseTwo || caseThree
+  // }
 
   threeFoldRepitition(gameMoves) {
     if (gameMoves.length > 9) {

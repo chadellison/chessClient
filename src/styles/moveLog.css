@@ -1,0 +1,37 @@
+.moveLog {
+  margin-top: 1em;
+  background: #c4c4c4;
+  margin-left: 12%;
+  margin-right: 12%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  overflow-y: auto;
+  max-height: 30em;
+}
+
+.lineBreak {
+  border: 1px solid #262638;
+  border-radius: 50%;
+  width: 80%;
+}
+
+.moveColumn {
+  font-size: 16px;
+  padding: 5px;
+}
+
+.move {
+  font-size: 16px;
+  padding: 5px;
+  transform-origin: 50% 50%;
+	animation: scale .6s;
+}
+
+.move:hover {
+  cursor: pointer;
+  color: #2c66b2;
+}
+
+@keyframes scale {
+	from { transform: scale(.5); }
+	to { transform: scale(1); }
+}
