@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import {updateGamePayload, updateTurnAction, selectPieceAction} from '../actions/gameActions'
 import {handleModalAction} from '../actions/modalActions'
 import MoveLogic from '../helpers/moveLogic'
-import { nextTurn, updateBoard } from '../helpers/boardLogic'
+import { nextTurn, updateBoard, updateGameNotation } from '../helpers/boardLogic'
 
 class Square extends Component {
   constructor() {
@@ -36,11 +36,25 @@ class Square extends Component {
       let crossedPawn = {...this.props.game.selected, crossedPawnPosition: this.props.id}
       this.props.dispatch(selectPieceAction(crossedPawn))
     } else {
-      this.props.dispatch(updateGamePayload({pieces: updateBoard(this.props.game, this.props.id)}))
+      let attributes = updateGameNotation(this.props.game, this.props.id)
+      this.props.dispatch(updateGamePayload({pieces: updateBoard(this.props.game, this.props.id), attributes: attributes}))
       this.props.dispatch(updateTurnAction(nextTurn(this.props.game.attributes.currentTurn)))
       this.handleActiveGame()
     }
   }
+
+  // updateGameNotation(game) {
+  //   let attributes = JSON.parse(JSON.stringify(game.attributes))
+  //
+  //   if (!game.id) {
+  //     let piece = JSON.parse(JSON.stringify(game.selected))
+  //     let clonedGame = JSON.parse(JSON.stringify(game))
+  //     attributes.notation = attributes.notation + this.moveLogic.createNotation(clonedGame, piece, this.props.id)
+  //     return attributes
+  //   } else {
+  //     return attributes
+  //   }
+  // }
 
   handleActiveGame() {
     if(this.props.game.id) {

@@ -1,5 +1,24 @@
 import MoveLogic from './moveLogic'
-export const LETTER_KEY = { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8 }
+
+export const PIECE_CODE = {
+    king: 'K', queen: 'Q', bishop: 'B', knight: 'N', rook: 'R', pawn: ''
+}
+
+export const LETTER_KEY = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8 }
+
+export const updateGameNotation = (game, newPosition) => {
+  let moveLogic = new MoveLogic()
+  let attributes = JSON.parse(JSON.stringify(game.attributes))
+
+  if (!game.id) {
+    let piece = JSON.parse(JSON.stringify(game.selected))
+    let clonedGame = JSON.parse(JSON.stringify(game))
+    attributes.notation = attributes.notation + moveLogic.createNotation(clonedGame, piece, newPosition)
+    return attributes
+  } else {
+    return attributes
+  }
+}
 
 export const rows = (userId, blackPlayerId) => {
   let rows = ['8', '7', '6', '5', '4', '3', '2', '1']

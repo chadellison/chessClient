@@ -1,72 +1,71 @@
-import {LETTER_KEY} from './boardLogic'
-// import emptyBoard from '../emptyBoard'
+import {LETTER_KEY, PIECE_CODE} from './boardLogic'
 
 export default class MoveLogic {
-  // createNotation(piece, coordinates, board, gameMoves, pieceType) {
-  //   if (piece.pieceType === 'king' && coordinates[0] &&
-  //     Math.abs(LETTER_KEY[piece.position[0]] - LETTER_KEY[coordinates[0]]) === 2) {
-  //       return coordinates[0] === 'c' ? 'O-O-O.' : 'O-O.'
-  //   }
-  //
-  //   let notation = PIECE_NOTATION_KEY[piece.pieceType]
-  //   notation += this.findStartNotation(piece, coordinates, board, gameMoves)
-  //   notation += this.capturePiece(notation, board, coordinates, piece)
-  //   notation += coordinates
-  //   notation += this.upgradedPawn(piece, pieceType)
-  //   return notation + '.'
-  // }
-  //
-  // upgradedPawn(piece, pieceType) {
-  //   if (pieceType && pieceType !== piece.pieceType) {
-  //     return '=' + PIECE_NOTATION_KEY[pieceType]
-  //   } else {
-  //     return ''
-  //   }
-  // }
-  //
-  // capturePiece(notation, board, coordinates, piece) {
-  //   if (board[coordinates].piece) {
-  //     return notation === '' ? piece.position[0] + 'x' : 'x'
-  //   } else if(piece.pieceType === 'pawn' && piece.position[0] !== coordinates[0]) {
-  //     return notation === '' ? piece.position[0] + 'x' : 'x'
-  //   }
-  //   else {
-  //     return ''
-  //   }
-  // }
-  //
-  // findStartNotation(piece, coordinates, board, gameMoves) {
-  //   let startNotation = ''
-  //
-  //   let pieces = Object.values(board).filter((boardPiece) => {
-  //     return (boardPiece.piece &&
-  //       boardPiece.piece.color === piece.color &&
-  //       boardPiece.piece.pieceType === piece.pieceType &&
-  //       this.isValidMove(boardPiece.piece, coordinates, board, gameMoves))
-  //   }).map((boardPiece) => boardPiece.piece)
-  //
-  //   if (pieces.length > 1) {
-  //     pieces = this.similarPieces(0, pieces, piece)
-  //     if (pieces.length > 1) {
-  //       pieces = this.similarPieces(1, pieces, piece)
-  //       if (pieces.length > 1) {
-  //         startNotation = piece.position
-  //       } else {
-  //         startNotation = piece.position[1]
-  //       }
-  //     } else {
-  //       startNotation = piece.position[0]
-  //     }
-  //   }
-  //
-  //   return startNotation
-  // }
+  createNotation(game, piece, newPosition) {
+    if (piece.pieceType === 'king' && newPosition[0] &&
+      Math.abs(LETTER_KEY[piece.position[0]] - LETTER_KEY[newPosition[0]]) === 2) {
+        return newPosition[0] === 'c' ? 'O-O-O.' : 'O-O.'
+    }
 
-  // similarPieces(index, samePieces, piece) {
-  //   return samePieces.filter((boardPiece) => {
-  //     return boardPiece.position[index] === piece.position[index]
-  //   })
-  // }
+    let notation = PIECE_CODE[piece.pieceType]
+    notation += this.findStartNotation(piece, newPosition, game.pieces)
+    notation += this.capturePiece(notation, newPosition, piece, game.pieces)
+    notation += newPosition
+    notation += this.upgradedPawn(piece)
+    return notation + '.'
+  }
+
+  upgradedPawn(piece) {
+    let pawnIndices = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    if (pawnIndices.includes(piece.positionIndex) && piece.pieceType !== 'pawn') {
+      return '=' + PIECE_CODE[piece.pieceType]
+    } else {
+      return ''
+    }
+  }
+
+  capturePiece(notation, newPosition, piece, pieces) {
+    if (this.isOccuppied(pieces, newPosition)) {
+      return notation === '' ? piece.position[0] + 'x' : 'x'
+    } else if(piece.pieceType === 'pawn' && piece.position[0] !== newPosition[0]) {
+      return notation === '' ? piece.position[0] + 'x' : 'x'
+    }
+    else {
+      return ''
+    }
+  }
+
+  isOccuppied(pieces, position) {
+    return pieces.filter((piece) => piece.position === position).length > 0
+  }
+
+  findStartNotation(piece, newPosition, gamePieces) {
+    let pieces = JSON.parse(JSON.stringify(gamePieces))
+    let startNotation = ''
+
+    let filteredPieces = pieces.filter((gamePiece) => {
+      return (gamePiece.color === piece.color &&
+        gamePiece.pieceType === piece.pieceType &&
+        this.isValidMove(gamePiece, newPosition, pieces))
+    })
+
+    if (filteredPieces.length > 1) {
+      let gamePieces = this.sameColumnPieces(pieces, piece)
+      if (gamePieces.length > 1) {
+        startNotation = piece.position[1]
+      } else {
+        startNotation = piece.position[0]
+      }
+    }
+
+    return startNotation
+  }
+
+  sameColumnPieces(samePieces, piece) {
+    return samePieces.filter((gamePiece) => {
+      return gamePiece.position[0] === piece.position[0]
+    })
+  }
 
   movesLeft(position) {
     let moves = []
