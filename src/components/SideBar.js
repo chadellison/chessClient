@@ -8,15 +8,32 @@ import MoveLog from './MoveLog'
 import Analytics from './Analytics'
 import {handleModalAction} from '../actions/modalActions'
 import {resetGameAction, joinGameAction} from '../actions/gameActions'
-import {moveLogAction, analyticsAction} from '../actions/sideBarActions'
+import {moveLogAction, analyticsAction, fetchChartDataAction} from '../actions/sideBarActions'
 
 class SideBar extends Component {
+  componentWillMount() {
+    let positionSignature = this.props.game.pieces.map((piece) => {
+      return `${piece.positionIndex}${piece.position}`
+    }).join('.')
+    this.props.dispatch(fetchChartDataAction(positionSignature))
+  }
+
   handleAllGamesButton = () => {
     if(this.props.user.token) {
       this.props.dispatch(push('/games'))
     } else {
       this.props.dispatch(handleModalAction({login: true}))
     }
+  }
+
+  handleAnalytics = () => {
+    if (!this.props.sideBar.analyticsActive) {
+      let positionSignature = this.props.game.pieces.map((piece) => {
+        return `${piece.positionIndex}${piece.position}`
+      }).join('.')
+      this.props.dispatch(fetchChartDataAction(positionSignature))
+    }
+    this.props.dispatch(analyticsAction(!this.props.sideBar.analyticsActive))
   }
 
   allGamesText() {
@@ -41,6 +58,10 @@ class SideBar extends Component {
     }
   }
 
+  handleJoinGame = () => {
+    this.props.dispatch(joinGameAction(this.props.user.token))
+  }
+
   renderMoveLog() {
     if (this.props.sideBar.moveLogActive) {
       return <MoveLog game={this.props.game}/>
@@ -63,7 +84,7 @@ class SideBar extends Component {
           {value: 3, color: '#8b4513'},
           {value: 3, color: '#333333'}
         ]
-      }/>
+      } />
     }
   }
 
@@ -74,11 +95,6 @@ class SideBar extends Component {
       return 'Analytics'
     }
   }
-
-  handleJoinGame = () => {
-    this.props.dispatch(joinGameAction(this.props.user.token))
-  }
-
 
   sideBarContent() {
     if(this.props.routing.location.pathname === '/games') {
@@ -110,7 +126,7 @@ class SideBar extends Component {
           </div>
           {this.renderMoveLog()}
           <hr/>
-          <div className='navButton' onClick={() => this.props.dispatch(analyticsAction(!this.props.sideBar.analyticsActive))}>
+          <div className='navButton' onClick={this.handleAnalytics}>
             <i className='glyphicon glyphicon-signal navIcon'/>
             <span>{this.analyticsText()}</span>
           </div>

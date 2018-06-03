@@ -1,6 +1,7 @@
 import { all, fork } from 'redux-saga/effects'
 import {watchFetchActiveGames, watchCreateGame, watchJoinGame} from './gamesSagas'
 import {watchLogin, watchSignUp} from './userSagas'
+import {watchFetchChartData} from './sideBarSagas'
 
 export default function* rootSaga() {
   yield all([
@@ -8,6 +9,7 @@ export default function* rootSaga() {
     fork(watchLogin),
     fork(watchSignUp),
     fork(watchCreateGame),
-    fork(watchJoinGame)
+    fork(watchJoinGame),
+    fork(watchFetchChartData)
   ])
 }

@@ -2,8 +2,8 @@
   width: 4em;
   height: 4em;
   background: #cd853f;
-  margin-left: 3em;
-  margin-right: 3em;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 1em;
 }
 
@@ -11,8 +11,8 @@
   width: 4em;
   height: 4em;
   background: #8b4513;
-  margin-left: 3em;
-  margin-right: 3em;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 1em;
 }
 
@@ -20,8 +20,8 @@
   width: 4em;
   height: 4em;
   background: #333333;
-  margin-left: 3em;
-  margin-right: 3em;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 1em;
 }
 
@@ -29,8 +29,8 @@
   width: 4em;
   height: 4em;
   color: #c4c4c4;
-  margin-left: 2em;
-  margin-right: 2em;
+  margin-left: 8%;
+  margin-right: 8%;
   margin-top: 1em;
   font-size: 14px;
 }

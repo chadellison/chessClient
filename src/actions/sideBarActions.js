@@ -11,3 +11,17 @@ export const analyticsAction = (active) => {
     active: active
   }
 }
+
+export const fetchChartDataAction = (positionSignature) => {
+  return {
+    type: 'FETCH_CHART_DATA',
+    positionSignature: positionSignature
+  }
+}
+
+export const updateChartDataAction = (chartData) => {
+  return {
+    type: 'UPDATE_CHART_DATA',
+    chartData: chartData
+  }
+}
