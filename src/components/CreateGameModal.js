@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/createGameModal.css'
 import { connect } from 'react-redux'
-import {handleModalAction} from '../actions/modalActions'
+import Spinner from './Spinner'
+import {handleModalAction, spinnerAction} from '../actions/modalActions'
 import {createGameAction, updateGamePayload} from '../actions/gameActions'
 
 class CreateGameModal extends Component {
@@ -18,6 +19,7 @@ class CreateGameModal extends Component {
     }
     this.props.dispatch(createGameAction(gameData, this.props.user.token))
     this.props.dispatch(updateGamePayload({errors: false}))
+    this.props.dispatch(spinnerAction(true))
   }
 
   submissionFailed() {
@@ -30,12 +32,21 @@ class CreateGameModal extends Component {
     }
   }
 
+  displaySpinner() {
+    if(this.props.modals.spinnerActive) {
+      return <Spinner />
+    } else {
+      return ''
+    }
+  }
+
   createGameModal = () => {
     if(this.props.modals.createGame) {
       return (
         <div className='modalContainer'>
           <form className='createGameModal col-sm-offset-4 col-md-4' onSubmit={(e) => this.handleCreateGame(e)}>
             {this.submissionFailed()}
+            {this.displaySpinner()}
             <h4 className='createGameTitle'>Create Game</h4>
             <label>Select Type:</label>
             <select id='gameType' name='gameType'>

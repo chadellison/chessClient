@@ -1,7 +1,7 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import {loadActiveGamesAction, addActiveGameAction} from '../actions/activeGamesActions'
 import {updateGamePayload} from '../actions/gameActions'
-import {handleModalAction} from '../actions/modalActions'
+import {handleModalAction, spinnerAction} from '../actions/modalActions'
 import {getData, postData} from './apiHelper'
 import { push } from 'react-router-redux'
 
@@ -39,6 +39,7 @@ export function* createGame(action) {
     yield put(updateGamePayload({errors: true}))
     console.log(err)
   }
+  yield put(spinnerAction(false))
 }
 
 export function* joinGame(action) {
