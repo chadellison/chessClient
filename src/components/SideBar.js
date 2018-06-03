@@ -5,9 +5,10 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
 import MoveLog from './MoveLog'
+import Analytics from './Analytics'
 import {handleModalAction} from '../actions/modalActions'
 import {resetGameAction, joinGameAction} from '../actions/gameActions'
-import {moveLogAction} from '../actions/sideBarActions'
+import {moveLogAction, analyticsAction} from '../actions/sideBarActions'
 
 class SideBar extends Component {
   handleAllGamesButton = () => {
@@ -54,6 +55,26 @@ class SideBar extends Component {
     }
   }
 
+  renderAnalytics() {
+    if (this.props.sideBar.analyticsActive) {
+      return <Analytics chartData={
+        [
+          {value: 3, color: '#cd853f'},
+          {value: 3, color: '#8b4513'},
+          {value: 3, color: '#333333'}
+        ]
+      }/>
+    }
+  }
+
+  analyticsText() {
+    if (this.props.sideBar.analyticsActive) {
+      return 'Hide Analytics'
+    } else {
+      return 'Analytics'
+    }
+  }
+
   handleJoinGame = () => {
     this.props.dispatch(joinGameAction(this.props.user.token))
   }
@@ -89,10 +110,11 @@ class SideBar extends Component {
           </div>
           {this.renderMoveLog()}
           <hr/>
-          <div className='navButton' onClick={() => console.log('analytics')}>
+          <div className='navButton' onClick={() => this.props.dispatch(analyticsAction(!this.props.sideBar.analyticsActive))}>
             <i className='glyphicon glyphicon-signal navIcon'/>
-            <span>Analytics</span>
+            <span>{this.analyticsText()}</span>
           </div>
+          {this.renderAnalytics()}
           <hr/>
           {this.resetButton()}
         </div>

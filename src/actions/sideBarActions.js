@@ -4,3 +4,10 @@ export const moveLogAction = (active) => {
     active: active
   }
 }
+
+export const analyticsAction = (active) => {
+  return {
+    type: 'ANALYTICS',
+    active: active
+  }
+}
