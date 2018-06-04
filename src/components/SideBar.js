@@ -12,7 +12,7 @@ import {moveLogAction, analyticsAction, fetchChartDataAction} from '../actions/s
 
 class SideBar extends Component {
   componentWillMount() {
-    this.props.dispatch(fetchChartDataAction(this.props.game.attributes.notation))
+    this.handleFetchAnalytics()
   }
 
   handleAllGamesButton = () => {
@@ -23,9 +23,13 @@ class SideBar extends Component {
     }
   }
 
+  handleFetchAnalytics = () => {
+    this.props.dispatch(fetchChartDataAction(this.props.game.attributes.notation))
+  }
+
   handleAnalytics = () => {
     if (!this.props.sideBar.analyticsActive) {
-      this.props.dispatch(fetchChartDataAction(this.props.game.attributes.notation))
+      this.handleFetchAnalytics()
     }
     this.props.dispatch(analyticsAction(!this.props.sideBar.analyticsActive))
   }
@@ -72,7 +76,12 @@ class SideBar extends Component {
 
   renderAnalytics() {
     if (this.props.sideBar.analyticsActive) {
-      return <Analytics chartData={this.props.sideBar.chartData} />
+      return (
+        <Analytics chartData={this.props.sideBar.chartData}
+          notation={this.props.game.attributes.notation}
+          handleFetchAnalytics={this.handleFetchAnalytics}
+        />
+      )
     }
   }
 
