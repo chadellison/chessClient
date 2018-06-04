@@ -25,7 +25,6 @@ class SideBar extends Component {
 
   handleAnalytics = () => {
     if (!this.props.sideBar.analyticsActive) {
-      console.log(this.props.game.attributes.notation, "8*******************************")
       this.props.dispatch(fetchChartDataAction(this.props.game.attributes.notation))
     }
     this.props.dispatch(analyticsAction(!this.props.sideBar.analyticsActive))
