@@ -1,12 +1,17 @@
 .black {
-  background-color: #8b4513;
+  background: #8b4513;
 }
 
 .white {
-  background-color: #cd853f;
+  background: #cd853f;
 }
 
 .square {
   width: 5.7vw;
   height: 5.7vw;
+}
+
+.isLastMove {
+  border: 1px solid #ffa109;
+  opacity: .75;
 }

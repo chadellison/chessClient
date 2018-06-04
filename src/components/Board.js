@@ -11,7 +11,7 @@ import PlayerInfo from './PlayerInfo'
 import {rows, columns} from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
 import moveAudio from '../audio/moveAudio.wav'
-import {mapPiecesToBoard} from '../helpers/boardLogic'
+import {mapPiecesToBoard, isLastMove} from '../helpers/boardLogic'
 import Cable from 'actioncable'
 
 class Board extends Component {
@@ -82,6 +82,7 @@ class Board extends Component {
             value={rowIndex + columnIndex + 1}
             piece={gamePieces[column + row]}
             sendMoveToServer={this.sendMoveToServer}
+            isLastMove={isLastMove(column + row, this.props.game.attributes.moves)}
           />
         )
       })

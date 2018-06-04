@@ -28,6 +28,11 @@ export const updateGameNotation = (game, newPosition, pieceType) => {
   }
 }
 
+export const isLastMove = (position, moves) => {
+  let move = moves[moves.length -1]
+  return move && position === (move[move.length -2] + move[move.length -1])
+}
+
 export const rows = (userId, blackPlayerId) => {
   let rows = ['8', '7', '6', '5', '4', '3', '2', '1']
   if (userId && userId === blackPlayerId) {

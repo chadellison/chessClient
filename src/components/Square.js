@@ -92,10 +92,18 @@ class Square extends Component {
       this.moveLogic.isValidMove(piece, nextMove, pieces)
   }
 
+  lastMoveClass() {
+    if (this.props.isLastMove) {
+      return ' isLastMove'
+    } else {
+      return ''
+    }
+  }
+
   render() {
     return (
       <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
-        <div className={`square ${this.findSquareColor()}`} id={this.props.id}>
+        <div className={`square ${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}>
           {this.renderPiece()}
         </div>
       </DropTarget>
