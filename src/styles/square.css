@@ -9,9 +9,17 @@
 .square {
   width: 5.7vw;
   height: 5.7vw;
+
+  transform-origin: 50% 50%;
+	animation: scale .6s;
 }
 
 .isLastMove {
   border: 1px solid #ffa109;
   opacity: .75;
+}
+
+@keyframes scale {
+	from { transform: scale(.5); }
+	to { transform: scale(1); }
 }
