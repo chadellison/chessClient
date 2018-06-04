@@ -1,4 +1,4 @@
-const sideBarReducer = (state = { charData: [] }, action) => {
+const sideBarReducer = (state = { chartData: [] }, action) => {
   switch (action.type) {
     case 'MOVE_LOG':
       return {...state, moveLogActive: action.active}

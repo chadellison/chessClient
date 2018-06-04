@@ -12,16 +12,20 @@ export const analyticsAction = (active) => {
   }
 }
 
-export const fetchChartDataAction = (positionSignature) => {
+export const fetchChartDataAction = (notation) => {
   return {
     type: 'FETCH_CHART_DATA',
-    positionSignature: positionSignature
+    notation: notation
   }
 }
 
-export const updateChartDataAction = (chartData) => {
+export const updateChartDataAction = (data) => {
+  let whiteWinData = {value: data.whiteWins, color: '#cd853f'}
+  let blackWinData = {value: data.blackWins, color: '#8b4513'}
+  let drawData = {value: data.draws, color: '#333333'}
+
   return {
     type: 'UPDATE_CHART_DATA',
-    chartData: chartData
+    chartData: [whiteWinData, blackWinData, drawData]
   }
 }

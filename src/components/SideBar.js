@@ -12,10 +12,7 @@ import {moveLogAction, analyticsAction, fetchChartDataAction} from '../actions/s
 
 class SideBar extends Component {
   componentWillMount() {
-    let positionSignature = this.props.game.pieces.map((piece) => {
-      return `${piece.positionIndex}${piece.position}`
-    }).join('.')
-    this.props.dispatch(fetchChartDataAction(positionSignature))
+    this.props.dispatch(fetchChartDataAction(this.props.game.attributes.notation))
   }
 
   handleAllGamesButton = () => {
@@ -28,10 +25,8 @@ class SideBar extends Component {
 
   handleAnalytics = () => {
     if (!this.props.sideBar.analyticsActive) {
-      let positionSignature = this.props.game.pieces.map((piece) => {
-        return `${piece.positionIndex}${piece.position}`
-      }).join('.')
-      this.props.dispatch(fetchChartDataAction(positionSignature))
+      console.log(this.props.game.attributes.notation, "8*******************************")
+      this.props.dispatch(fetchChartDataAction(this.props.game.attributes.notation))
     }
     this.props.dispatch(analyticsAction(!this.props.sideBar.analyticsActive))
   }
@@ -78,13 +73,7 @@ class SideBar extends Component {
 
   renderAnalytics() {
     if (this.props.sideBar.analyticsActive) {
-      return <Analytics chartData={
-        [
-          {value: 3, color: '#cd853f'},
-          {value: 3, color: '#8b4513'},
-          {value: 3, color: '#333333'}
-        ]
-      } />
+      return <Analytics chartData={this.props.sideBar.chartData} />
     }
   }
 

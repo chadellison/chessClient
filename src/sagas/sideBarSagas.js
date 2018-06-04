@@ -7,9 +7,10 @@ export function* watchFetchChartData() {
 }
 
 export function* fetchChartData(action) {
+  let params = JSON.stringify({ analytics: { notation: action.notation } })
   try {
-    const response = yield call(getData, `/api/v1/analytics?signature=${action.positionSignature}`)
-    yield put(updateChartDataAction(response.data))
+    const response = yield call(getData, `/api/v1/analytics?signature=${params}`)
+    yield put(updateChartDataAction(response.data.attributes))
   }
   catch(err) {
     console.log(err)
