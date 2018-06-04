@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import {updateGamePayload, updateTurnAction, selectPieceAction} from '../actions/gameActions'
 import {handleModalAction} from '../actions/modalActions'
 import MoveLogic from '../helpers/moveLogic'
-import { nextTurn, updateBoard, updateGameNotation } from '../helpers/boardLogic'
+import { nextTurn, updateBoard, updateAttributes } from '../helpers/boardLogic'
 
 class Square extends Component {
   constructor() {
@@ -36,7 +36,7 @@ class Square extends Component {
       let crossedPawn = {...this.props.game.selected, crossedPawnPosition: this.props.id}
       this.props.dispatch(selectPieceAction(crossedPawn))
     } else {
-      let attributes = updateGameNotation(this.props.game, this.props.id)
+      let attributes = updateAttributes(this.props.game, this.props.id)
       this.props.dispatch(updateGamePayload({pieces: updateBoard(this.props.game, this.props.id), attributes: attributes}))
       this.props.dispatch(updateTurnAction(nextTurn(this.props.game.attributes.currentTurn)))
       this.handleActiveGame()

@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import '../styles/moveLog.css'
 
 export default class MoveLog extends Component {
-  handlePreviousBoard = () => {
-    console.log('previous board')
-  }
-
-  moves() {
+  renderMoves() {
     let gameNotation = this.props.game.attributes.notation
     let gameMoves = []
 
@@ -16,7 +12,7 @@ export default class MoveLog extends Component {
       gameMoves = moves.map((notation, index) => {
         return(
           <div key={`${index}Notation`} id={index}
-            onClick={this.handlePreviousBoard}
+            onClick={this.props.handlePreviousBoard}
             className='col-xs-6 move'>
               {`${index + 1}. ${notation}`}
           </div>
@@ -36,7 +32,7 @@ export default class MoveLog extends Component {
   render() {
     return (
       <div className='moveLog'>
-        {this.moves()}
+        {this.renderMoves()}
       </div>
     )
   }

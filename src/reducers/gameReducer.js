@@ -7,7 +7,8 @@ const defaultGame = {
     whitePlayer: {},
     blackPlayer: {},
     aiPlayer: {},
-    notation: ''
+    notation: '',
+    moves: []
   },
   selected: {}
 }

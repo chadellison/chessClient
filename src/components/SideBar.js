@@ -7,7 +7,7 @@ import Credentials from './Credentials'
 import MoveLog from './MoveLog'
 import Analytics from './Analytics'
 import {handleModalAction} from '../actions/modalActions'
-import {resetGameAction, joinGameAction} from '../actions/gameActions'
+import {resetGameAction, joinGameAction, updateGamePayload} from '../actions/gameActions'
 import {moveLogAction, analyticsAction, fetchChartDataAction} from '../actions/sideBarActions'
 
 class SideBar extends Component {
@@ -62,7 +62,11 @@ class SideBar extends Component {
 
   renderMoveLog() {
     if (this.props.sideBar.moveLogActive) {
-      return <MoveLog game={this.props.game}/>
+      return (
+          <MoveLog game={this.props.game}
+            handlePreviousBoard={this.handlePreviousBoard}
+          />
+      )
     }
   }
 
@@ -72,6 +76,12 @@ class SideBar extends Component {
     } else {
       return 'Move Log'
     }
+  }
+
+  handlePreviousBoard = (e) => {
+    let endIndex = parseInt(e.target.id, 10) + 1
+    let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
+    this.props.dispatch(updateGamePayload({previousSetup: previousSetup}))
   }
 
   renderAnalytics() {

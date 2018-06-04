@@ -3,19 +3,11 @@ import '../styles/thumbnail.css'
 import MiniSquare from './MiniSquare'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import {rows, columns, findGravater} from '../helpers/boardLogic'
+import {rows, columns, findGravater, mapPiecesToBoard} from '../helpers/boardLogic'
 
 class Thumbnail extends Component {
-  mapPiecesToBoard = () => {
-    let gamePieces = {}
-    this.props.thumbnailGame.pieces.forEach((piece) => {
-      gamePieces[piece.position] = piece
-    })
-    return gamePieces
-  }
-
   renderBoard = () => {
-    let gamePieces = this.mapPiecesToBoard()
+    let gamePieces = mapPiecesToBoard(this.props.thumbnailGame)
 
     let gameId = this.props.thumbnailGame.id
     let userId = this.props.user.id

@@ -11,6 +11,7 @@ import PlayerInfo from './PlayerInfo'
 import {rows, columns} from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
 import moveAudio from '../audio/moveAudio.wav'
+import {mapPiecesToBoard} from '../helpers/boardLogic'
 import Cable from 'actioncable'
 
 class Board extends Component {
@@ -68,16 +69,8 @@ class Board extends Component {
     return ![currentGame.attributes.whitePlayer.id, currentGame.attributes.blackPlayer.id].includes(this.props.user.id) || !this.props.user.id
   }
 
-  mapPiecesToBoard = () => {
-    let gamePieces = {}
-    this.props.game.pieces.forEach((piece) => {
-      gamePieces[piece.position] = piece
-    })
-    return gamePieces
-  }
-
   renderBoard = () => {
-    let gamePieces = this.mapPiecesToBoard()
+    let gamePieces = mapPiecesToBoard(this.props.game)
     let userId = this.props.user.id
     let blackPlayerId = this.props.game.attributes.blackPlayer.id
 
@@ -104,9 +97,15 @@ class Board extends Component {
     return this.props.game.attributes.whitePlayer.id === this.props.user.id ? 'whitePlayer' : 'blackPlayer'
   }
 
+  handleCancelPreviousSetup = () => {
+    if (this.props.game.previousSetup) {
+      this.props.dispatch(updateGamePayload({previousSetup: null}))
+    }
+  }
+
   render() {
     return(
-      <div className='col-lg-9 col-md-12 '>
+      <div className='col-lg-9 col-md-12' onClick={this.handleCancelPreviousSetup}>
         <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} />
         <div className='board'>
           {this.renderBoard()}

@@ -1,4 +1,5 @@
 import MoveLogic from './moveLogic'
+import jsonPieces from '../json/pieces'
 
 export const PIECE_CODE = {
     king: 'K', queen: 'Q', bishop: 'B', knight: 'N', rook: 'R', pawn: ''
@@ -6,17 +7,24 @@ export const PIECE_CODE = {
 
 export const LETTER_KEY = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8 }
 
-export const updateGameNotation = (game, newPosition, pieceType = '') => {
+export const updateAttributes = (game, newPosition, pieceType = '') => {
+  let clonedGame = JSON.parse(JSON.stringify(game))
+  clonedGame.attributes.notation = updateGameNotation(clonedGame, newPosition, pieceType)
+  clonedGame.attributes.moves.push(`${clonedGame.selected.positionIndex}${newPosition}`)
+  return clonedGame.attributes
+}
+
+export const updateGameNotation = (game, newPosition, pieceType) => {
   let moveLogic = new MoveLogic()
-  let attributes = JSON.parse(JSON.stringify(game.attributes))
+  let notation = JSON.parse(JSON.stringify(game.attributes.notation))
 
   if (!game.id) {
     let piece = JSON.parse(JSON.stringify(game.selected))
     let clonedGame = JSON.parse(JSON.stringify(game))
-    attributes.notation = attributes.notation + moveLogic.createNotation(clonedGame, piece, newPosition, pieceType)
-    return attributes
+    notation = notation + moveLogic.createNotation(clonedGame, piece, newPosition, pieceType)
+    return notation
   } else {
-    return attributes
+    return notation
   }
 }
 
@@ -91,4 +99,39 @@ export const updatePiece = (piece, newPosition) => {
   piece = {...piece, position: newPosition}
   piece.hasMoved = true
   return piece
+}
+
+export const mapPiecesToBoard = (game) => {
+  let gamePieces = {}
+
+  if (game.previousSetup) {
+    let clonedGame = JSON.parse(JSON.stringify(game))
+    clonedGame.pieces = JSON.parse(JSON.stringify(jsonPieces))
+
+    game.previousSetup.forEach((move) => {
+      clonedGame.selected = findPiece(move, clonedGame.pieces)
+      clonedGame.pieces = updateBoard(clonedGame, findPosition(move))
+    })
+
+    clonedGame.pieces.forEach((piece) => gamePieces[piece.position] = piece)
+  } else {
+    game.pieces.forEach((piece) => {
+      gamePieces[piece.position] = piece
+    })
+  }
+
+  return gamePieces
+}
+
+export const findPosition = (move) => {
+  return move.length === 3 ? move[1] + move[2] : move[2] + move[3]
+}
+
+export const findPiece = (move, pieces) => {
+  let positionIndex = parseInt(findPositionIndex(move), 10)
+  return pieces.filter((piece) => piece.positionIndex === positionIndex)[0]
+}
+
+export const findPositionIndex = (move) => {
+  return move.length === 3 ? move[0] : move[0] + move[1]
 }

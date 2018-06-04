@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import moveAudio from '../audio/moveAudio.wav'
 import {updateGamePayload, updateTurnAction} from '../actions/gameActions'
 import {handleModalAction} from '../actions/modalActions'
-import { nextTurn, updateBoard, updateGameNotation } from '../helpers/boardLogic'
+import { nextTurn, updateBoard, updateAttributes } from '../helpers/boardLogic'
 
 class PromotePawnModal extends Component {
   constructor() {
@@ -22,7 +22,7 @@ class PromotePawnModal extends Component {
     let updatedPieces = this.gamePiecesWithPromotedPawn(updatedGame, pieceType)
     updatedGame.pieces = updatedPieces
 
-    let attributes = updateGameNotation(updatedGame, this.props.game.selected.crossedPawnPosition, pieceType)
+    let attributes = updateAttributes(updatedGame, this.props.game.selected.crossedPawnPosition, pieceType)
     this.props.dispatch(updateGamePayload({pieces: updateBoard(updatedGame, this.props.game.selected.crossedPawnPosition), attributes: attributes}))
     this.props.dispatch(updateTurnAction(nextTurn(this.props.game.attributes.currentTurn)))
 
