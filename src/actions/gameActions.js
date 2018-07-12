@@ -6,6 +6,14 @@ export const createGameAction = (gameData, token) => {
   }
 }
 
+export const machineVsMachineGameAction = (gameData, token) => {
+  return {
+    type: 'MACHINE_VS_MACHINE_GAME',
+    gameData: gameData,
+    token: token
+  }
+}
+
 export const joinGameAction = (token) => {
   return {
     type: 'JOIN_GAME',

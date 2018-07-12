@@ -3,15 +3,15 @@ import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
 import { push } from 'react-router-redux'
-import {updateGamePayload} from '../actions/gameActions'
-import {updateChatChannelAction} from '../actions/chatActions'
-import {createGameSocketAction} from '../actions/socketActions'
-import {handleModalAction} from '../actions/modalActions'
+import { updateGamePayload } from '../actions/gameActions'
+import { updateChatChannelAction } from '../actions/chatActions'
+import { createGameSocketAction } from '../actions/socketActions'
+import { handleModalAction } from '../actions/modalActions'
 import PlayerInfo from './PlayerInfo'
-import {rows, columns} from '../helpers/boardLogic'
+import { rows, columns } from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
 import moveAudio from '../audio/moveAudio.wav'
-import {mapPiecesToBoard, isLastMove} from '../helpers/boardLogic'
+import { mapPiecesToBoard, isLastMove } from '../helpers/boardLogic'
 import Cable from 'actioncable'
 
 class Board extends Component {
@@ -23,8 +23,7 @@ class Board extends Component {
   componentWillMount() {
     let gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
     let currentGame = this.props.activeGames.filter((game) => game.id === gameId)[0]
-
-    if (gameId && (!currentGame || this.userNotAllowed(currentGame))) {
+    if (gameId && (!currentGame || !this.userAllowed(currentGame))) {
       this.props.dispatch(push('/'))
     }
 
@@ -65,8 +64,15 @@ class Board extends Component {
     this.props.sockets.gameSocket.update(gameData)
   }
 
-  userNotAllowed(currentGame) {
-    return ![currentGame.attributes.whitePlayer.id, currentGame.attributes.blackPlayer.id].includes(this.props.user.id) || !this.props.user.id
+  userAllowed(currentGame) {
+    let whitePlayerId = currentGame.attributes.whitePlayer.id
+    let blackPlayerId = currentGame.attributes.blackPlayer.id
+    let userId = this.props.user.id
+
+    if (userId && ([whitePlayerId, blackPlayerId].includes(userId) ||
+      currentGame.attributes.gameType === 'machine vs machine')) {
+        return true
+    }
   }
 
   renderBoard = () => {
