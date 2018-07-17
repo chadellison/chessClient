@@ -12,7 +12,7 @@ This Client interfaces with the [chess API](https://github.com/chadellison/chess
 
 ### Player vs AI
 A player can play vs an AI and see analytics (the percentage of wins, losses, and draws)
-for a given position.
+for a given board position.
 ![Example](https://github.com/chadellison/chessClient/raw/master/public/playerVsAi.gif)
 
 ### AI vs AI
