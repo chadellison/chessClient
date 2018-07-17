@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import '../styles/credentials.css'
 import { connect } from 'react-redux'
-import {handleModalAction} from '../actions/modalActions'
-import {logoutAction} from '../actions/userActions'
-import {resetGameAction} from '../actions/gameActions'
+import { handleModalAction } from '../actions/modalActions'
+import { logoutAction } from '../actions/userActions'
+import { resetGameAction } from '../actions/gameActions'
 import { push } from 'react-router-redux'
 
 class Credentials extends Component {

@@ -6,9 +6,9 @@ import { connect } from 'react-redux'
 import Credentials from './Credentials'
 import MoveLog from './MoveLog'
 import Analytics from './Analytics'
-import {handleModalAction} from '../actions/modalActions'
-import {resetGameAction, joinGameAction, updateGamePayload} from '../actions/gameActions'
-import {moveLogAction, analyticsAction, fetchChartDataAction} from '../actions/sideBarActions'
+import { handleModalAction } from '../actions/modalActions'
+import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
+import { moveLogAction, analyticsAction, fetchChartDataAction } from '../actions/sideBarActions'
 
 class SideBar extends Component {
   componentWillMount() {

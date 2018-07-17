@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/playerInfo.css'
-import {findGravater} from '../helpers/boardLogic'
+import { findGravater } from '../helpers/boardLogic'
 
 export default class PlayerInfo extends Component {
   playerName() {

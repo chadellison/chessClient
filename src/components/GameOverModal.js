@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/gameOverModal.css'
 import { connect } from 'react-redux'
-import {handleModalAction} from '../actions/modalActions'
+import { handleModalAction } from '../actions/modalActions'
 
 class GameOverModal extends Component {
   gameOverModal = () => {

@@ -408,22 +408,6 @@ export default class MoveLogic {
     return this.isValidMove(piece, this.kingLocation(pieces, color), pieces)
   }
 
-  // checkmate(pieces, color) {
-  //   return this.cannotMove(pieces, color) &&
-  //     this.currentThreats(pieces, color).length > 0
-  // }
-  //
-  // stalemate(pieces, color, gameMoves) {
-  //   let caseOne = (this.cannotMove(pieces, color) &&
-  //     this.currentThreats(pieces, color).length === 0)
-  //
-  //   let caseTwo = this.insufficientPieces(pieces, 'white') &&
-  //     this.insufficientPieces(pieces, 'black')
-  //
-  //   let caseThree = this.threeFoldRepitition(gameMoves)
-  //   return caseOne || caseTwo || caseThree
-  // }
-
   threeFoldRepitition(gameMoves) {
     if (gameMoves.length > 9) {
       return gameMoves.slice(gameMoves.length - 10, gameMoves.length - 1)
@@ -482,34 +466,4 @@ export default class MoveLogic {
     }
     return types[piece.pieceType]
   }
-
-  // setBoard(gameMoves, board) {
-  //   let piecesAndMoves = {}
-  //
-  //   Object.values(board).forEach((square) => {
-  //     if(square.piece) {
-  //       piecesAndMoves[square.piece.positionIndex] = square.piece.position
-  //     }
-  //   })
-  //
-  //   gameMoves.forEach((piece) => {
-  //     board = this.isCastle(board[piecesAndMoves[piece.positionIndex]].piece, piece.position, board)
-  //     board = this.isEnPassant(board[piecesAndMoves[piece.positionIndex]].piece, piece.position, board)
-  //
-  //     board[piecesAndMoves[piece.positionIndex]].piece = null
-  //     board[piece.position].piece = piece
-  //     piecesAndMoves[piece.positionIndex] = piece.position
-  //   })
-  //   return board
-  // }
-
-  // setPieces(pieces) {
-  //   let board = JSON.parse(JSON.stringify(emptyBoard))
-  //
-  //   pieces.forEach((piece) => {
-  //     board[piece.position].piece = piece
-  //   })
-  //
-  //   return board
-  // }
 }

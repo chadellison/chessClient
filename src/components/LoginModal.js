@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/loginModal.css'
 import { connect } from 'react-redux'
-import {handleModalAction, spinnerAction} from '../actions/modalActions'
-import {loginAction, updateUserAction} from '../actions/userActions'
+import { handleModalAction, spinnerAction } from '../actions/modalActions'
+import { loginAction, updateUserAction } from '../actions/userActions'
 import Spinner from './Spinner'
 
 class LoginModal extends Component {

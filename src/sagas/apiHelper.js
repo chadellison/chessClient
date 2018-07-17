@@ -1,4 +1,4 @@
-import {API_HOST} from "../config/endpoints.js"
+import { API_HOST } from "../config/endpoints.js"
 
 const HEADERS = {
   'Accept': 'application/json, text/plain, */*',

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import '../styles/createGameModal.css'
 import { connect } from 'react-redux'
 import Spinner from './Spinner'
-import {handleModalAction, spinnerAction} from '../actions/modalActions'
-import {createGameAction, updateGamePayload, machineVsMachineGameAction} from '../actions/gameActions'
+import { handleModalAction, spinnerAction } from '../actions/modalActions'
+import { createGameAction, updateGamePayload, machineVsMachineGameAction } from '../actions/gameActions'
 
 class CreateGameModal extends Component {
   handleCancel = (e) => {

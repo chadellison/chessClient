@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import '../styles/signUpModal.css'
 import { connect } from 'react-redux'
 import Spinner from './Spinner'
-import {handleModalAction, spinnerAction} from '../actions/modalActions'
-import {signUpAction, updateUserAction} from '../actions/userActions'
+import { handleModalAction, spinnerAction } from '../actions/modalActions'
+import { signUpAction, updateUserAction } from '../actions/userActions'
 
 class SignUpModal extends Component {
   handleCancel = (e) => {

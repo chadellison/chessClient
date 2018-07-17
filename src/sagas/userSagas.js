@@ -1,7 +1,7 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
-import {updateUserAction, failedLoginAction, failedSignUpAction} from '../actions/userActions'
-import {handleModalAction, spinnerAction} from '../actions/modalActions'
-import {postData} from './apiHelper'
+import { updateUserAction, failedLoginAction, failedSignUpAction } from '../actions/userActions'
+import { handleModalAction, spinnerAction } from '../actions/modalActions'
+import { postData } from './apiHelper'
 
 export function* watchLogin() {
   yield takeEvery('LOGIN', login)

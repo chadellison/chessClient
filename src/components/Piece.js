@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../styles/piece.css'
 import { DragDropContainer } from 'react-drag-drop-container'
 import { connect } from 'react-redux'
-import {selectPieceAction} from '../actions/gameActions'
+import { selectPieceAction } from '../actions/gameActions'
 
 const PIECE_KEY = { 'pawn': 'pawn', 'knight': 'knight', 'bishop': 'bishop',
   'rook': 'tower', 'queen': 'queen', 'king': 'king'

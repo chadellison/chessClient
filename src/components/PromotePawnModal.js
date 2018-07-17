@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import '../styles/promotePawnModal.css'
 import { connect } from 'react-redux'
 import moveAudio from '../audio/moveAudio.wav'
-import {updateGamePayload, updateTurnAction} from '../actions/gameActions'
-import {handleModalAction} from '../actions/modalActions'
+import { updateGamePayload, updateTurnAction } from '../actions/gameActions'
+import { handleModalAction } from '../actions/modalActions'
 import { nextTurn, updateBoard, updateAttributes } from '../helpers/boardLogic'
 
 class PromotePawnModal extends Component {

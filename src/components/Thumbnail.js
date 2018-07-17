@@ -3,7 +3,7 @@ import '../styles/thumbnail.css'
 import MiniSquare from './MiniSquare'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import {rows, columns, findGravater, mapPiecesToBoard} from '../helpers/boardLogic'
+import { rows, columns, findGravater, mapPiecesToBoard } from '../helpers/boardLogic'
 
 class Thumbnail extends Component {
   renderBoard = () => {
