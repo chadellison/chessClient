@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
+import Gear from './Gear'
 import { push } from 'react-router-redux'
 import { updateGamePayload } from '../actions/gameActions'
 import { updateChatChannelAction } from '../actions/chatActions'
@@ -110,9 +111,18 @@ class Board extends Component {
     }
   }
 
+  renderGear() {
+    if(this.props.game.attributes.currentTurn === this.props.game.attributes.aiPlayer.color && !this.props.game.attributes.outcome) {
+      return <Gear/>
+    } else {
+      return ''
+    }
+  }
+
   render() {
     return(
       <div className='col-lg-9 col-md-12' onClick={this.handleCancelPreviousSetup}>
+        {this.renderGear()}
         <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} />
         <div className='board'>
           {this.renderBoard()}

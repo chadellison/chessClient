@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import '../styles/activeGames.css'
 import Thumbnail from './Thumbnail'
 import { push } from 'react-router-redux'
-import {fetchActiveGamesAction} from '../actions/activeGamesActions'
-import {handleModalAction} from '../actions/modalActions'
-import {resetGameAction} from '../actions/gameActions'
-import {updateChatChannelAction} from '../actions/chatActions'
+import { fetchActiveGamesAction } from '../actions/activeGamesActions'
+import { handleModalAction } from '../actions/modalActions'
+import { resetGameAction } from '../actions/gameActions'
+import { updateChatChannelAction } from '../actions/chatActions'
 
 class ActiveGames extends Component {
   componentWillMount() {
