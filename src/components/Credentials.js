@@ -17,6 +17,10 @@ class Credentials extends Component {
     if(this.props.routing !== '/') {
       this.props.dispatch(push('/'))
     }
+
+    if (this.props.sockets.gameSocket) {
+      this.props.sockets.gameSocket.unsubscribe()
+    }
   }
 
   renderCredentialText() {
@@ -48,8 +52,8 @@ class Credentials extends Component {
   }
 }
 
-const mapStateToProps = ({user}) => {
-  return {user}
+const mapStateToProps = ({user, sockets}) => {
+  return {user, sockets}
 }
 
 export default connect(mapStateToProps)(Credentials)
