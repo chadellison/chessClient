@@ -40,6 +40,13 @@ class Board extends Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.props.sockets.gameSocket) {
+      console.log('Unsubscribed from game ' + this.props.game.id)
+      this.props.sockets.gameSocket.unsubscribe()
+    }
+  }
+
   createGameSocket = () => {
     let cable = Cable.createConsumer(WEBSOCKET_HOST)
 
