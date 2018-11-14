@@ -17,7 +17,7 @@ class Square extends Component {
   }
 
   findSquareColor() {
-    return this.props.value % 2 === 0 ? 'white' : 'black'
+    return this.props.value % 2 === 0 ? 'black' : 'white'
   }
 
   renderPiece() {
