@@ -24,7 +24,9 @@ class SideBar extends Component {
   }
 
   handleFetchAnalytics = () => {
-    this.props.dispatch(fetchChartDataAction(this.props.game.attributes.notation))
+    let {pieces, attributes} = this.props.game
+    let gameTurnCode = attributes.moves.length % 2 === 0 ? 'w' : 'b'
+    this.props.dispatch(fetchChartDataAction({pieces: pieces, gameTurnCode: gameTurnCode}))
   }
 
   handleAnalytics = () => {

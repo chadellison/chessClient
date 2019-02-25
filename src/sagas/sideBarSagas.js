@@ -7,9 +7,13 @@ export function* watchFetchChartData() {
 }
 
 export function* fetchChartData(action) {
-  let notation = action.notation ? action.notation : ''
+  let {pieces, gameTurnCode} = action.setupData
+  let signature = pieces.map((piece) => {
+    return piece.positionIndex.toString() + piece.position
+  }).join('.') + gameTurnCode
+
   try {
-    const response = yield call(getData, `/api/v1/analytics?notation=${notation}`)
+    const response = yield call(getData, `/api/v1/analytics?setup=${signature}`)
     yield put(updateChartDataAction(response.data.attributes))
   }
   catch(err) {

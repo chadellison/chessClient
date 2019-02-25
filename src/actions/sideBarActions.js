@@ -12,10 +12,10 @@ export const analyticsAction = (active) => {
   }
 }
 
-export const fetchChartDataAction = (notation) => {
+export const fetchChartDataAction = (setupData) => {
   return {
     type: 'FETCH_CHART_DATA',
-    notation: notation
+    setupData: setupData
   }
 }
 
