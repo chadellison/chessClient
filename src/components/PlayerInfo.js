@@ -12,11 +12,19 @@ export default class PlayerInfo extends Component {
     }
   }
 
+  topMargin() {
+    if (this.props.bottom) {
+      return 'marginTop'
+    } else {
+      return ''
+    }
+  }
+
   renderPlayer() {
     let game = this.props.game
     if (game.attributes[this.props.playerColor].name || game.attributes.aiPlayer.name) {
       return(
-        <div className='playerInfo row'>
+        <div className={`playerInfo ${this.topMargin()}`}>
           <img src={findGravater(game.attributes[this.props.playerColor], game)}
             className='playerGravatar' alt='gravatar'/>
           <div className='playerName'>{this.playerName()}</div>

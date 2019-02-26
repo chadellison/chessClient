@@ -1,11 +1,6 @@
 .playerInfo {
-  height: 3em;
-  margin-bottom: 1em;
-  margin-top: 2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 6rem;
+  height: 22vw;
 }
 
 .playerGravatar {

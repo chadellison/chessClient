@@ -126,15 +126,33 @@ class Board extends Component {
     }
   }
 
+  renderPlayerInfo() {
+    if (this.props.game.attributes.status) {
+      return (
+        <div className='col-lg-3 col-md-12'>
+          {this.renderGear()}
+          <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} />
+          <PlayerInfo playerColor={this.findColor()} game={this.props.game} />
+        </div>
+      )
+    }
+  }
+
+  boardColumn() {
+    if (this.props.game.attributes.status) {
+      return 'col-lg-9'
+    } else {
+      return 'col-lg-12'
+    }
+  }
+
   render() {
     return(
-      <div className='col-lg-9 col-md-12' onClick={this.handleCancelPreviousSetup}>
-        {this.renderGear()}
-        <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} />
-        <div className='board'>
+      <div className='col-lg-9' onClick={this.handleCancelPreviousSetup}>
+        {this.renderPlayerInfo()}
+        <div className={`board ${this.boardColumn()} col-md-12`}>
           {this.renderBoard()}
         </div>
-        <PlayerInfo playerColor={this.findColor()} game={this.props.game} />
       </div>
     )
   }
