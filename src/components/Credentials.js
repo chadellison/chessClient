@@ -35,10 +35,11 @@ class Credentials extends Component {
       return (
         <div className='row credentials justify-content-center'>
           <i className='glyphicon glyphicon-user credentialIcon'
-            onClick={() => this.props.dispatch(handleModalAction({login: true}))}/>
-            <div className='login' onClick={() => this.props.dispatch(handleModalAction({login: true}))}>
-              Login
-            </div>
+            onClick={() => this.props.dispatch(handleModalAction({login: true}))}
+          />
+          <div className='login' onClick={() => this.props.dispatch(handleModalAction({login: true}))}>
+            Login
+          </div>
           <div className='signUp' onClick={() => this.props.dispatch(handleModalAction({signUp: true}))}>
             Sign Up
           </div>
