@@ -100,15 +100,27 @@ class Square extends Component {
     }
   }
 
-  render() {
-    return (
-      <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
-        <div className={`square ${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}>
-          {this.renderPiece()}
+  renderSquare = () => {
+    if (window.innerWidth < 1000) {
+      return (
+        <div className={`square ${this.findSquareColor()}${this.lastMoveClass()}`}
+          id={this.props.id}
+          onClick={this.handleMove}>
+            {this.renderPiece()}
         </div>
-      </DropTarget>
-    )
+      )
+    } else {
+      return (
+        <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
+          <div className={`square ${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}>
+            {this.renderPiece()}
+          </div>
+        </DropTarget>
+      )
+    }
   }
+
+  render() {return this.renderSquare()}
 }
 
 const mapStateToProps = ({game, user}) => {
