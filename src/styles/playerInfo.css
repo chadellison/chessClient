@@ -6,7 +6,8 @@
 .playerGravatar {
   padding: 1em;
   border-radius: 50%;
-  width: 5em;
+  width: 10em;
+  height: 10em;
 }
 
 .playerName {
