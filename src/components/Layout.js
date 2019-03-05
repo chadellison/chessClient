@@ -14,7 +14,7 @@ import MessagePromptModal from './MessagePromptModal'
 export default class Layout extends Component {
   render() {
     return(
-      <div className='container-fluid'>
+      <div className='container-fluid layout'>
         <div className='row'>
           <LoginModal />
           <SignUpModal />

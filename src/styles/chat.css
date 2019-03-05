@@ -1,11 +1,10 @@
 .chatroom {
-  background-color: rgba(0,0,0, .7);
   box-shadow: 0 0 8px 0 rgba(0,0,0, 0.3);
 }
 
 .chatTitle {
   font-family: 'Pacifico', cursive;
-  background: #ffa109;
+  background: #dbb77a;
   color: #FFF;
   height: 40px;
   font-size: 20px;
@@ -17,7 +16,7 @@
 .chats {
   padding: 0 20px;
   margin: 10px 0 0;
-  height: 25em;
+  height: 18em;
   max-height: 100%;
   overflow-y: auto;
   display: flex;
@@ -25,7 +24,7 @@
 }
 
 .chat {
-  background: rgba(255, 255, 255, 0.8);
+  background: #a0aaba;
   position: relative;
   padding: 5px 13px;
   font-size: 14px;
@@ -38,7 +37,7 @@
 
 .inputForm {
   height: 40px;
-  background-color: #333333;
+  background-color: gray;
   display: flex;
   align-items: center;
   padding: 1em;
@@ -77,5 +76,5 @@
 }
 
 .submitButton:focus {
-  outline:0;
+  outline: 0;
 }
