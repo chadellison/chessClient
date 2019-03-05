@@ -132,6 +132,7 @@ class Board extends Component {
         <div className='col-lg-3 col-md-12'>
           {this.renderGear()}
           <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} />
+          <div className='playerDivider'></div>
           <PlayerInfo playerColor={this.findColor()} game={this.props.game} />
         </div>
       )

@@ -1,6 +1,11 @@
 .playerInfo {
   margin-top: 6rem;
-  height: 22vw;
+  /* height: 22vw; */
+  height: 14vw;
+}
+
+.playerDivider {
+  height: 14vw;
 }
 
 .playerGravatar {
