@@ -12,21 +12,14 @@ export default class PlayerInfo extends Component {
     }
   }
 
-  renderPlayer() {
-    let game = this.props.game
-    if (game.attributes[this.props.playerColor].name || game.attributes.aiPlayer.name) {
-      return(
-        <div className='playerInfo'>
-          <img src={findGravater(game.attributes[this.props.playerColor], game)}
-            className='playerGravatar' alt='gravatar'/>
-          <div className='playerName'>{this.playerName()}</div>
-        </div>
-      )
-    } else {
-      return <div className='playerInfo'></div>
-    }
-  }
   render() {
-    return this.renderPlayer()
+    let game = this.props.game
+    return(
+      <div className='playerInfo'>
+        <img src={findGravater(game.attributes[this.props.playerColor], game)}
+          className='playerGravatar' alt='gravatar'/>
+        <div className='playerName'>{this.playerName()}</div>
+      </div>
+    )
   }
 }
