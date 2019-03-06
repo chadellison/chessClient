@@ -8,7 +8,8 @@ import MoveLog from './MoveLog'
 import Analytics from './Analytics'
 import { handleModalAction } from '../actions/modalActions'
 import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
-import { moveLogAction, analyticsAction, fetchChartDataAction } from '../actions/sideBarActions'
+import { moveLogAction } from '../actions/sideBarActions'
+import { fetchChartDataAction, analyticsAction } from '../actions/analyticsActions'
 
 class SideBar extends Component {
   componentWillMount() {
@@ -30,10 +31,10 @@ class SideBar extends Component {
   }
 
   handleAnalytics = () => {
-    if (!this.props.sideBar.analyticsActive) {
+    if (!this.props.analytics.analyticsActive) {
       this.handleFetchAnalytics()
     }
-    this.props.dispatch(analyticsAction(!this.props.sideBar.analyticsActive))
+    this.props.dispatch(analyticsAction(!this.props.analytics.analyticsActive))
   }
 
   allGamesText() {
@@ -87,9 +88,9 @@ class SideBar extends Component {
   }
 
   renderAnalytics() {
-    if (this.props.sideBar.analyticsActive) {
+    if (this.props.analytics.analyticsActive) {
       return (
-        <Analytics chartData={this.props.sideBar.chartData}
+        <Analytics chartData={this.props.analytics.chartData}
           notation={this.props.game.attributes.notation}
           handleFetchAnalytics={this.handleFetchAnalytics}
         />
@@ -98,7 +99,7 @@ class SideBar extends Component {
   }
 
   analyticsText() {
-    if (this.props.sideBar.analyticsActive) {
+    if (this.props.analytics.analyticsActive) {
       return 'Hide Analytics'
     } else {
       return 'Analytics'
@@ -165,8 +166,8 @@ class SideBar extends Component {
   }
 }
 
-const mapStateToProps = ({routing, user, game, sideBar}) => {
-  return {routing, user, game, sideBar}
+const mapStateToProps = ({routing, user, game, sideBar, analytics}) => {
+  return {routing, user, game, sideBar, analytics}
 }
 
 export default connect(mapStateToProps)(SideBar)

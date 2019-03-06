@@ -1,5 +1,5 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
-import {updateChartDataAction} from '../actions/sideBarActions'
+import {updateChartDataAction} from '../actions/analyticsActions'
 import {getData} from './apiHelper'
 
 export function* watchFetchChartData() {

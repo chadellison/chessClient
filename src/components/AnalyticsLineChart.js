@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts'
@@ -27,10 +29,10 @@ name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
 },
 ]
 
-export default class AnalyticsLineChart extends Component {
+class AnalyticsLineChart extends Component {
   render() {
     return (
-      <div className="col-md-9">
+      <div hidden={!this.props.analytics.analyticsActive} className="col-md-9">
         <LineChart width={window.innerWidth * 0.7} height={250} data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -45,3 +47,9 @@ export default class AnalyticsLineChart extends Component {
     )
   }
 }
+
+const mapStateToProps = ({analytics}) => {
+  return {analytics}
+}
+
+export default connect(mapStateToProps)(AnalyticsLineChart)

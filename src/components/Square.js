@@ -101,8 +101,7 @@ class Square extends Component {
   }
 
   squareStyle = () => {
-    let {sideBar} = this.props
-    let dimension = sideBar.analyticsActive ? '3.7vw' : '5.7vw'
+    let dimension = this.props.analytics.analyticsActive ? '3.7vw' : '5.7vw'
     return {
       width: dimension,
       height: dimension,
@@ -137,8 +136,8 @@ class Square extends Component {
   render() {return this.renderSquare()}
 }
 
-const mapStateToProps = ({game, user, sideBar}) => {
-  return {game, user, sideBar}
+const mapStateToProps = ({game, user, analytics}) => {
+  return {game, user, analytics}
 }
 
 export default connect(mapStateToProps)(Square)
