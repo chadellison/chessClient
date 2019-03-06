@@ -9,7 +9,7 @@ import Analytics from './Analytics'
 import { handleModalAction } from '../actions/modalActions'
 import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
 import { moveLogAction } from '../actions/sideBarActions'
-import { fetchChartDataAction, analyticsAction } from '../actions/analyticsActions'
+import { fetchPieChartDataAction, analyticsAction } from '../actions/analyticsActions'
 
 class SideBar extends Component {
   componentWillMount() {
@@ -27,14 +27,14 @@ class SideBar extends Component {
   handleFetchAnalytics = () => {
     let {pieces, attributes} = this.props.game
     let gameTurnCode = attributes.moves.length % 2 === 0 ? 'w' : 'b'
-    this.props.dispatch(fetchChartDataAction({pieces: pieces, gameTurnCode: gameTurnCode}))
+    this.props.dispatch(fetchPieChartDataAction({pieces: pieces, gameTurnCode: gameTurnCode}))
   }
 
   handleAnalytics = () => {
-    if (!this.props.analytics.analyticsActive) {
+    if (!this.props.analytics.active) {
       this.handleFetchAnalytics()
     }
-    this.props.dispatch(analyticsAction(!this.props.analytics.analyticsActive))
+    this.props.dispatch(analyticsAction(!this.props.analytics.active))
   }
 
   allGamesText() {
@@ -88,9 +88,9 @@ class SideBar extends Component {
   }
 
   renderAnalytics() {
-    if (this.props.analytics.analyticsActive) {
+    if (this.props.analytics.active) {
       return (
-        <Analytics chartData={this.props.analytics.chartData}
+        <Analytics pieChartData={this.props.analytics.pieChartData}
           notation={this.props.game.attributes.notation}
           handleFetchAnalytics={this.handleFetchAnalytics}
         />
@@ -99,7 +99,7 @@ class SideBar extends Component {
   }
 
   analyticsText() {
-    if (this.props.analytics.analyticsActive) {
+    if (this.props.analytics.active) {
       return 'Hide Analytics'
     } else {
       return 'Analytics'

@@ -101,7 +101,7 @@ class Square extends Component {
   }
 
   squareStyle = () => {
-    let dimension = this.props.analytics.analyticsActive ? '3.7vw' : '5.7vw'
+    let dimension = this.props.analytics.active ? '3.7vw' : '5.7vw'
     return {
       width: dimension,
       height: dimension,

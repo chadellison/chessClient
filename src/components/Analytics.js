@@ -14,9 +14,9 @@ export default class Analytics extends Component {
     return(
       <div>
         <div className='chart'>
-          <PieChart slices={this.props.chartData} />
+          <PieChart slices={this.props.pieChartData} />
         </div>
-        <AnalysisKey chartData={this.props.chartData}/>
+        <AnalysisKey pieChartData={this.props.pieChartData}/>
       </div>
     )
   }

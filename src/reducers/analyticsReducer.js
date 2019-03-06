@@ -1,9 +1,9 @@
-const analyticsReducer = (state = { chartData: [] }, action) => {
+const analyticsReducer = (state = { pieChartData: [] }, action) => {
   switch (action.type) {
     case 'ANALYTICS':
-      return {...state, analyticsActive: action.active}
-    case 'UPDATE_CHART_DATA':
-      return {...state, chartData: action.chartData}
+      return {...state, active: action.active}
+    case 'UPDATE_PIE_CHART_DATA':
+      return {...state, pieChartData: action.pieChartData}
     default:
       return state
   }

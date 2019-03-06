@@ -10,7 +10,7 @@ const PIECE_KEY = { 'pawn': 'pawn', 'knight': 'knight', 'bishop': 'bishop',
 
 class Piece extends Component {
   pieceStyle = () => {
-    let pieceSize = this.props.analytics.analyticsActive ? '2.5vw' : '3.5vw'
+    let pieceSize = this.props.analytics.active ? '2.5vw' : '3.5vw'
     return {
       marginTop: '25%',
       fontSize: pieceSize,

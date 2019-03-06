@@ -129,12 +129,13 @@ class Board extends Component {
 
   renderPlayerInfo() {
     if (this.props.game.attributes.status) {
+      const {active} = this.props.analytics
       return (
         <div className='col-lg-3 col-md-12'>
           {this.renderGear()}
-          <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} analyticsActive={this.props.analytics.analyticsActive}/>
+          <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} analyticsActive={active}/>
           <div className='playerDivider'></div>
-          <PlayerInfo playerColor={this.findColor()} game={this.props.game} analyticsActive={this.props.analytics.analyticsActive} />
+          <PlayerInfo playerColor={this.findColor()} game={this.props.game} analyticsActive={active} />
         </div>
       )
     }

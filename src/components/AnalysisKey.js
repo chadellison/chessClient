@@ -3,9 +3,9 @@ import '../styles/analysisKey.css'
 
 export default class AnalysisKey extends Component {
   winPercentage(color) {
-    let whiteWins = parseInt(this.props.chartData[0].value, 10)
-    let blackWins = parseInt(this.props.chartData[1].value, 10)
-    let draws = parseInt(this.props.chartData[2].value, 10)
+    let whiteWins = parseInt(this.props.pieChartData[0].value, 10)
+    let blackWins = parseInt(this.props.pieChartData[1].value, 10)
+    let draws = parseInt(this.props.pieChartData[2].value, 10)
     let totalGames = whiteWins + blackWins + draws
 
     if (totalGames === 0) {

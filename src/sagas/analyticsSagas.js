@@ -1,12 +1,12 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
-import {updateChartDataAction} from '../actions/analyticsActions'
+import {updatePieChartDataAction} from '../actions/analyticsActions'
 import {getData} from './apiHelper'
 
-export function* watchFetchChartData() {
-  yield takeEvery('FETCH_CHART_DATA', fetchChartData)
+export function* watchFetchPieChartData() {
+  yield takeEvery('FETCH_PIE_CHART_DATA', fetchPieChartData)
 }
 
-export function* fetchChartData(action) {
+export function* fetchPieChartData(action) {
   let {pieces, gameTurnCode} = action.setupData
   let signature = pieces.map((piece) => {
     return piece.positionIndex.toString() + piece.position
@@ -14,7 +14,7 @@ export function* fetchChartData(action) {
 
   try {
     const response = yield call(getData, `/api/v1/analytics?setup=${signature}`)
-    yield put(updateChartDataAction(response.data.attributes))
+    yield put(updatePieChartDataAction(response.data.attributes))
   }
   catch(err) {
     console.log(err)

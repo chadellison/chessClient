@@ -5,20 +5,20 @@ export const analyticsAction = (active) => {
   }
 }
 
-export const fetchChartDataAction = (setupData) => {
+export const fetchPieChartDataAction = (setupData) => {
   return {
-    type: 'FETCH_CHART_DATA',
+    type: 'FETCH_PIE_CHART_DATA',
     setupData: setupData
   }
 }
 
-export const updateChartDataAction = (data) => {
+export const updatePieChartDataAction = (data) => {
   let whiteWinData = {value: data.whiteWins, color: '#cd853f'}
   let blackWinData = {value: data.blackWins, color: '#8b4513'}
   let drawData = {value: data.draws, color: '#333333'}
 
   return {
-    type: 'UPDATE_CHART_DATA',
-    chartData: [whiteWinData, blackWinData, drawData]
+    type: 'UPDATE_PIE_CHART_DATA',
+    pieChartData: [whiteWinData, blackWinData, drawData]
   }
 }
