@@ -9,6 +9,13 @@ import { handleModalAction } from '../actions/modalActions'
 import MoveLogic from '../helpers/moveLogic'
 import { nextTurn, updateBoard, updateAttributes } from '../helpers/boardLogic'
 
+const square = {
+  width: '5.7vw',
+  height: '5.7vw',
+  'transform-origin': '50% 50%',
+	animation: 'scale .6s',
+};
+
 class Square extends Component {
   constructor() {
     super()
@@ -103,7 +110,8 @@ class Square extends Component {
   renderSquare = () => {
     if (window.innerWidth < 1000) {
       return (
-        <div className={`square ${this.findSquareColor()}${this.lastMoveClass()}`}
+        <div className={`${this.findSquareColor()}${this.lastMoveClass()}`}
+          style={square}
           id={this.props.id}
           onClick={this.handleMove}>
             {this.renderPiece()}
@@ -112,7 +120,8 @@ class Square extends Component {
     } else {
       return (
         <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
-          <div className={`square ${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}>
+          <div className={`${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}
+            style={square}>
             {this.renderPiece()}
           </div>
         </DropTarget>

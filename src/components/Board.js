@@ -3,6 +3,7 @@ import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
 import Gear from './Gear'
+import AnalyticsLineChart from './AnalyticsLineChart'
 import { push } from 'react-router-redux'
 import { updateGamePayload } from '../actions/gameActions'
 import { updateChatChannelAction } from '../actions/chatActions'
@@ -154,6 +155,7 @@ class Board extends Component {
         <div className={`board ${this.boardColumn()} col-md-12`}>
           {this.renderBoard()}
         </div>
+        <AnalyticsLineChart />
       </div>
     )
   }
