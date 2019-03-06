@@ -9,41 +9,38 @@ const PIECE_KEY = { 'pawn': 'pawn', 'knight': 'knight', 'bishop': 'bishop',
 }
 
 class Piece extends Component {
+  pieceStyle = () => {
+    let pieceSize = this.props.analytics.analyticsActive ? '2.5vw' : '3.5vw'
+    return {
+      marginTop: '25%',
+      fontSize: pieceSize,
+      verticalAlign: 'middle',
+      transition: 'all 1s',
+    }
+  }
   renderPiece = () => {
-    if (window.innerWidth < 1000) {
-      return (
+    return (
+      <DragDropContainer
+        targetKey='dropSquare'
+        dragData={{piece: this.props.piece}}
+        returnToBase={true}
+        onDragStart={() => this.props.dispatch(selectPieceAction(this.props.piece))}>
         <i
           id={this.props.piece.positionIndex}
-          onClick={() => this.props.dispatch(selectPieceAction(this.props.piece))}
+          style={this.pieceStyle()}
           className={
             `glyphicon glyphicon-${PIECE_KEY[this.props.piece.pieceType]}
               piece piece-${this.props.piece.color}`
           }
         />
-      )
-    } else {
-      return (
-        <DragDropContainer
-          targetKey='dropSquare'
-          dragData={{piece: this.props.piece}}
-          returnToBase={true}
-          onDragStart={() => this.props.dispatch(selectPieceAction(this.props.piece))}>
-          <i
-            id={this.props.piece.positionIndex}
-            className={
-              `glyphicon glyphicon-${PIECE_KEY[this.props.piece.pieceType]}
-                piece piece-${this.props.piece.color}`
-            }
-          />
-        </DragDropContainer>
-      )
-    }
+      </DragDropContainer>
+    )
   }
   render() {return this.renderPiece()}
 }
 
-const mapStateToProps = ({game}) => {
-  return {game}
+const mapStateToProps = ({game, analytics}) => {
+  return {game, analytics}
 }
 
 export default connect(mapStateToProps)(Piece)

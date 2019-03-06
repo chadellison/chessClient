@@ -132,9 +132,9 @@ class Board extends Component {
       return (
         <div className='col-lg-3 col-md-12'>
           {this.renderGear()}
-          <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} />
+          <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} analyticsActive={this.props.analytics.analyticsActive}/>
           <div className='playerDivider'></div>
-          <PlayerInfo playerColor={this.findColor()} game={this.props.game} />
+          <PlayerInfo playerColor={this.findColor()} game={this.props.game} analyticsActive={this.props.analytics.analyticsActive} />
         </div>
       )
     }
@@ -161,8 +161,8 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = ({routing, game, modals, user, activeGames, sockets}) => {
-  return {routing, game, modals, user, activeGames, sockets}
+const mapStateToProps = ({routing, game, modals, user, activeGames, sockets, analytics}) => {
+  return {routing, game, modals, user, activeGames, sockets, analytics}
 }
 
 export default connect(mapStateToProps)(Board)

@@ -107,30 +107,19 @@ class Square extends Component {
       height: dimension,
       transition: 'width 1s, height 1s, transform 1s',
       transformOrigin: '50% 50%',
-      animation: 'scale .6s',
+      animation: 'scale .6s'
     };
   }
 
   renderSquare = () => {
-    if (window.innerWidth < 1000) {
-      return (
-        <div className={`${this.findSquareColor()}${this.lastMoveClass()}`}
-          style={this.squareStyle()}
-          id={this.props.id}
-          onClick={this.handleMove}>
-            {this.renderPiece()}
+    return (
+      <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
+        <div className={`${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}
+          style={this.squareStyle()}>
+          {this.renderPiece()}
         </div>
-      )
-    } else {
-      return (
-        <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
-          <div className={`${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}
-            style={this.squareStyle()}>
-            {this.renderPiece()}
-          </div>
-        </DropTarget>
-      )
-    }
+      </DropTarget>
+    )
   }
 
   render() {return this.renderSquare()}
