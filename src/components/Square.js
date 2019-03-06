@@ -9,13 +9,6 @@ import { handleModalAction } from '../actions/modalActions'
 import MoveLogic from '../helpers/moveLogic'
 import { nextTurn, updateBoard, updateAttributes } from '../helpers/boardLogic'
 
-const square = {
-  width: '5.7vw',
-  height: '5.7vw',
-  'transform-origin': '50% 50%',
-	animation: 'scale .6s',
-};
-
 class Square extends Component {
   constructor() {
     super()
@@ -107,11 +100,23 @@ class Square extends Component {
     }
   }
 
+  squareStyle = () => {
+    let {sideBar} = this.props
+    let dimension = sideBar.analyticsActive ? '3.7vw' : '5.7vw'
+    return {
+      width: dimension,
+      height: dimension,
+      transition: 'width 1s, height 1s, transform 1s',
+      transformOrigin: '50% 50%',
+      animation: 'scale .6s',
+    };
+  }
+
   renderSquare = () => {
     if (window.innerWidth < 1000) {
       return (
         <div className={`${this.findSquareColor()}${this.lastMoveClass()}`}
-          style={square}
+          style={this.squareStyle()}
           id={this.props.id}
           onClick={this.handleMove}>
             {this.renderPiece()}
@@ -121,7 +126,7 @@ class Square extends Component {
       return (
         <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
           <div className={`${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}
-            style={square}>
+            style={this.squareStyle()}>
             {this.renderPiece()}
           </div>
         </DropTarget>
@@ -132,8 +137,8 @@ class Square extends Component {
   render() {return this.renderSquare()}
 }
 
-const mapStateToProps = ({game, user}) => {
-  return {game, user}
+const mapStateToProps = ({game, user, sideBar}) => {
+  return {game, user, sideBar}
 }
 
 export default connect(mapStateToProps)(Square)
