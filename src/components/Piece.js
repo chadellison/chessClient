@@ -8,30 +8,31 @@ const PIECE_KEY = { 'pawn': 'pawn', 'knight': 'knight', 'bishop': 'bishop',
   'rook': 'tower', 'queen': 'queen', 'king': 'king'
 }
 
-class Piece extends Component {
-  pieceStyle = () => {
-    let pieceSize = this.props.analytics.active ? '2.5vw' : '3.5vw'
-    return {
-      marginTop: '25%',
-      fontSize: pieceSize,
-      verticalAlign: 'middle',
-      transition: 'all 1s',
-    }
+const pieceStyle = (props) => {
+  const pieceSize = props.analytics.active ? '2.5vw' : '3.5vw'
+  const color = props.piece.color === 'black' ? '#262638' : '#e3e3ed'
+  return {
+    marginTop: '25%',
+    fontSize: pieceSize,
+    verticalAlign: 'middle',
+    transition: 'all 1s',
+    color: color
   }
+}
+
+class Piece extends Component {
   renderPiece = () => {
+    const {piece} = this.props
     return (
       <DragDropContainer
         targetKey='dropSquare'
-        dragData={{piece: this.props.piece}}
+        dragData={{piece: piece}}
         returnToBase={true}
-        onDragStart={() => this.props.dispatch(selectPieceAction(this.props.piece))}>
+        onDragStart={() => this.props.dispatch(selectPieceAction(piece))}>
         <i
-          id={this.props.piece.positionIndex}
-          style={this.pieceStyle()}
-          className={
-            `glyphicon glyphicon-${PIECE_KEY[this.props.piece.pieceType]}
-              piece piece-${this.props.piece.color}`
-          }
+          id={piece.positionIndex}
+          style={pieceStyle(this.props)}
+          className={`glyphicon glyphicon-${PIECE_KEY[piece.pieceType]}`}
         />
       </DragDropContainer>
     )
