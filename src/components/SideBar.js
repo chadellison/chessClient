@@ -9,7 +9,11 @@ import Analytics from './Analytics'
 import { handleModalAction } from '../actions/modalActions'
 import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
 import { moveLogAction } from '../actions/sideBarActions'
-import { fetchPieChartDataAction, analyticsAction } from '../actions/analyticsActions'
+import {
+  fetchPieChartDataAction,
+  analyticsAction,
+  fetchLineChartDataAction
+} from '../actions/analyticsActions'
 
 class SideBar extends Component {
   componentWillMount() {
@@ -25,9 +29,11 @@ class SideBar extends Component {
   }
 
   handleFetchAnalytics = () => {
-    let {pieces, attributes} = this.props.game
-    let gameTurnCode = attributes.moves.length % 2 === 0 ? 'w' : 'b'
-    this.props.dispatch(fetchPieChartDataAction({pieces: pieces, gameTurnCode: gameTurnCode}))
+    let signature = this.props.game.pieces.map((piece) => {
+      return piece.positionIndex.toString() + piece.position
+    }).join('.') + this.props.game.gameTurnCode
+    this.props.dispatch(fetchPieChartDataAction(signature))
+    this.props.dispatch(fetchLineChartDataAction(signature))
   }
 
   handleAnalytics = () => {
