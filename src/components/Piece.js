@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import '../styles/piece.css'
 import { DragDropContainer } from 'react-drag-drop-container'
 import { connect } from 'react-redux'
 import { selectPieceAction } from '../actions/gameActions'
