@@ -12,7 +12,7 @@ export function* watchFetchLineChartData() {
 
 export function* fetchPieChartData(action) {
   try {
-    const response = yield call(getData, `/api/v1/analytics?setup=${action.signature}`)
+    const response = yield call(getData, `/api/v1/analytics?signature=${action.signature}`)
     yield put(updatePieChartDataAction(response.data.attributes))
   }
   catch(err) {
@@ -23,7 +23,7 @@ export function* fetchPieChartData(action) {
 export function* fetchLineChartData(action) {
   console.log('here is where you line chart')
   try {
-    const response = yield call(getData, `/api/v1/analytics?setup=${action.signature}`)
+    const response = yield call(getData, `/api/v1/analytics?signature=${action.signature}`)
     yield put(updateLineChartDataAction(response.data.attributes))
   }
   catch(err) {
