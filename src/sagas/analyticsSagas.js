@@ -15,8 +15,8 @@ export function* fetchPieChartData(action) {
     const response = yield call(getData, `/api/v1/analytics?signature=${action.signature}&type=pie`)
     yield put(updatePieChartDataAction(response.data.attributes))
   }
-  catch(err) {
-    console.log(err)
+  catch(error) {
+    console.log(error)
   }
 }
 

@@ -29,9 +29,10 @@ class SideBar extends Component {
   }
 
   handleFetchAnalytics = () => {
+    let gameTurnCode = this.props.game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
     let signature = this.props.game.pieces.map((piece) => {
       return piece.positionIndex.toString() + piece.position
-    }).join('.') + this.props.game.gameTurnCode
+    }).join('.') + gameTurnCode
     this.props.dispatch(fetchPieChartDataAction(signature))
     this.props.dispatch(fetchLineChartDataAction(signature))
   }
