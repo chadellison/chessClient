@@ -23,10 +23,11 @@ export const updatePieChartDataAction = (data) => {
   }
 }
 
-export const fetchLineChartDataAction = (signature) => {
+export const fetchLineChartDataAction = (signature, moves) => {
   return {
     type: 'FETCH_LINE_CHART_DATA',
-    signature: signature
+    signature: signature,
+    moves: moves
   }
 }
 
