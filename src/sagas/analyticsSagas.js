@@ -21,7 +21,6 @@ export function* fetchPieChartData(action) {
 }
 
 export function* fetchLineChartData(action) {
-  console.log('here is where you line chart')
   const body = JSON.stringify({moves: action.moves, signature: action.signature})
   try {
     const response = yield call(postData, '/api/v1/analytics', body)

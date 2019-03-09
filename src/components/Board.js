@@ -156,7 +156,7 @@ class Board extends Component {
         <div className={`board ${this.boardColumn()} col-md-12`}>
           {this.renderBoard()}
         </div>
-        <AnalyticsLineChart />
+        <AnalyticsLineChart lineChartData={this.props.analytics.lineChartData} />
       </div>
     )
   }

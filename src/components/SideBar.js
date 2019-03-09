@@ -28,13 +28,23 @@ class SideBar extends Component {
     }
   }
 
-  handleFetchAnalytics = () => {
+  createSignature = () => {
     let gameTurnCode = this.props.game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
-    let signature = this.props.game.pieces.map((piece) => {
+    return this.props.game.pieces.map((piece) => {
       return piece.positionIndex.toString() + piece.position
     }).join('.') + gameTurnCode
+  }
+
+  movesWithCount = () => {
+    return this.props.game.attributes.moves.map((move, index) => {
+      return { value: move, move_count: index + 1 }
+    })
+  }
+
+  handleFetchAnalytics = () => {
+    const signature = this.createSignature()
     this.props.dispatch(fetchPieChartDataAction(signature))
-    this.props.dispatch(fetchLineChartDataAction(signature, this.props.game.attributes.moves))
+    this.props.dispatch(fetchLineChartDataAction(signature, this.movesWithCount()))
   }
 
   handleAnalytics = () => {

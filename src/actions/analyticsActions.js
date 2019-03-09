@@ -12,10 +12,10 @@ export const fetchPieChartDataAction = (signature) => {
   }
 }
 
-export const updatePieChartDataAction = (data) => {
-  let whiteWinData = {value: data.whiteWins, color: '#cd853f'}
-  let blackWinData = {value: data.blackWins, color: '#8b4513'}
-  let drawData = {value: data.draws, color: '#333333'}
+export const updatePieChartDataAction = (pieChartData) => {
+  let whiteWinData = {value: pieChartData.whiteWins, color: '#cd853f'}
+  let blackWinData = {value: pieChartData.blackWins, color: '#8b4513'}
+  let drawData = {value: pieChartData.draws, color: '#333333'}
 
   return {
     type: 'UPDATE_PIE_CHART_DATA',
@@ -31,13 +31,9 @@ export const fetchLineChartDataAction = (signature, moves) => {
   }
 }
 
-export const updateLineChartDataAction = (data) => {
-  // let whiteWinData = {value: data.whiteWins, color: '#cd853f'}
-  // let blackWinData = {value: data.blackWins, color: '#8b4513'}
-  // let drawData = {value: data.draws, color: '#333333'}
-  console.log('thing here')
+export const updateLineChartDataAction = (lineChartData) => {
   return {
     type: 'UPDATE_LINE_CHART_DATA',
-    // pieChartData: [whiteWinData, blackWinData, drawData]
+    lineChartData: lineChartData
   }
 }
