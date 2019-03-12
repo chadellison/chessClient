@@ -16,12 +16,12 @@ import {
 } from '../actions/analyticsActions'
 
 class SideBar extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.handleFetchAnalytics()
   }
 
   handleAllGamesButton = () => {
-    if(this.props.user.token) {
+    if (this.props.user.token) {
       this.props.dispatch(push('/games'))
     } else {
       this.props.dispatch(handleModalAction({login: true}))
@@ -63,17 +63,14 @@ class SideBar extends Component {
   }
 
   resetButton() {
-    if(!this.props.game.id) {
-      return (
-        <div className='navButton'
-          onClick={() => this.props.dispatch(resetGameAction())}>
-          <i className='glyphicon glyphicon-triangle-left navIcon'/>
-          <span>Reset</span>
-        </div>
-      )
-    } else {
-      return ''
-    }
+    return (
+      <div className='navButton'
+        onClick={() => this.props.dispatch(resetGameAction())}
+        hidden={this.props.game.id}>
+        <i className='glyphicon glyphicon-triangle-left navIcon'/>
+        <span>Reset</span>
+      </div>
+    )
   }
 
   handleJoinGame = () => {

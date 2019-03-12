@@ -45,37 +45,29 @@ class SignUpModal extends Component {
     }
   }
 
-  signUpModal = () => {
-    if(this.props.modals.signUp) {
-      return (
-        <div className='modalContainer'>
-          <form className='signUpModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleSignUp(e)}>
-            {this.displaySpinner()}
-            {this.invalidSignUp()}
-            <h4 className='emailTitle'>Email</h4>
-            <input className='emailInput' id='emailInput'></input>
-            <h4 className='passwordTitle'>Password</h4>
-            <input className='passwordInput' id='passwordInput' type='password'/>
-            <br/>
-            <h4 className='firstNameTitle'>First Name</h4>
-            <input className='firstNameInput' id='firstNameInput'></input>
-            <h4 className='lastNameTitle'>Last Name</h4>
-            <input className='lastNameInput' id='lastNameInput'/>
-            <br/>
-            <input type='submit' className='submitSignUp'/>
-            <br/>
-            <button className='cancelButton' onClick={(e) => this.handleCancel(e)}>Cancel</button>
-            <div className='modalPadding'></div>
-          </form>
-        </div>
-      )
-    } else {
-      return <div></div>
-    }
-  }
-
   render() {
-    return this.signUpModal()
+    return (
+      <div className='modalContainer' hidden={!this.props.modals.signUp}>
+        <form className='signUpModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleSignUp(e)}>
+          {this.displaySpinner()}
+          {this.invalidSignUp()}
+          <h4 className='emailTitle'>Email</h4>
+          <input className='emailInput' id='emailInput'></input>
+          <h4 className='passwordTitle'>Password</h4>
+          <input className='passwordInput' id='passwordInput' type='password'/>
+          <br/>
+          <h4 className='firstNameTitle'>First Name</h4>
+          <input className='firstNameInput' id='firstNameInput'></input>
+          <h4 className='lastNameTitle'>Last Name</h4>
+          <input className='lastNameInput' id='lastNameInput'/>
+          <br/>
+          <input type='submit' className='submitSignUp'/>
+          <br/>
+          <button className='cancelButton' onClick={(e) => this.handleCancel(e)}>Cancel</button>
+          <div className='modalPadding'></div>
+        </form>
+      </div>
+    )
   }
 }
 

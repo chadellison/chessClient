@@ -111,7 +111,7 @@ class Square extends Component {
     };
   }
 
-  renderSquare = () => {
+  render() {
     return (
       <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
         <div className={`${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}
@@ -121,8 +121,6 @@ class Square extends Component {
       </DropTarget>
     )
   }
-
-  render() {return this.renderSquare()}
 }
 
 const mapStateToProps = ({game, user, analytics}) => {

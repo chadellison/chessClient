@@ -7,7 +7,7 @@ import {clearChatAction, addChatAction, updateChatFieldAction, clearAllChatsActi
 import {createChatSocketAction} from '../actions/socketActions'
 
 class Chat extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.createChatSocket()
   }
 

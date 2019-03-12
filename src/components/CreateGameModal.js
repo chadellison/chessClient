@@ -44,43 +44,35 @@ class CreateGameModal extends Component {
     }
   }
 
-  createGameModal = () => {
-    if(this.props.modals.createGame) {
-      return (
-        <div className='modalContainer'>
-          <form className='createGameModal col-sm-offset-4 col-md-4' onSubmit={(e) => this.handleCreateGame(e)}>
-            {this.submissionFailed()}
-            {this.displaySpinner()}
-            <h4 className='createGameTitle'>Create Game</h4>
-            <label>Select Type:</label>
-            <select id='gameType' name='gameType'>
-              <option value='human vs human'>Human vs Human</option>
-              <option value='human vs machine'>Human vs Machine</option>
-              <option value='machine vs machine'>Machine vs Machine</option>
-            </select>
-            <br/>
-
-            <label>Select Color:</label>
-            <select id='colorSelection' name='colorSelection'>
-              <option value='white'>White</option>
-              <option value='black'>Black</option>
-            </select>
-            <br/>
-
-            <input type='submit' className='submitCreateGame'/>
-            <br/>
-            <button className='cancelButton' onClick={(e) => this.handleCancel(e)}>Cancel</button>
-            <div className='modalPadding'></div>
-          </form>
-        </div>
-      )
-    } else {
-      return <div></div>
-    }
-  }
-
   render() {
-    return this.createGameModal()
+    return (
+      <div className='modalContainer' hidden={!this.props.modals.createGame}>
+        <form className='createGameModal col-sm-offset-4 col-md-4' onSubmit={(e) => this.handleCreateGame(e)}>
+          {this.submissionFailed()}
+          {this.displaySpinner()}
+          <h4 className='createGameTitle'>Create Game</h4>
+          <label>Select Type:</label>
+          <select id='gameType' name='gameType'>
+            <option value='human vs human'>Human vs Human</option>
+            <option value='human vs machine'>Human vs Machine</option>
+            <option value='machine vs machine'>Machine vs Machine</option>
+          </select>
+          <br/>
+
+          <label>Select Color:</label>
+          <select id='colorSelection' name='colorSelection'>
+            <option value='white'>White</option>
+            <option value='black'>Black</option>
+          </select>
+          <br/>
+
+          <input type='submit' className='submitCreateGame'/>
+          <br/>
+          <button className='cancelButton' onClick={(e) => this.handleCancel(e)}>Cancel</button>
+          <div className='modalPadding'></div>
+        </form>
+      </div>
+    )
   }
 }
 

@@ -44,33 +44,25 @@ class LoginModal extends Component {
     }
   }
 
-  loginModal = () => {
-    if(this.props.modals.login) {
-      return (
-        <div className='modalContainer'>
-          <form className='loginModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleLogin(e)}>
-            {this.displaySpinner()}
-            {this.invalidCredentials()}
-            <h4 className='emailTitle'>Email</h4>
-            <input className='emailInput' id='emailInput'></input>
-            <h4 className='passwordTitle'>Password</h4>
-            <input className='passwordInput' id='passwordInput' type='password'/>
-            <br/>
-            <input type='submit' className='submitLogin'/>
-            <br/>
-            <button className='cancelButton' onClick={(e) => this.handleCancel(e)}>Cancel</button>
-            <div className='signUpLink' onClick={this.handleSignUpLink}>Sign Up</div>
-            <div className='modalPadding'></div>
-          </form>
-        </div>
-      )
-    } else {
-      return <div></div>
-    }
-  }
-
   render() {
-    return this.loginModal()
+    return (
+      <div className='modalContainer' hidden={!this.props.modals.login}>
+        <form className='loginModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleLogin(e)}>
+          {this.displaySpinner()}
+          {this.invalidCredentials()}
+          <h4 className='emailTitle'>Email</h4>
+          <input className='emailInput' id='emailInput'></input>
+          <h4 className='passwordTitle'>Password</h4>
+          <input className='passwordInput' id='passwordInput' type='password'/>
+          <br/>
+          <input type='submit' className='submitLogin'/>
+          <br/>
+          <button className='cancelButton' onClick={(e) => this.handleCancel(e)}>Cancel</button>
+          <div className='signUpLink' onClick={this.handleSignUpLink}>Sign Up</div>
+          <div className='modalPadding'></div>
+        </form>
+      </div>
+    )
   }
 }
 

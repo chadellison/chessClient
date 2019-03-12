@@ -56,55 +56,48 @@ class PromotePawnModal extends Component {
     }
   }
 
-  promotePawnModal = () => {
-    if(this.props.modals.promotePawn) {
-      return (
-        <div className='modalContainer'>
-          <div className={`promotePawnModal ${this.backgroundColor()} col-sm-offset-4 col-md-4`}>
-            <div className='row'>
-              <i
-                id={'knight'}
-                className={
-                  `glyphicon glyphicon-knight
-                    promotePawn piece-${this.props.game.attributes.currentTurn}`
-                }
-                onClick={(e) => this.handlePawnPromotion(e)}
-              />
-              <i
-                id={'bishop'}
-                className={
-                  `glyphicon glyphicon-bishop
-                    promotePawn piece-${this.props.game.attributes.currentTurn}`
-                }
-                onClick={(e) => this.handlePawnPromotion(e)}
-              />
-              <i
-                id={'rook'}
-                className={
-                  `glyphicon glyphicon-tower
-                    promotePawn piece-${this.props.game.attributes.currentTurn}`
-                }
-                onClick={(e) => this.handlePawnPromotion(e)}
-              />
-              <i
-                id={'queen'}
-                className={
-                  `glyphicon glyphicon-queen
-                    promotePawn piece-${this.props.game.attributes.currentTurn}`
-                }
-                onClick={(e) => this.handlePawnPromotion(e)}
-              />
-            </div>
+  render() {
+    let turn = this.props.game.attributes.currentTurn
+    return (
+      <div className='modalContainer' hidden={!this.props.modals.promotePawn}>
+        <div className={`promotePawnModal ${this.backgroundColor()} col-sm-offset-4 col-md-4`}>
+          <div className='row'>
+            <i
+              id={'knight'}
+              className={
+                `glyphicon glyphicon-knight
+                  promotePawn piece-${turn}`
+              }
+              onClick={(e) => this.handlePawnPromotion(e)}
+            />
+            <i
+              id={'bishop'}
+              className={
+                `glyphicon glyphicon-bishop
+                  promotePawn piece-${turn}`
+              }
+              onClick={(e) => this.handlePawnPromotion(e)}
+            />
+            <i
+              id={'rook'}
+              className={
+                `glyphicon glyphicon-tower
+                  promotePawn piece-${turn}`
+              }
+              onClick={(e) => this.handlePawnPromotion(e)}
+            />
+            <i
+              id={'queen'}
+              className={
+                `glyphicon glyphicon-queen
+                  promotePawn piece-${turn}`
+              }
+              onClick={(e) => this.handlePawnPromotion(e)}
+            />
           </div>
         </div>
-      )
-    } else {
-      return <div></div>
-    }
-  }
-
-  render() {
-    return this.promotePawnModal()
+      </div>
+    )
   }
 }
 

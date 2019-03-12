@@ -8,32 +8,24 @@ class MessagePromptModal extends Component {
     this.props.dispatch(handleModalAction({createGame: true, messagePrompt: false}))
   }
 
-  messagePromptModal = () => {
-    if(this.props.modals.messagePrompt) {
-      return (
-        <div className='modalContainer'>
-          <div className='messagePromptModal col-sm-offset-4 col-md-4'>
-            <div className='messagePromptModalTop'></div>
-            <div className='messageText'>
-              There are no open games at this time. Would you like to create one?
-            </div>
-            <div onClick={this.handleCreateGameModal} className='yesPromptButton'>
-                Yes
-            </div>
-            <div onClick={() => this.props.dispatch(handleModalAction({messagePrompt: false}))}
-              className='noPromptButton'>
-                No
-            </div>
+  render() {
+    return (
+      <div className='modalContainer' hidden={!this.props.modals.messagePrompt}>
+        <div className='messagePromptModal col-sm-offset-4 col-md-4'>
+          <div className='messagePromptModalTop'></div>
+          <div className='messageText'>
+            There are no open games at this time. Would you like to create one?
+          </div>
+          <div onClick={this.handleCreateGameModal} className='yesPromptButton'>
+              Yes
+          </div>
+          <div onClick={() => this.props.dispatch(handleModalAction({messagePrompt: false}))}
+            className='noPromptButton'>
+              No
           </div>
         </div>
-      )
-    } else {
-      return <div></div>
-    }
-  }
-
-  render() {
-    return this.messagePromptModal()
+      </div>
+    )
   }
 }
 

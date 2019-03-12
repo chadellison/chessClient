@@ -9,7 +9,7 @@ import { resetGameAction } from '../actions/gameActions'
 import { updateChatChannelAction } from '../actions/chatActions'
 
 class ActiveGames extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if(this.props.user.id) {
       this.props.dispatch(fetchActiveGamesAction(this.props.user.token))
       this.props.dispatch(updateChatChannelAction('GroupChatChannel'))

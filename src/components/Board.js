@@ -22,7 +22,7 @@ class Board extends Component {
     this.moveAudio = new Audio(moveAudio)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
     let currentGame = this.props.activeGames.filter((game) => game.id === gameId)[0]
     if (gameId && (!currentGame || !this.userAllowed(currentGame))) {
