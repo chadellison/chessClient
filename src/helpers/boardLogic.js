@@ -106,14 +106,14 @@ export const updatePiece = (piece, newPosition) => {
   return piece
 }
 
-export const mapPiecesToBoard = (game) => {
+export const mapPiecesToBoard = (previousSetup, game) => {
   let gamePieces = {}
 
-  if (game.previousSetup) {
+  if (previousSetup) {
     let clonedGame = JSON.parse(JSON.stringify(game))
     clonedGame.pieces = JSON.parse(JSON.stringify(jsonPieces))
 
-    game.previousSetup.forEach((move) => {
+    previousSetup.forEach((move) => {
       clonedGame.selected = findPiece(move, clonedGame.pieces)
       clonedGame.pieces = updateBoard(clonedGame, findPosition(move))
     })

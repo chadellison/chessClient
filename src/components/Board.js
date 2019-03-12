@@ -85,7 +85,8 @@ class Board extends Component {
   }
 
   renderBoard = () => {
-    let gamePieces = mapPiecesToBoard(this.props.game)
+    let {game} = this.props
+    let gamePieces = mapPiecesToBoard(game.previousSetup, game)
     let userId = this.props.user.id
     let blackPlayerId = this.props.game.attributes.blackPlayer.id
 

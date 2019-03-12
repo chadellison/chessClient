@@ -9,6 +9,7 @@ import Analytics from './Analytics'
 import { handleModalAction } from '../actions/modalActions'
 import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
 import { moveLogAction } from '../actions/sideBarActions'
+import { mapPiecesToBoard } from '../helpers/boardLogic'
 import {
   fetchPieChartDataAction,
   analyticsAction,
@@ -28,9 +29,8 @@ class SideBar extends Component {
     }
   }
 
-  createSignature = () => {
-    let gameTurnCode = this.props.game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
-    return this.props.game.pieces.map((piece) => {
+  createSignature = (pieces, gameTurnCode) => {
+    return pieces.map((piece) => {
       return piece.positionIndex.toString() + piece.position
     }).join('.') + gameTurnCode
   }
@@ -42,7 +42,9 @@ class SideBar extends Component {
   }
 
   handleFetchAnalytics = () => {
-    const signature = this.createSignature()
+    let {game} = this.props
+    let gameTurnCode = game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
+    let signature = this.createSignature(game.pieces, gameTurnCode)
     this.props.dispatch(fetchPieChartDataAction(signature))
     this.props.dispatch(fetchLineChartDataAction(signature, this.movesWithCount()))
   }
@@ -108,6 +110,14 @@ class SideBar extends Component {
     let endIndex = parseInt(e.target.id, 10) + 1
     let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
     this.props.dispatch(updateGamePayload({previousSetup: previousSetup}))
+
+    let gamePieces = Object.values(mapPiecesToBoard(previousSetup, this.props.game))
+    if (this.props.analytics.active) {
+      let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
+      let signature = this.createSignature(gamePieces, gameTurnCode)
+      this.props.dispatch(fetchPieChartDataAction(signature))
+      this.props.dispatch(fetchLineChartDataAction(signature, this.movesWithCount()))
+    }
   }
 
   renderAnalytics() {
