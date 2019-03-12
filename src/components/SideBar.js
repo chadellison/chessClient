@@ -73,6 +73,15 @@ class SideBar extends Component {
     )
   }
 
+  analyticsButton = () => {
+    return (
+      <div className='navButton' onClick={this.handleAnalytics} hidden={this.props.game.id}>
+        <i className='glyphicon glyphicon-signal navIcon'/>
+        <span>{this.analyticsText()}</span>
+      </div>
+    )
+  }
+
   handleJoinGame = () => {
     this.props.dispatch(joinGameAction(this.props.user.token))
   }
@@ -150,10 +159,7 @@ class SideBar extends Component {
           </div>
           {this.renderMoveLog()}
           <hr/>
-          <div className='navButton' onClick={this.handleAnalytics}>
-            <i className='glyphicon glyphicon-signal navIcon'/>
-            <span>{this.analyticsText()}</span>
-          </div>
+          {this.analyticsButton()}
           {this.renderAnalytics()}
           <hr/>
           {this.resetButton()}
