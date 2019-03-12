@@ -91,9 +91,9 @@ class SideBar extends Component {
   renderMoveLog() {
     if (this.props.sideBar.moveLogActive) {
       return (
-          <MoveLog game={this.props.game}
-            handlePreviousBoard={this.handlePreviousBoard}
-          />
+        <MoveLog game={this.props.game}
+          handlePreviousBoard={this.handlePreviousBoard}
+        />
       )
     }
   }

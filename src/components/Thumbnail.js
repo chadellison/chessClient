@@ -7,7 +7,7 @@ import { rows, columns, findGravater, mapPiecesToBoard } from '../helpers/boardL
 
 class Thumbnail extends Component {
   renderBoard = () => {
-    let gamePieces = mapPiecesToBoard(this.props.thumbnailGame)
+    let gamePieces = mapPiecesToBoard(null, this.props.thumbnailGame)
 
     let gameId = this.props.thumbnailGame.id
     let userId = this.props.user.id
