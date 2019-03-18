@@ -77,7 +77,7 @@ class SideBar extends Component {
 
   analyticsButton = () => {
     return (
-      <div className='navButton' onClick={this.handleAnalytics} hidden={this.props.game.id}>
+      <div className='navButton' onClick={this.handleAnalytics}>
         <i className='glyphicon glyphicon-signal navIcon'/>
         <span>{this.analyticsText()}</span>
       </div>
