@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import '../styles/square.css'
 import Piece from './Piece'
 import { DropTarget } from 'react-drag-drop-container'
 import moveAudio from '../audio/moveAudio.wav'
@@ -14,10 +13,6 @@ class Square extends Component {
     super()
     this.moveAudio = new Audio(moveAudio)
     this.moveLogic = new MoveLogic()
-  }
-
-  findSquareColor() {
-    return this.props.value % 2 === 0 ? 'black' : 'white'
   }
 
   renderPiece() {
@@ -92,30 +87,27 @@ class Square extends Component {
       this.moveLogic.isValidMove(piece, nextMove, pieces)
   }
 
-  lastMoveClass() {
-    if (this.props.isLastMove) {
-      return ' isLastMove'
-    } else {
-      return ''
-    }
-  }
-
-  squareStyle = () => {
+  squareStyle = (isLastMove) => {
     let dimension = this.props.analytics.active ? '3.7vw' : '5.7vw'
+    let border = this.props.isLastMove ? '1px solid #ffa109' : 'none'
+    let opacity = this.props.isLastMove ? '0.75' : '1'
+    let background = this.props.value % 2 === 0 ? '#8b4513' : '#cd853f'
     return {
       width: dimension,
       height: dimension,
       transition: 'width 1s, height 1s, transform 1s',
       transformOrigin: '50% 50%',
-      animation: 'scale .6s'
+      animation: 'scale .6s',
+      border: border,
+      opacity: opacity,
+      background: background
     };
   }
 
   render() {
     return (
       <DropTarget targetKey='dropSquare' dropData={{id: this.props.id}} onHit={this.handleMove}>
-        <div className={`${this.findSquareColor()}${this.lastMoveClass()}`} id={this.props.id}
-          style={this.squareStyle()}>
+        <div id={this.props.id} style={this.squareStyle()}>
           {this.renderPiece()}
         </div>
       </DropTarget>
