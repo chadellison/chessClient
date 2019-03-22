@@ -21,6 +21,7 @@ class AnalyticsLineChart extends Component {
           <Line type="monotone" dataKey="materialWeight" stroke="#82ca9d" />
           <Line type="monotone" dataKey="attackWeight" stroke="#e07b33" />
           <Line type="monotone" dataKey="threatWeight" stroke="#dd3918" />
+          <Line type="monotone" dataKey="activityWeight" stroke="#f4d442" />
           <Line type="monotone" dataKey="totalWeight" stroke="#1749dd" />
         </LineChart>
       </div>
