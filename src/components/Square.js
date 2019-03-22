@@ -88,9 +88,10 @@ class Square extends Component {
   }
 
   squareStyle = (isLastMove) => {
+    let isFocusSquare = this.props.analytics.focusSquare === this.props.id
     let dimension = this.props.analytics.active ? '3.7vw' : '5.7vw'
     let border = this.props.isLastMove ? '1px solid #ffa109' : 'none'
-    let opacity = this.props.isLastMove ? '0.75' : '1'
+    let opacity = this.props.isLastMove || isFocusSquare ? '0.75' : '1'
     let background = this.props.value % 2 === 0 ? '#8b4513' : '#cd853f'
     return {
       width: dimension,

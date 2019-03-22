@@ -12,6 +12,13 @@ export const fetchPieChartDataAction = (signature) => {
   }
 }
 
+export const updateFocusSquareAction = (focusSquare) => {
+  return {
+    type: 'UPDATE_FOCUS_SQUARE',
+    focusSquare: focusSquare
+  }
+}
+
 export const updatePieChartDataAction = (pieChartData) => {
   let whiteWinData = {value: pieChartData.whiteWins, color: '#cd853f'}
   let blackWinData = {value: pieChartData.blackWins, color: '#8b4513'}
