@@ -28,12 +28,9 @@ class AnalyticsLineChart extends Component {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="setup" stroke="#8884d8" />
-          <Line type="monotone" dataKey="material" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="attack" stroke="#e07b33" />
-          <Line type="monotone" dataKey="threat" stroke="#dd3918" />
-          <Line type="monotone" dataKey="activity" stroke="#f4d442" />
-          <Line type="monotone" dataKey="total" stroke="#1749dd" />
+          <Line type="monotone" dataKey="white" stroke="#8884d8" />
+          <Line type="monotone" dataKey="black" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="draw" stroke="#e07b33" />
         </LineChart>
       </div>
     )
