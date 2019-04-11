@@ -21,6 +21,14 @@
 
 }
 
+.piece-black {
+  color: #262638;
+}
+
+.piece-white {
+  color: #e3e3ed;
+}
+
 .promotePawn {
   margin-top: 25%;
   margin-bottom: 25%;
