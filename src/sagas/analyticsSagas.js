@@ -1,32 +1,18 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
-import {updatePieChartDataAction, updateLineChartDataAction} from '../actions/analyticsActions'
+import {updateAnalyticsDataAction} from '../actions/analyticsActions'
 import {getData, postData} from './apiHelper'
 
-export function* watchFetchPieChartData() {
-  yield takeEvery('FETCH_PIE_CHART_DATA', fetchPieChartData)
+export function* watchFetchAnalyticsData() {
+  yield takeEvery('FETCH_ANALYTICS_DATA', fetchAnalyticsData)
 }
 
-export function* watchFetchLineChartData() {
-  yield takeEvery('FETCH_LINE_CHART_DATA', fetchLineChartData)
-}
-
-export function* fetchPieChartData(action) {
-  try {
-    const response = yield call(getData, `/api/v1/analytics?signature=${action.signature}`)
-    yield put(updatePieChartDataAction(response.data.attributes))
-  }
-  catch(error) {
-    console.log(error)
-  }
-}
-
-export function* fetchLineChartData(action) {
+export function* fetchAnalyticsData(action) {
   const body = JSON.stringify({moves: action.moves, signature: action.signature})
   try {
     const response = yield call(postData, '/api/v1/analytics', body)
-    yield put(updateLineChartDataAction(response.data.attributes))
+    yield put(updateAnalyticsDataAction(response.data.attributes))
   }
-  catch(err) {
-    console.log(err)
+  catch(error) {
+    console.log(error)
   }
 }

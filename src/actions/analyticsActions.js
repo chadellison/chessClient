@@ -5,13 +5,6 @@ export const analyticsAction = (active) => {
   }
 }
 
-export const fetchPieChartDataAction = (signature) => {
-  return {
-    type: 'FETCH_PIE_CHART_DATA',
-    signature: signature
-  }
-}
-
 export const updateFocusSquareAction = (focusSquare) => {
   return {
     type: 'UPDATE_FOCUS_SQUARE',
@@ -19,28 +12,17 @@ export const updateFocusSquareAction = (focusSquare) => {
   }
 }
 
-export const updatePieChartDataAction = (pieChartData) => {
-  let whiteWinData = {value: pieChartData.whiteWins, color: '#cd853f'}
-  let blackWinData = {value: pieChartData.blackWins, color: '#8b4513'}
-  let drawData = {value: pieChartData.draws, color: '#333333'}
-
+export const fetchAnalyticsDataAction = (signature, moves) => {
   return {
-    type: 'UPDATE_PIE_CHART_DATA',
-    pieChartData: [whiteWinData, blackWinData, drawData]
-  }
-}
-
-export const fetchLineChartDataAction = (signature, moves) => {
-  return {
-    type: 'FETCH_LINE_CHART_DATA',
+    type: 'FETCH_ANALYTICS_DATA',
     signature: signature,
     moves: moves
   }
 }
 
-export const updateLineChartDataAction = (lineChartData) => {
+export const updateAnalyticsDataAction = (analyticsData) => {
   return {
-    type: 'UPDATE_LINE_CHART_DATA',
-    lineChartData: lineChartData
+    type: 'UPDATE_ANALYTICS_DATA',
+    analyticsData: analyticsData
   }
 }

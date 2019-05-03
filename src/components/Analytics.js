@@ -11,7 +11,7 @@ export default class Analytics extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <div className='chart'>
           <PieChart slices={this.props.pieChartData} />

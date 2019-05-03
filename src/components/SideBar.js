@@ -10,11 +10,7 @@ import { handleModalAction } from '../actions/modalActions'
 import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
 import { moveLogAction } from '../actions/sideBarActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
-import {
-  fetchPieChartDataAction,
-  analyticsAction,
-  fetchLineChartDataAction
-} from '../actions/analyticsActions'
+import { analyticsAction, fetchAnalyticsDataAction } from '../actions/analyticsActions'
 
 class SideBar extends Component {
   componentDidMount() {
@@ -45,8 +41,7 @@ class SideBar extends Component {
     let {game} = this.props
     let gameTurnCode = game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
     let signature = this.createSignature(game.pieces, gameTurnCode)
-    this.props.dispatch(fetchPieChartDataAction(signature))
-    this.props.dispatch(fetchLineChartDataAction(signature, this.movesWithCount()))
+    this.props.dispatch(fetchAnalyticsDataAction(signature, this.movesWithCount()))
   }
 
   handleAnalytics = () => {
@@ -115,8 +110,7 @@ class SideBar extends Component {
     if (this.props.analytics.active) {
       let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
       let signature = this.createSignature(gamePieces, gameTurnCode)
-      this.props.dispatch(fetchPieChartDataAction(signature))
-      this.props.dispatch(fetchLineChartDataAction(signature, this.movesWithCount()))
+      this.props.dispatch(fetchAnalyticsDataAction(signature, this.movesWithCount()))
     }
   }
 

@@ -6,7 +6,7 @@ import {
   watchMachineVsMachineGame
 } from './gamesSagas'
 import { watchLogin, watchSignUp } from './userSagas'
-import { watchFetchPieChartData, watchFetchLineChartData } from './analyticsSagas'
+import { watchFetchAnalyticsData } from './analyticsSagas'
 
 export default function* rootSaga() {
   yield all([
@@ -16,7 +16,6 @@ export default function* rootSaga() {
     fork(watchCreateGame),
     fork(watchMachineVsMachineGame),
     fork(watchJoinGame),
-    fork(watchFetchPieChartData),
-    fork(watchFetchLineChartData)
+    fork(watchFetchAnalyticsData)
   ])
 }

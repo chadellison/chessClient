@@ -10,7 +10,7 @@ import {
 class AnalyticsLineChart extends Component {
 
   updateFocusSquare = (e) => {
-    if(e.activeLabel) {
+    if (e.activeLabel) {
       this.props.dispatch(updateFocusSquareAction(e.activeLabel.slice(-2)))
     } else {
       this.props.dispatch(updateFocusSquareAction(null))
@@ -28,8 +28,8 @@ class AnalyticsLineChart extends Component {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="white" stroke="#8884d8" />
-          <Line type="monotone" dataKey="black" stroke="#e07b33" />
+          <Line type="monotone" dataKey="white" stroke="#cd853f" />
+          <Line type="monotone" dataKey="black" stroke="#8b4513" />
         </LineChart>
       </div>
     )
