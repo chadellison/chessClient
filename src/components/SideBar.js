@@ -25,12 +25,6 @@ class SideBar extends Component {
     }
   }
 
-  createSignature = (pieces, gameTurnCode) => {
-    return pieces.map((piece) => {
-      return piece.positionIndex.toString() + piece.position
-    }).join('.') + gameTurnCode
-  }
-
   movesWithCount = () => {
     return this.props.game.attributes.moves.map((move, index) => {
       return { value: move, move_count: index + 1 }
@@ -40,8 +34,7 @@ class SideBar extends Component {
   handleFetchAnalytics = () => {
     let {game} = this.props
     let gameTurnCode = game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
-    let signature = this.createSignature(game.pieces, gameTurnCode)
-    this.props.dispatch(fetchAnalyticsDataAction(signature, this.movesWithCount()))
+    this.props.dispatch(fetchAnalyticsDataAction(game.pieces, gameTurnCode, this.movesWithCount()))
   }
 
   handleAnalytics = () => {
@@ -109,8 +102,7 @@ class SideBar extends Component {
     let gamePieces = Object.values(mapPiecesToBoard(previousSetup, this.props.game))
     if (this.props.analytics.active) {
       let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
-      let signature = this.createSignature(gamePieces, gameTurnCode)
-      this.props.dispatch(fetchAnalyticsDataAction(signature, this.movesWithCount()))
+      this.props.dispatch(fetchAnalyticsDataAction(gamePieces, gameTurnCode, this.movesWithCount()))
     }
   }
 

@@ -12,10 +12,11 @@ export const updateFocusSquareAction = (focusSquare) => {
   }
 }
 
-export const fetchAnalyticsDataAction = (signature, moves) => {
+export const fetchAnalyticsDataAction = (pieces, turn, moves) => {
   return {
     type: 'FETCH_ANALYTICS_DATA',
-    signature: signature,
+    pieces: pieces,
+    turn: turn,
     moves: moves
   }
 }

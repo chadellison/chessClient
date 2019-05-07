@@ -7,7 +7,7 @@ export function* watchFetchAnalyticsData() {
 }
 
 export function* fetchAnalyticsData(action) {
-  const body = JSON.stringify({moves: action.moves, signature: action.signature})
+  const body = JSON.stringify({ pieces: action.pieces, turn: action.turn, moves: action.moves })
   try {
     const response = yield call(postData, '/api/v1/analytics', body)
     yield put(updateAnalyticsDataAction(response.data.attributes))
