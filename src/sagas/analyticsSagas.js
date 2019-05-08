@@ -1,6 +1,6 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 import {updateAnalyticsDataAction} from '../actions/analyticsActions'
-import {getData, postData} from './apiHelper'
+import {postData} from './apiHelper'
 
 export function* watchFetchAnalyticsData() {
   yield takeEvery('FETCH_ANALYTICS_DATA', fetchAnalyticsData)

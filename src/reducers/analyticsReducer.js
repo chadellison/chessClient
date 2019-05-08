@@ -26,8 +26,6 @@ const analyticsReducer = (state = initialState, action) => {
           pieChartData.black += (moveData.black)
         }
       })
-      console.log('w', pieChartData.white)
-      console.log('b', pieChartData.black)
       let white = {value: pieChartData.white, color: '#cd853f'}
       let black = {value: pieChartData.black, color: '#8b4513'}
       let draws = {value: pieChartData.draws, color: '#333333'}
