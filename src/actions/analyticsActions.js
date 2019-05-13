@@ -21,9 +21,16 @@ export const fetchAnalyticsDataAction = (pieces, turn, moves) => {
   }
 }
 
-export const updateAnalyticsDataAction = (analyticsData) => {
+export const updatePieChartDataAction = (analyticsData) => {
   return {
-    type: 'UPDATE_ANALYTICS_DATA',
+    type: 'UPDATE_PIE_CHART_DATA',
+    analyticsData: analyticsData
+  }
+}
+
+export const updateLineChartDataAction = (analyticsData) => {
+  return {
+    type: 'UPDATE_LINE_CHART_DATA',
     analyticsData: analyticsData
   }
 }
