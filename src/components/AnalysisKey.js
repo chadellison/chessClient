@@ -8,10 +8,6 @@ export default class AnalysisKey extends Component {
     let draws = parseInt(this.props.pieChartData[2].value, 10)
     let totalGames = whiteWins + blackWins + draws
 
-console.log('w', whiteWins)
-console.log('b', blackWins)
-console.log('d', draws)
-console.log('t', totalGames)
     if (totalGames === 0) {
       return '0%'
     } else {
