@@ -16,20 +16,23 @@ const analyticsReducer = (state = initialState, action) => {
     case 'ANALYTICS':
       return {...state, active: action.active }
     case 'UPDATE_PIE_CHART_DATA':
-    let chartData = [
-      {value: 0, color: '#cd853f'},
-      { value: 0, color: '#8b4513' },
-      { value: 0, color: '#333333' }
-    ]
-    action.analyticsData.forEach((moveData) => {
-      if (moveData.white < 1 && moveData.white > -1) {
-        chartData[2].value += 1
-      } else if (moveData.white > 1) {
-        chartData[0].value += moveData.white
-      } else {
-        chartData[1].value += (moveData.black)
-      }
-    })
+      let whiteValue = 0
+      let blackValue = 0
+      action.analyticsData.forEach((moveData) => {
+        if (moveData.white > whiteValue) {
+          whiteValue = moveData.white
+        }
+        if (moveData.black > blackValue) {
+          blackValue = moveData.black
+        }
+      })
+
+      let chartData = [
+        {value: whiteValue, color: '#cd853f'},
+        { value: blackValue, color: '#8b4513' },
+        { value: 0, color: '#333333' }
+      ]
+
       return {...state, pieChartData: chartData }
     case 'UPDATE_LINE_CHART_DATA':
       return {...state, lineChartData: action.analyticsData }
