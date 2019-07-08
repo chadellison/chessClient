@@ -55,7 +55,11 @@ class Board extends Component {
       { channel: 'GameChannel', game_id: this.props.game.id },
       { connected: () => {},
         received: (data) => {
-          this.moveAudio.play()
+          const {currentTurn, whitePlayer, blackPlayer} = data.attributes
+          const playerId = currentTurn === 'white' ? whitePlayer.id : blackPlayer.id
+          if (this.props.user.id === playerId) {
+            this.moveAudio.play()
+          }
           this.props.dispatch(updateGamePayload(data))
           if (data.attributes.outcome) {
             this.props.dispatch(handleModalAction({gameOver: true}))

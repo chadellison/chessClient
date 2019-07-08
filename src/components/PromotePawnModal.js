@@ -25,8 +25,8 @@ class PromotePawnModal extends Component {
     let attributes = updateAttributes(updatedGame, this.props.game.selected.crossedPawnPosition, pieceType)
     this.props.dispatch(updateGamePayload({pieces: updateBoard(updatedGame, this.props.game.selected.crossedPawnPosition), attributes: attributes}))
     this.props.dispatch(updateTurnAction(nextTurn(this.props.game.attributes.currentTurn)))
-
-    if(this.props.game.id) {
+    this.moveAudio.play()
+    if (this.props.game.id) {
       let gameData = {
         game_id: this.props.game.id,
         position_index: this.props.game.selected.positionIndex,
@@ -34,8 +34,6 @@ class PromotePawnModal extends Component {
         upgraded_type: pieceType
       }
       this.props.sockets.gameSocket.update(gameData)
-    } else {
-      this.moveAudio.play()
     }
   }
 

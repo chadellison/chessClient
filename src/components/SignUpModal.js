@@ -15,10 +15,10 @@ class SignUpModal extends Component {
   handleSignUp = (e) => {
     e.preventDefault()
     let signUpInfo = {
-      email: e.target.emailInput.value,
-      password: e.target.passwordInput.value,
-      first_name: e.target.firstNameInput.value,
-      last_name: e.target.lastNameInput.value
+      email: e.target.emailSignUpInput.value,
+      password: e.target.passwordSignUpInput.value,
+      first_name: e.target.firstNameSignUpInput.value,
+      last_name: e.target.lastNameSignUpInput.value
     }
     this.props.dispatch(spinnerAction(true))
     this.props.dispatch(updateUserAction({signUpFailed: false}))
@@ -52,14 +52,14 @@ class SignUpModal extends Component {
           {this.displaySpinner()}
           {this.invalidSignUp()}
           <h4 className='emailTitle'>Email</h4>
-          <input className='emailInput' id='emailInput'></input>
+          <input className='emailInput' id='emailSignUpInput'></input>
           <h4 className='passwordTitle'>Password</h4>
-          <input className='passwordInput' id='passwordInput' type='password'/>
+          <input className='passwordInput' id='passwordSignUpInput' type='password'/>
           <br/>
           <h4 className='firstNameTitle'>First Name</h4>
-          <input className='firstNameInput' id='firstNameInput'></input>
+          <input className='firstNameInput' id='firstNameSignUpInput'></input>
           <h4 className='lastNameTitle'>Last Name</h4>
-          <input className='lastNameInput' id='lastNameInput'/>
+          <input className='lastNameInput' id='lastNameSignUpInput'/>
           <br/>
           <input type='submit' className='submitSignUp'/>
           <br/>

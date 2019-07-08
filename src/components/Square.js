@@ -20,7 +20,7 @@ class Square extends Component {
   }
 
   handleMove = () => {
-    if(this.isValid(this.props.id)) {
+    if (this.isValid(this.props.id)) {
       this.move()
     }
   }
@@ -28,10 +28,10 @@ class Square extends Component {
   move = () => {
     if (this.isCrossedPawn()) {
       this.props.dispatch(handleModalAction({promotePawn: true}))
-      let crossedPawn = {...this.props.game.selected, crossedPawnPosition: this.props.id}
+      const crossedPawn = {...this.props.game.selected, crossedPawnPosition: this.props.id}
       this.props.dispatch(selectPieceAction(crossedPawn))
     } else {
-      let attributes = updateAttributes(this.props.game, this.props.id)
+      const attributes = updateAttributes(this.props.game, this.props.id)
       this.props.dispatch(updateGamePayload({pieces: updateBoard(this.props.game, this.props.id), attributes: attributes}))
       this.props.dispatch(updateTurnAction(nextTurn(this.props.game.attributes.currentTurn)))
       this.handleActiveGame()
@@ -39,15 +39,14 @@ class Square extends Component {
   }
 
   handleActiveGame() {
-    if(this.props.game.id) {
-      let gameData = {
+    this.moveAudio.play()
+    if (this.props.game.id) {
+      const gameData = {
         game_id: this.props.game.id,
         position_index: this.props.game.selected.positionIndex,
         new_position: this.props.id
       }
       this.props.sendMoveToServer(gameData)
-    } else {
-      this.moveAudio.play()
     }
   }
 
@@ -102,7 +101,7 @@ class Square extends Component {
       border: border,
       opacity: opacity,
       background: background
-    };
+    }
   }
 
   render() {
