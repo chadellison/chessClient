@@ -57,7 +57,7 @@ class Board extends Component {
         received: (data) => {
           const {currentTurn, whitePlayer, blackPlayer} = data.attributes
           const playerId = currentTurn === 'white' ? whitePlayer.id : blackPlayer.id
-          if (this.props.user.id === playerId) {
+          if (this.props.user.id === playerId || data.attributes.gameType === 'machine vs machine') {
             this.moveAudio.play()
           }
           this.props.dispatch(updateGamePayload(data))
