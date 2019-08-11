@@ -9,7 +9,11 @@ const PIECE_KEY = { 'pawn': 'pawn', 'knight': 'knight', 'bishop': 'bishop',
 
 const pieceStyle = (props) => {
   const pieceSize = props.analytics.active ? '2.5vw' : '3.5vw'
-  const color = props.piece.color === 'black' ? '#262638' : '#e3e3ed'
+  const isFocusPiece = props.analytics.focusPiece === props.piece.positionIndex
+  let color = props.piece.color === 'black' ? '#262638' : '#e3e3ed'
+  if (isFocusPiece) {
+    color = '#ffbdde'
+  }
   return {
     marginTop: '25%',
     fontSize: pieceSize,

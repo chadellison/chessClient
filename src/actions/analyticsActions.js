@@ -8,7 +8,14 @@ export const analyticsAction = (active) => {
 export const updateFocusSquareAction = (focusSquare) => {
   return {
     type: 'UPDATE_FOCUS_SQUARE',
-    focusSquare: focusSquare
+    focusSquare: focusSquare.slice(-2),
+    focusPiece: parseInt(focusSquare, 10),
+  }
+}
+
+export const clearFocusSquare = () => {
+  return {
+    type: 'CLEAR_FOCUS_SQUARE'
   }
 }
 

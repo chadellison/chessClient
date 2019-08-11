@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../styles/AnalyticsLineChart.css'
-import { updateFocusSquareAction } from '../actions/analyticsActions'
+import { updateFocusSquareAction, clearFocusSquare } from '../actions/analyticsActions'
 
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -11,9 +11,9 @@ class AnalyticsLineChart extends Component {
 
   updateFocusSquare = (e) => {
     if (e.activeLabel) {
-      this.props.dispatch(updateFocusSquareAction(e.activeLabel.slice(-2)))
+      this.props.dispatch(updateFocusSquareAction(e.activeLabel))
     } else {
-      this.props.dispatch(updateFocusSquareAction(null))
+      this.props.dispatch(clearFocusSquare())
     }
   }
 

@@ -8,7 +8,8 @@ const initialState = {
   active: false,
   pieChartData: pieChartData,
   lineChartData: [],
-  focusSquare: null
+  focusSquare: null,
+  focusPiece: null
 }
 
 const analyticsReducer = (state = initialState, action) => {
@@ -37,7 +38,9 @@ const analyticsReducer = (state = initialState, action) => {
     case 'UPDATE_LINE_CHART_DATA':
       return {...state, lineChartData: action.analyticsData }
     case 'UPDATE_FOCUS_SQUARE':
-      return {...state, focusSquare: action.focusSquare }
+      return {...state, focusSquare: action.focusSquare, focusPiece: action.focusPiece }
+    case 'CLEAR_FOCUS_SQUARE':
+      return {...state, focusSquare: null, focusPiece: null }
     default:
       return state
   }
