@@ -3,13 +3,13 @@
   background: #e8edf4;
   margin-left: 5%;
   margin-right: 5%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   overflow-y: scroll;
   overflow-x: hidden;
-  max-height: 30em;
+  height: 30rem;
 }
 
 .lineBreak {
+  margin-top: 2rem;
   border: 1px solid #262638;
   border-radius: 50%;
   width: 80%;
@@ -17,12 +17,12 @@
 
 .moveColumn {
   font-size: 16px;
-  padding: 5px;
+  padding: .5rem;
 }
 
 .move {
   font-size: 16px;
-  padding: 5px;
+  padding: .5rem;
   transform-origin: 50% 50%;
 	animation: scale .6s;
 }

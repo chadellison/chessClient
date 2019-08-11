@@ -6,7 +6,6 @@ import activeGamesReducer from './activeGamesReducer'
 import modalReducer from './modalReducer'
 import userReducer from './userReducer'
 import socketReducer from './socketReducer'
-import sideBarReducer from './sideBarReducer'
 import analyticsReducer from './analyticsReducer'
 
 export default combineReducers({
@@ -17,6 +16,5 @@ export default combineReducers({
   modals: modalReducer,
   user: userReducer,
   sockets: socketReducer,
-  sideBar: sideBarReducer,
   analytics: analyticsReducer
 })

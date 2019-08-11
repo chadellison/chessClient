@@ -19,8 +19,8 @@ class AnalyticsLineChart extends Component {
 
   render() {
     return (
-      <div hidden={!this.props.analytics.active} className="col-md-9 lineChart">
-        <LineChart width={window.innerWidth * 0.7} height={250} data={this.props.lineChartData}
+      <div hidden={!this.props.analytics.active} className="lineChart">
+        <LineChart width={window.innerWidth * 0.73} height={250} data={this.props.lineChartData}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             onMouseMove={(e)=> this.updateFocusSquare(e)}>
           <CartesianGrid strokeDasharray="3 3" />

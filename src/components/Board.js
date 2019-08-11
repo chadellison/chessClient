@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
-import Gear from './Gear'
 import AnalyticsLineChart from './AnalyticsLineChart'
 import { push } from 'react-router-redux'
 import { updateGamePayload } from '../actions/gameActions'
 import { updateChatChannelAction } from '../actions/chatActions'
 import { createGameSocketAction } from '../actions/socketActions'
 import { handleModalAction } from '../actions/modalActions'
-import PlayerInfo from './PlayerInfo'
 import { rows, columns } from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
 import moveAudio from '../audio/moveAudio.wav'
@@ -106,16 +104,8 @@ class Board extends Component {
           />
         )
       })
-      return <div key={`row${rowIndex}`} className='boardRow row justify-content-center'>{eachRow}</div>
+      return <div key={`row${rowIndex}`} className='row justify-content-center'>{eachRow}</div>
     })
-  }
-
-  findOpponentColor() {
-    return this.props.game.attributes.whitePlayer.id === this.props.user.id ? 'blackPlayer' : 'whitePlayer'
-  }
-
-  findColor() {
-    return this.props.game.attributes.whitePlayer.id === this.props.user.id ? 'whitePlayer' : 'blackPlayer'
   }
 
   handleCancelPreviousSetup = () => {
@@ -124,43 +114,11 @@ class Board extends Component {
     }
   }
 
-  renderGear() {
-    if(this.props.game.attributes.currentTurn === this.props.game.attributes.aiPlayer.color && !this.props.game.attributes.outcome) {
-      return <Gear/>
-    } else {
-      return ''
-    }
-  }
-
-  renderPlayerInfo() {
-    if (this.props.game.attributes.status) {
-      const {active} = this.props.analytics
-      return (
-        <div className='col-lg-3 col-md-12'>
-          {this.renderGear()}
-          <PlayerInfo playerColor={this.findOpponentColor()} game={this.props.game} analyticsActive={active}/>
-          <div className='playerDivider'></div>
-          <PlayerInfo playerColor={this.findColor()} game={this.props.game} analyticsActive={active} />
-        </div>
-      )
-    }
-  }
-
-  boardColumn() {
-    if (this.props.game.attributes.status) {
-      return 'col-lg-9'
-    } else {
-      return 'col-lg-12'
-    }
-  }
-
   render() {
     return(
-      <div className='col-lg-9' onClick={this.handleCancelPreviousSetup}>
-        {this.renderPlayerInfo()}
-        <div className={`board ${this.boardColumn()} col-md-12`}>
-          {this.renderBoard()}
-        </div>
+      <div onClick={this.handleCancelPreviousSetup}
+        className="board col-lg-6 col-md-12">
+        {this.renderBoard()}
         <AnalyticsLineChart lineChartData={this.props.analytics.lineChartData} />
       </div>
     )

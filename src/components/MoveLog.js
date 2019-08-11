@@ -7,8 +7,7 @@ export default class MoveLog extends Component {
     let gameMoves = []
 
     if (gameNotation) {
-      let moves = gameNotation.split('.')
-      moves.pop()
+      let moves = gameNotation.slice(0, gameNotation.length - 1).split('.')
       gameMoves = moves.map((notation, index) => {
         return(
           <div key={`${index}Notation`} id={index}
@@ -20,10 +19,10 @@ export default class MoveLog extends Component {
       })
     }
     return (
-      <div className='row moveLog'>
+      <div>
         <div className='col-xs-6 moveColumn'>White</div>
         <div className='col-xs-6 moveColumn'>Black</div>
-        <hr className='lineBreak'></hr>
+        <hr className="lineBreak"/>
         {gameMoves}
       </div>
     )

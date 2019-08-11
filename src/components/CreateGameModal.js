@@ -55,7 +55,6 @@ class CreateGameModal extends Component {
           <select id='gameType' name='gameType'>
             <option value='human vs human'>Human vs Human</option>
             <option value='human vs machine'>Human vs Machine</option>
-            <option value='human vs stockfish'>Human vs Stockfish</option>
             <option value='machine vs machine'>Machine vs Machine</option>
           </select>
           <br/>

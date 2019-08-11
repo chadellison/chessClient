@@ -34,7 +34,7 @@ class Credentials extends Component {
     } else {
       return (
         <div className='row credentials justify-content-center'>
-          <i className='glyphicon glyphicon-user credentialIcon'
+          <i className='glyphicon glyphicon-knight credentialIcon'
             onClick={() => this.props.dispatch(handleModalAction({login: true}))}
           />
           <div className='login' onClick={() => this.props.dispatch(handleModalAction({login: true}))}>

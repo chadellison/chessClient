@@ -1,6 +1,7 @@
 .lineChart {
   transform-origin: 50% 50%;
 	animation: scale .6s;
+  margin-top: 3rem;
 }
 
 @keyframes scale {

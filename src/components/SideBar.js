@@ -4,11 +4,9 @@ import Chat from './Chat'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
-import MoveLog from './MoveLog'
 import Analytics from './Analytics'
 import { handleModalAction } from '../actions/modalActions'
 import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
-import { moveLogAction } from '../actions/sideBarActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { analyticsAction, fetchAnalyticsDataAction } from '../actions/analyticsActions'
 
@@ -76,24 +74,6 @@ class SideBar extends Component {
     this.props.dispatch(joinGameAction(this.props.user.token))
   }
 
-  renderMoveLog() {
-    if (this.props.sideBar.moveLogActive) {
-      return (
-        <MoveLog game={this.props.game}
-          handlePreviousBoard={this.handlePreviousBoard}
-        />
-      )
-    }
-  }
-
-  moveLogText() {
-    if (this.props.sideBar.moveLogActive) {
-      return 'Hide Move Log'
-    } else {
-      return 'Move Log'
-    }
-  }
-
   handlePreviousBoard = (e) => {
     let endIndex = parseInt(e.target.id, 10) + 1
     let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
@@ -106,17 +86,6 @@ class SideBar extends Component {
     }
   }
 
-  renderAnalytics() {
-    if (this.props.analytics.active) {
-      return (
-        <Analytics pieChartData={this.props.analytics.pieChartData}
-          notation={this.props.game.attributes.notation}
-          handleFetchAnalytics={this.handleFetchAnalytics}
-        />
-      )
-    }
-  }
-
   analyticsText() {
     if (this.props.analytics.active) {
       return 'Hide Analytics'
@@ -126,7 +95,7 @@ class SideBar extends Component {
   }
 
   sideBarContent() {
-    if(this.props.routing.location.pathname === '/games') {
+    if (this.props.routing.location.pathname === '/games') {
       return (
         <div>
           <div className='navButton' onClick={() => this.props.dispatch(handleModalAction({createGame: true}))}>
@@ -149,14 +118,7 @@ class SideBar extends Component {
             <span className='navText'>{this.allGamesText()}</span>
           </div>
           <hr/>
-          <div className='navButton' onClick={() => this.props.dispatch(moveLogAction(!this.props.sideBar.moveLogActive))}>
-            <i className='glyphicon glyphicon-tasks navIcon'/>
-            <span>{this.moveLogText()}</span>
-          </div>
-          {this.renderMoveLog()}
-          <hr/>
           {this.analyticsButton()}
-          {this.renderAnalytics()}
           <hr/>
           {this.resetButton()}
         </div>
@@ -165,20 +127,35 @@ class SideBar extends Component {
   }
 
   render() {
-    return(
-      <div className='sideBar col-lg-3 col-md-12'>
-        <Credentials />
-        <div className='sideBarBackground'>
+    if (this.props.analytics.active) {
+      return (
+        <div className="sideBar col-lg-3 col-md-12">
+          <div className='navButton' onClick={this.handleAnalytics}>
+            <i className='glyphicon glyphicon-signal navIcon'/>
+            <span>{this.analyticsText()}</span>
+          </div>
+          <Analytics pieChartData={this.props.analytics.pieChartData}
+            notation={this.props.game.attributes.notation}
+            handleFetchAnalytics={this.handleFetchAnalytics}
+          />
+        </div>
+      )
+    } else {
+      return (
+        <div className='sideBar col-lg-3 col-md-12'>
+          <Credentials />
+          <div className='sideBarBackground'>
           <h3 className='sideBarTitle'>
             Chess Machine
           </h3>
           <hr/>
           {this.sideBarContent()}
           <hr/>
+          </div>
+          <Chat />
         </div>
-        <Chat />
-      </div>
-    )
+      )
+    }
   }
 }
 
