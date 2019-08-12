@@ -12,14 +12,12 @@ class AnalyticsLineChart extends Component {
   updateFocusSquare = (e) => {
     if (e.activeLabel) {
       this.props.dispatch(updateFocusSquareAction(e.activeLabel))
-    } else {
-      this.props.dispatch(clearFocusSquare())
     }
   }
 
   render() {
     return (
-      <div hidden={!this.props.analytics.active} className="lineChart">
+      <div hidden={!this.props.analytics.active} className="lineChart" onMouseLeave={() => this.props.dispatch(clearFocusSquare())}>
         <LineChart width={window.innerWidth * 0.73} height={250} data={this.props.lineChartData}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             onMouseMove={(e)=> this.updateFocusSquare(e)}>
