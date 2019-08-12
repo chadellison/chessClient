@@ -3,6 +3,7 @@
 	animation: scale .6s;
   margin-top: 3rem;
   position: fixed;
+  z-index: 10;
 }
 
 @keyframes scale {
