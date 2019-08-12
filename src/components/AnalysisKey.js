@@ -26,8 +26,8 @@ const AnalysisKey = ({pieChartData}) => {
       </div>
       <div className='analyticsKey'>
         <div className='analyticsText'>{`White Wins: ${winPercentage(whiteValue, totalGames)}`}</div>
-        <div className='analyticsText'>{`Black Wins: ${winPercentage(whiteValue, totalGames)}`}</div>
-        <div className='analyticsText'>{`Draws: ${winPercentage(whiteValue, totalGames)}`}</div>
+        <div className='analyticsText'>{`Black Wins: ${winPercentage(blackValue, totalGames)}`}</div>
+        <div className='analyticsText'>{`Draws: ${winPercentage(drawValue, totalGames)}`}</div>
       </div>
     </div>
   )

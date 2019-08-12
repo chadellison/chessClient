@@ -27,8 +27,7 @@ const analyticsReducer = (state = initialState, action) => {
           blackValue = moveData.black
         }
       })
-
-      let chartData = [
+      const chartData = [
         {value: whiteValue, color: '#cd853f'},
         { value: blackValue, color: '#8b4513' },
         { value: 0, color: '#333333' }
