@@ -28,6 +28,7 @@ class Board extends Component {
     }
 
     if (currentGame) {
+      this.createGameSocket()
       this.props.dispatch(updateGamePayload(currentGame))
       this.props.dispatch(updateChatChannelAction('ChatChannel'))
     }

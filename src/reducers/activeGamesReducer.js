@@ -3,7 +3,7 @@ const gameReducer = (state = [], action) => {
     case 'LOAD_ACTIVE_GAMES':
       return action.activeGames
     case 'ADD_ACTIVE_GAME':
-      let updatedGames = state
+      let updatedGames = [...state]
       updatedGames.unshift(action.activeGame)
       return updatedGames
     default:
