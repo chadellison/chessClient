@@ -5,6 +5,7 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
 import Analytics from './Analytics'
+import { NavButton } from './NavButton'
 import { handleModalAction } from '../actions/modalActions'
 import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
@@ -50,26 +51,6 @@ class SideBar extends Component {
     }
   }
 
-  resetButton() {
-    return (
-      <div className='navButton'
-        onClick={() => this.props.dispatch(resetGameAction())}
-        hidden={this.props.game.id}>
-        <i className='glyphicon glyphicon-triangle-left navIcon'/>
-        <span>Reset</span>
-      </div>
-    )
-  }
-
-  analyticsButton = () => {
-    return (
-      <div className='navButton' onClick={this.handleAnalytics}>
-        <i className='glyphicon glyphicon-signal navIcon'/>
-        <span>{this.analyticsText()}</span>
-      </div>
-    )
-  }
-
   handleJoinGame = () => {
     this.props.dispatch(joinGameAction(this.props.user.token))
   }
@@ -94,36 +75,45 @@ class SideBar extends Component {
     }
   }
 
+  isGamesPath = () => {
+    return this.props.routing.location.pathname === '/games'
+  }
+
   sideBarContent() {
-    if (this.props.routing.location.pathname === '/games') {
-      return (
-        <div>
-          <div className='navButton' onClick={() => this.props.dispatch(handleModalAction({createGame: true}))}>
-            <i className='glyphicon glyphicon-plus navIcon'/>
-            <span className='navText'>Create Game</span>
-          </div>
-          <hr/>
-          <div className='navButton' onClick={this.handleJoinGame}>
-            <i className='glyphicon glyphicon-search navIcon'/>
-            <span className='navText'>Find Game</span>
-          </div>
-          <hr/>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <div className='navButton' onClick={() => this.handleAllGamesButton()}>
-            <i className='glyphicon glyphicon-knight navIcon'/>
-            <span className='navText'>{this.allGamesText()}</span>
-          </div>
-          <hr/>
-          {this.analyticsButton()}
-          <hr/>
-          {this.resetButton()}
-        </div>
-      )
-    }
+    return (
+      <div>
+        <NavButton onClick={() => this.props.dispatch(handleModalAction({createGame: true}))}
+          icon={'plus'}
+          content={'Create Game'}
+          hidden={!this.isGamesPath()}
+        />
+        <NavButton onClick={this.handleJoinGame}
+          icon={'search'}
+          content={'Find Game'}
+          hidden={!this.isGamesPath()}
+        />
+        <NavButton onClick={this.handleAllGamesButton}
+          icon={'knight'}
+          content={this.allGamesText()}
+          hidden={this.isGamesPath()}
+        />
+        <NavButton onClick={() => console.log('watch all games')}
+          icon={'facetime-video'}
+          content={'View Games'}
+          hidden={false}
+        />
+        <NavButton onClick={this.handleAnalytics}
+          icon={'signal'}
+          content={this.analyticsText()}
+          hidden={this.isGamesPath()}
+        />
+        <NavButton onClick={() => this.props.dispatch(resetGameAction())}
+          hidden={this.isGamesPath()}
+          icon={'triangle-left'}
+          content={'Reset'}
+        />
+      </div>
+    )
   }
 
   render() {
