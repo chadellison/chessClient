@@ -5,9 +5,10 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
 import Analytics from './Analytics'
-import { NavButton } from './NavButton'
+import { NavTitle } from './NavTitle'
+import SideBarContent from './SideBarContent'
 import { handleModalAction } from '../actions/modalActions'
-import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
+import { updateGamePayload } from '../actions/gameActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { analyticsAction, fetchAnalyticsDataAction } from '../actions/analyticsActions'
 
@@ -16,7 +17,7 @@ class SideBar extends Component {
     this.handleFetchAnalytics()
   }
 
-  handleAllGamesButton = () => {
+  handleAllGamesClick = () => {
     if (this.props.user.token) {
       this.props.dispatch(push('/games'))
     } else {
@@ -43,18 +44,6 @@ class SideBar extends Component {
     this.props.dispatch(analyticsAction(!this.props.analytics.active))
   }
 
-  allGamesText() {
-    if(this.props.user.token && this.props.game.id) {
-      return 'My Games'
-    } else {
-      return 'Play'
-    }
-  }
-
-  handleJoinGame = () => {
-    this.props.dispatch(joinGameAction(this.props.user.token))
-  }
-
   handlePreviousBoard = (e) => {
     let endIndex = parseInt(e.target.id, 10) + 1
     let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
@@ -67,62 +56,13 @@ class SideBar extends Component {
     }
   }
 
-  analyticsText() {
-    if (this.props.analytics.active) {
-      return 'Hide Analytics'
-    } else {
-      return 'Analytics'
-    }
-  }
-
-  isGamesPath = () => {
-    return this.props.routing.location.pathname === '/games'
-  }
-
-  sideBarContent() {
-    return (
-      <div>
-        <NavButton onClick={() => this.props.dispatch(handleModalAction({createGame: true}))}
-          icon={'plus'}
-          content={'Create Game'}
-          hidden={!this.isGamesPath()}
-        />
-        <NavButton onClick={this.handleJoinGame}
-          icon={'search'}
-          content={'Find Game'}
-          hidden={!this.isGamesPath()}
-        />
-        <NavButton onClick={this.handleAllGamesButton}
-          icon={'knight'}
-          content={this.allGamesText()}
-          hidden={this.isGamesPath()}
-        />
-        <NavButton onClick={() => console.log('watch all games')}
-          icon={'facetime-video'}
-          content={'View Games'}
-          hidden={false}
-        />
-        <NavButton onClick={this.handleAnalytics}
-          icon={'signal'}
-          content={this.analyticsText()}
-          hidden={this.isGamesPath()}
-        />
-        <NavButton onClick={() => this.props.dispatch(resetGameAction())}
-          hidden={this.isGamesPath()}
-          icon={'triangle-left'}
-          content={'Reset'}
-        />
-      </div>
-    )
-  }
-
   render() {
     if (this.props.analytics.active) {
       return (
         <div className="sideBar col-lg-3 col-md-12">
           <div className='navButton' onClick={this.handleAnalytics}>
             <i className='glyphicon glyphicon-signal navIcon'/>
-            <span>{this.analyticsText()}</span>
+            <span>{this.props.analytics.active ? 'Hide Analytics' : 'Analytics'}</span>
           </div>
           <Analytics pieChartData={this.props.analytics.pieChartData}
             notation={this.props.game.attributes.notation}
@@ -135,12 +75,14 @@ class SideBar extends Component {
         <div className='sideBar col-lg-3 col-md-12'>
           <Credentials />
           <div className='sideBarBackground'>
-          <h3 className='sideBarTitle'>
-            Chess Machine
-          </h3>
-          <hr/>
-          {this.sideBarContent()}
-          <hr/>
+            <NavTitle />
+            <hr/>
+            <SideBarContent
+              isGamesPath={this.props.routing.location.pathname === '/games'}
+              handleAllGamesClick={this.handleAllGamesClick}
+              handleAnalytics={this.handleAnalytics}
+            />
+            <hr/>
           </div>
           <Chat />
         </div>

@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import spinner from '../images/spinner.svg';
-import '../styles/spinner.css'
+import React from 'react'
 
 export const NavButton = ({onClick, icon, content, hidden}) => {
   return (
