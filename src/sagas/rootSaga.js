@@ -3,6 +3,7 @@ import {
   watchFetchActiveGames,
   watchCreateGame,
   watchJoinGame,
+  watchFindGame,
   watchMachineVsMachineGame
 } from './gamesSagas'
 import { watchLogin, watchSignUp } from './userSagas'
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     fork(watchCreateGame),
     fork(watchMachineVsMachineGame),
     fork(watchJoinGame),
+    fork(watchFindGame),
     fork(watchFetchAnalyticsData)
   ])
 }

@@ -65,17 +65,26 @@ class Square extends Component {
     }
   }
 
-  notValidForPlayer() {
-    if (this.props.game.id) {
-      let gameTurn = this.props.game.attributes.currentTurn
-      if (this.props.game.attributes.status !== 'active' || this.playerColor() !== gameTurn) {
-        return true
-      }
+  validForPlayer() {
+    const game = this.props.game
+    const {currentTurn, status} = game.attributes
+    if (game.id) {
+      return status === 'active' && this.playerColor() === currentTurn && this.userAllowed(game)
+    } else {
+      return game.selected.color === currentTurn;
     }
   }
 
+  userAllowed(currentGame) {
+    const whitePlayerId = currentGame.attributes.whitePlayer.id
+    const blackPlayerId = currentGame.attributes.blackPlayer.id
+    const userId = this.props.user.id
+
+    return [whitePlayerId, blackPlayerId].includes(userId)
+  }
+
   isValid = (nextMove) => {
-    if (this.notValidForPlayer()) {
+    if (!this.validForPlayer()) {
       return false
     }
 

@@ -14,7 +14,7 @@ export const getData = async (path, action) => {
     const data = await response.json()
     return data
   } catch(error) {
-    return error
+    return { error: error }
   }
 }
 

@@ -22,56 +22,55 @@ export function* watchJoinGame() {
 }
 
 export function* fetchGames(action) {
-  try {
-    const response = yield call(getData, `/api/v1/games?token=${action.token}`)
-    yield put(loadActiveGamesAction(response.data))
-  }
-  catch(err) {
-    console.log(err)
-  }
+  const response = yield call(getData, `/api/v1/games?token=${action.token}`)
+  yield put(loadActiveGamesAction(response.data))
+}
+
+export function* watchFindGame() {
+  yield takeEvery('FIND_GAME', findGame)
+}
+
+export function* findGame(action) {
+    const response = yield call(getData, `/api/v1/all_games/${action.gameId}`);
+    if (response.error) {
+      yield put(push('/'))
+    } else {
+      yield put(updateGamePayload(response.data));
+    }
 }
 
 export function* createGame(action) {
-  let body = JSON.stringify({ game_data: action.gameData })
-  try {
-    const response = yield call(postData, `/api/v1/games?token=${action.token}`, body)
-    yield put(addActiveGameAction(response.data))
-    yield put(handleModalAction({createGame: false}))
-    yield put(push(`/games/${response.data.id}`))
-  }
-  catch(err) {
+  const body = JSON.stringify({ game_data: action.gameData })
+  const response = yield call(postData, `/api/v1/games?token=${action.token}`, body)
+  yield put(addActiveGameAction(response.data))
+  yield put(handleModalAction({createGame: false}))
+  yield put(push(`/games/${response.data.id}`))
+
+  if (response.error) {
     yield put(updateGamePayload({errors: true}))
-    console.log(err)
   }
   yield put(spinnerAction(false))
 }
 
 export function* machineVsMachineGame(action) {
-  let body = JSON.stringify({ game_data: action.gameData })
-  try {
-    const response = yield call(postData, `/api/v1/machine_vs_machine?token=${action.token}`, body)
-    yield put(addActiveGameAction(response.data))
-    yield put(handleModalAction({createGame: false}))
-    yield put(push(`/games/${response.data.id}`))
+  const body = JSON.stringify({ game_data: action.gameData });
+  const response = yield call(postData, `/api/v1/machine_vs_machine?token=${action.token}`, body);
+  yield put(addActiveGameAction(response.data));
+  yield put(handleModalAction({createGame: false}));
+  yield put(push(`/games/${response.data.id}`));
+
+  if (response.error) {
+    yield put(updateGamePayload({errors: true}));
   }
-  catch(err) {
-    yield put(updateGamePayload({errors: true}))
-    console.log(err)
-  }
-  yield put(spinnerAction(false))
+  yield put(spinnerAction(false));
 }
 
 export function* joinGame(action) {
-  try {
-    const response = yield call(getData, `/api/v1/find_game?token=${action.token}`)
-    if (response.data.id) {
-      yield put(addActiveGameAction(response.data))
-      yield put(push(`/games/${response.data.id}`))
-    } else {
-      yield put(handleModalAction({messagePrompt: true}))
-    }
-  }
-  catch(err) {
-    console.log(err)
+  const response = yield call(getData, `/api/v1/find_game?token=${action.token}`);
+  if (response.data.id) {
+    yield put(addActiveGameAction(response.data));
+    yield put(push(`/games/${response.data.id}`));
+  } else {
+    yield put(handleModalAction({messagePrompt: true}));
   }
 }

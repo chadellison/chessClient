@@ -3,8 +3,7 @@ import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
 import AnalyticsLineChart from './AnalyticsLineChart'
-import { push } from 'react-router-redux'
-import { updateGamePayload } from '../actions/gameActions'
+import { updateGamePayload, findGameAction } from '../actions/gameActions'
 import { updateChatChannelAction } from '../actions/chatActions'
 import { createGameSocketAction } from '../actions/socketActions'
 import { handleModalAction } from '../actions/modalActions'
@@ -21,17 +20,11 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    let gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
-    let currentGame = this.props.activeGames.filter((game) => game.id === gameId)[0]
-    if (gameId && (!currentGame || !this.userAllowed(currentGame))) {
-      this.props.dispatch(push('/'))
+    const gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
+    if (gameId) {
+      this.props.dispatch(findGameAction(gameId))
     }
-
-    if (currentGame) {
-      this.createGameSocket()
-      this.props.dispatch(updateGamePayload(currentGame))
-      this.props.dispatch(updateChatChannelAction('ChatChannel'))
-    }
+    this.props.dispatch(updateChatChannelAction('ChatChannel'))
   }
 
   componentDidUpdate(oldProps) {
@@ -74,17 +67,6 @@ class Board extends Component {
 
   sendMoveToServer = (gameData) => {
     this.props.sockets.gameSocket.update(gameData)
-  }
-
-  userAllowed(currentGame) {
-    let whitePlayerId = currentGame.attributes.whitePlayer.id
-    let blackPlayerId = currentGame.attributes.blackPlayer.id
-    let userId = this.props.user.id
-
-    if (userId && ([whitePlayerId, blackPlayerId].includes(userId) ||
-      currentGame.attributes.gameType === 'machine vs machine')) {
-        return true
-    }
   }
 
   renderBoard = () => {

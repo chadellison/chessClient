@@ -21,6 +21,13 @@ export const joinGameAction = (token) => {
   }
 }
 
+export const findGameAction = (gameId) => {
+  return {
+    type: 'FIND_GAME',
+    gameId,
+  }
+}
+
 export const selectPieceAction = (piece) => {
   return {
     type: 'SELECT_PIECE',
