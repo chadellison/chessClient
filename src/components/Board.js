@@ -69,7 +69,7 @@ class Board extends Component {
     this.props.sockets.gameSocket.update(gameData)
   }
 
-  renderBoard = () => {
+  renderSquares = () => {
     let {game} = this.props
     let gamePieces = mapPiecesToBoard(game.previousSetup, game)
     let userId = this.props.user.id
@@ -101,8 +101,8 @@ class Board extends Component {
     return(
       <div onClick={this.handleCancelPreviousSetup}
         className="board col-lg-6 col-md-12">
-        {this.renderBoard()}
-        <AnalyticsLineChart lineChartData={this.props.analytics.lineChartData} />
+        {this.renderSquares()}
+        <AnalyticsLineChart />
       </div>
     )
   }
