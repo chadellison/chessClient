@@ -37,7 +37,7 @@ class CreateGameModal extends Component {
   }
 
   displaySpinner() {
-    if(this.props.modals.spinnerActive) {
+    if (this.props.modals.spinnerActive) {
       return <Spinner />
     } else {
       return ''

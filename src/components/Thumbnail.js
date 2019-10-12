@@ -56,10 +56,6 @@ class Thumbnail extends Component {
     }
   }
 
-  handleEnterGame = () => {
-    this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`))
-  }
-
   render() {
     return(
       <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12 thumbnailCard'>
@@ -69,7 +65,7 @@ class Thumbnail extends Component {
             {this.renderPlayers()}
             {this.renderBoard()}
             <div className='enterGameButton'
-              onClick={this.handleEnterGame}>
+              onClick={() => this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`))}>
                 Join
             </div>
           </div>

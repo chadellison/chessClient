@@ -1,9 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import spinner from '../images/spinner.svg';
 import '../styles/spinner.css'
 
-export default class Spinner extends Component {
-  render() {
-    return <img className='spinner' src={spinner} alt='spinner'></img>
-  }
+export const Spinner = ({hidden}) => {
+  return (
+    <img className='spinner'
+      src={spinner} alt='spinner' hidden={hidden}>
+    </img>
+  )
 }
+
+export default Spinner

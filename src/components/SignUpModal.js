@@ -26,7 +26,7 @@ class SignUpModal extends Component {
   }
 
   invalidSignUp() {
-    if(this.props.user.signUpFailed) {
+    if (this.props.user.signUpFailed) {
       return (
         <h3 className='invalidCredentialsText'>
           Submission failed, please try again
@@ -38,7 +38,7 @@ class SignUpModal extends Component {
   }
 
   displaySpinner() {
-    if(this.props.modals.spinnerActive) {
+    if (this.props.modals.spinnerActive) {
       return <Spinner />
     } else {
       return ''
