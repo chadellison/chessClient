@@ -66,7 +66,7 @@ class Thumbnail extends Component {
             {this.renderBoard()}
             <div className='enterGameButton'
               onClick={() => this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`))}>
-                Join
+                {this.props.buttonContent}
             </div>
           </div>
         </div>

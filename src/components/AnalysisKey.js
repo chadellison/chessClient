@@ -2,8 +2,6 @@ import React from 'react'
 import '../styles/analysisKey.css'
 
 const AnalysisKey = ({pieChartData}) => {
-  const whiteValue = parseInt(pieChartData[0].value * 100, 10)
-  const blackValue = parseInt(pieChartData[1].value * 100, 10)
   return (
     <div>
       <div className='analyticsKey'>
@@ -15,8 +13,9 @@ const AnalysisKey = ({pieChartData}) => {
         </div>
       </div>
       <div className='analyticsKey'>
-        <div className='analyticsText'>{`White Wins: ${whiteValue} %`}</div>
-        <div className='analyticsText'>{`Black Wins: ${blackValue} %`}</div>
+        <div className='analyticsText'>{`White Wins: ${pieChartData[0].value} %`}</div>
+        <div className='analyticsText'>{`Black Wins: ${pieChartData[1].value} %`}</div>
+        <div className='analyticsText'>{`Draws: ${pieChartData[2].value} %`}</div>
       </div>
     </div>
   )

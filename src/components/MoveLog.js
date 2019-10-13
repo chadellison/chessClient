@@ -1,8 +1,8 @@
 import React from 'react'
 import '../styles/moveLog.css'
-import { Notation } from './Notation'
+import Notation from './Notation'
 
-const findGameMoves = (handlePreviousBoard, game) => {
+const findGameMoves = (game) => {
   const gameNotation = game.attributes.notation
   let gameMoves = []
 
@@ -12,15 +12,16 @@ const findGameMoves = (handlePreviousBoard, game) => {
       return (
         <Notation
           index={index}
-          onClick={handlePreviousBoard}
-          notation={notation}/>
+          notation={notation}
+          key={`${index}Notation`}
+        />
       );
     })
   }
   return gameMoves
 }
 
-export const MoveLog = ({handlePreviousBoard, game}) => {
+export const MoveLog = ({game}) => {
   return (
     <div className='moveLog'>
     <div>
@@ -31,7 +32,7 @@ export const MoveLog = ({handlePreviousBoard, game}) => {
         Black
       </div>
       <hr className="lineBreak"/>
-      {findGameMoves(handlePreviousBoard, game)}
+      {findGameMoves(game)}
       </div>
     </div>
   )

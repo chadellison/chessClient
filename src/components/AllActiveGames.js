@@ -36,7 +36,11 @@ class AllActiveGames extends Component {
   renderActiveGames = () => {
     return this.props.activeGames.map((game, index) => {
       return (
-        <Thumbnail key={`thumbnail${index}`} thumbnailGame={game} />
+        <Thumbnail
+          key={`thumbnail${index}`}
+          thumbnailGame={game}
+          buttonContent={'Observe'}
+        />
       )
     })
   }
