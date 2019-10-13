@@ -23,8 +23,10 @@ class Board extends Component {
     const gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
     if (gameId) {
       this.props.dispatch(findGameAction(gameId))
+      this.props.dispatch(updateChatChannelAction('ChatChannel'))
+    } else {
+      this.props.dispatch(updateChatChannelAction('GroupChatChannel'))
     }
-    this.props.dispatch(updateChatChannelAction('ChatChannel'))
   }
 
   componentDidUpdate(oldProps) {

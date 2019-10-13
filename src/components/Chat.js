@@ -3,7 +3,14 @@ import '../styles/chat.css'
 import { connect } from 'react-redux'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
 import Cable from 'actioncable'
-import {clearChatAction, addChatAction, updateChatFieldAction, clearAllChatsAction} from '../actions/chatActions'
+import {
+  clearChatAction,
+  addChatAction,
+  updateChatFieldAction,
+  clearAllChatsAction,
+  updateChatChannelAction
+} from '../actions/chatActions'
+
 import {createChatSocketAction} from '../actions/socketActions'
 
 class Chat extends Component {
@@ -13,10 +20,13 @@ class Chat extends Component {
 
   componentDidUpdate(oldProps) {
     if (oldProps.game.id !== this.props.game.id) {
-      console.log('Unsubscribed from game chat')
-      oldProps.sockets.chatSocket.unsubscribe()
+      if (!this.props.game.id) {
+        this.props.dispatch(updateChatChannelAction('GroupChatChannel'))
+      } else {
+        oldProps.sockets.chatSocket.unsubscribe()
+        this.createChatSocket()
+      }
       this.props.dispatch(clearAllChatsAction())
-      this.createChatSocket()
     }
   }
 

@@ -11,6 +11,7 @@ import { handleModalAction } from '../actions/modalActions'
 import { updateGamePayload } from '../actions/gameActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { analyticsAction, fetchAnalyticsDataAction } from '../actions/analyticsActions'
+import { updateChatChannelAction, clearAllChatsAction } from '../actions/chatActions'
 
 class SideBar extends Component {
   componentDidMount() {
@@ -29,10 +30,11 @@ class SideBar extends Component {
     if (pathname === '/allGames') {
       this.props.dispatch(push('/'))
     } else {
+      this.props.dispatch(clearAllChatsAction())
+      this.props.dispatch(updateChatChannelAction('GroupChatChannel'))
       this.props.dispatch(push('/allGames'))
     }
   }
-
 
   movesWithCount = () => {
     return this.props.game.attributes.moves.map((move, index) => {

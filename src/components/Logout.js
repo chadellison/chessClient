@@ -11,9 +11,7 @@ const gravatar = (hashedEmail) => {
 const handleLogout = (logoutAction, resetGameAction, sockets, push, routing) => {
   logoutAction()
   resetGameAction()
-  if (routing !== '/') {
-    push('/')
-  }
+  push('/')
 
   if (sockets.gameSocket) {
     sockets.gameSocket.unsubscribe()
