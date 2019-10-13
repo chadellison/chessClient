@@ -5,6 +5,7 @@ import Board from './Board'
 import SideBar from './SideBar'
 import GameInfo from './GameInfo'
 import ActiveGames from './ActiveGames'
+import AllActiveGames from './AllActiveGames'
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal'
 import CreateGameModal from './CreateGameModal'
@@ -26,6 +27,7 @@ export const Layout = () => {
         <Switch>
           <Route exact path='/' component={Board} />
           <Route exact path='/games' component={ActiveGames} />
+          <Route exact path='/allGames' component={AllActiveGames} />
           <Route exact path='/games/:id' component={Board} />
         </Switch>
         <SideBar/>

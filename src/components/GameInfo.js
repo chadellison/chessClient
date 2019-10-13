@@ -57,8 +57,9 @@ class GameInfo extends Component {
   }
 
   render() {
+    const {pathname} = this.props.routing.location;
     return (
-      <div hidden={this.props.routing.location.pathname === '/games'} className='gameInfo col-lg-3 col-md-12'>
+      <div hidden={pathname === '/games' || pathname === '/allGames'} className='gameInfo col-lg-3 col-md-12'>
         <div className='gameInfoBackground'>
           {this.renderGear()}
           {this.renderPlayerInfo(this.findOpponentColor())}

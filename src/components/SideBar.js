@@ -25,6 +25,15 @@ class SideBar extends Component {
     }
   }
 
+  handleViewAllGamesClick = (pathname) => {
+    if (pathname === '/allGames') {
+      this.props.dispatch(push('/'))
+    } else {
+      this.props.dispatch(push('/allGames'))
+    }
+  }
+
+
   movesWithCount = () => {
     return this.props.game.attributes.moves.map((move, index) => {
       return { value: move, move_count: index + 1 }
@@ -78,9 +87,10 @@ class SideBar extends Component {
             <NavTitle />
             <hr/>
             <SideBarContent
-              isGamesPath={this.props.routing.location.pathname === '/games'}
               handleAllGamesClick={this.handleAllGamesClick}
               handleAnalytics={this.handleAnalytics}
+              pathname={this.props.routing.location.pathname}
+              handleViewAllGamesClick={this.handleViewAllGamesClick}
             />
             <hr/>
           </div>

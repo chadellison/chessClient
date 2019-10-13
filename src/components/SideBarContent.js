@@ -20,6 +20,18 @@ const analyticsText = (active) => {
   }
 }
 
+const viewGamesText = (pathname) => {
+  if (pathname === '/allGames') {
+    return 'Board'
+  } else {
+    return 'View Games'
+  }
+}
+
+const showLoggedInOptions = (pathname, userId) => {
+  return userId && (pathname === '/games' || pathname === '/allGames')
+}
+
 export const SideBarContent = ({
   joinGameAction,
   user,
@@ -29,39 +41,40 @@ export const SideBarContent = ({
   handleAnalytics,
   resetGameAction,
   handleModalAction,
-  isGamesPath
+  pathname,
+  handleViewAllGamesClick
 }) => {
   return (
     <div>
       <NavButton onClick={() => handleModalAction({createGame: true})}
         icon={'plus'}
         content={'Create Game'}
-        hidden={!isGamesPath}
+        hidden={!showLoggedInOptions(pathname, user.id)}
       />
       <NavButton onClick={() => joinGameAction(user.token)}
         icon={'search'}
         content={'Find Game'}
-        hidden={!isGamesPath}
+        hidden={!showLoggedInOptions(pathname, user.id)}
       />
       <NavButton onClick={handleAllGamesClick}
         icon={'knight'}
         content={allGamesText(user.token, game.id)}
-        hidden={isGamesPath}
+        hidden={pathname === '/games'}
       />
-      <NavButton onClick={() => console.log('watch all games')}
+      <NavButton onClick={() => handleViewAllGamesClick(pathname)}
         icon={'facetime-video'}
-        content={'View Games'}
+        content={viewGamesText(pathname)}
         hidden={false}
       />
       <NavButton onClick={handleAnalytics}
         icon={'signal'}
         content={analyticsText(analytics.active)}
-        hidden={isGamesPath}
+        hidden={pathname === '/games' || pathname === '/allGames'}
       />
       <NavButton onClick={resetGameAction}
-        hidden={isGamesPath}
         icon={'triangle-left'}
         content={'Reset'}
+        hidden={pathname === '/games' || pathname === '/allGames'}
       />
     </div>
   )

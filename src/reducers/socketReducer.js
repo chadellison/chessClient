@@ -4,6 +4,8 @@ const socketReducer = (state = {}, action) => {
       return Object.assign({}, state, { gameSocket: action.payload })
     case 'HANDLE_CHAT_SOCKET':
       return Object.assign({}, state, { chatSocket: action.payload })
+    case 'HANDLE_ALL_GAMES_SOCKET':
+      return Object.assign({}, state, { allGamesSocket: action.payload })
     default:
       return state
   }

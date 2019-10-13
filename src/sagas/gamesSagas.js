@@ -8,6 +8,9 @@ import { push } from 'react-router-redux'
 export function* watchFetchActiveGames() {
   yield takeEvery('FETCH_ACTIVE_GAMES', fetchGames)
 }
+export function* watchFetchAllGames() {
+  yield takeEvery('FETCH_ALL_GAMES', fetchAllGames)
+}
 
 export function* watchCreateGame() {
   yield takeEvery('CREATE_GAME', createGame)
@@ -23,6 +26,11 @@ export function* watchJoinGame() {
 
 export function* fetchGames(action) {
   const response = yield call(getData, `/api/v1/games?token=${action.token}`)
+  yield put(loadActiveGamesAction(response.data))
+}
+
+export function* fetchAllGames() {
+  const response = yield call(getData, '/api/v1/all_games')
   yield put(loadActiveGamesAction(response.data))
 }
 

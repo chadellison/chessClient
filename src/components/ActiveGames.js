@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../styles/activeGames.css'
 import Thumbnail from './Thumbnail'
+import { Thumbnails } from './Thumbnails'
 import { push } from 'react-router-redux'
 import { fetchActiveGamesAction } from '../actions/activeGamesActions'
 import { handleModalAction } from '../actions/modalActions'
@@ -29,15 +30,7 @@ class ActiveGames extends Component {
   }
 
   render() {
-    return(
-      <div className='col-lg-9 col-md-12 activeGames'>
-        <hr/>
-        <h3 className='activeGamesTitle'>Active Games</h3>
-        <div className='row justify-content-center'>
-          {this.renderActiveGames()}
-        </div>
-      </div>
-    )
+    return <Thumbnails thumbnails={this.renderActiveGames()}/>
   }
 }
 

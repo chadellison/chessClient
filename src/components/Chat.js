@@ -12,7 +12,7 @@ class Chat extends Component {
   }
 
   componentDidUpdate(oldProps) {
-    if(oldProps.game.id !== this.props.game.id) {
+    if (oldProps.game.id !== this.props.game.id) {
       console.log('Unsubscribed from game chat')
       oldProps.sockets.chatSocket.unsubscribe()
       this.props.dispatch(clearAllChatsAction())
