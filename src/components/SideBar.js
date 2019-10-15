@@ -8,10 +8,11 @@ import Analytics from './Analytics'
 import { NavTitle } from './NavTitle'
 import SideBarContent from './SideBarContent'
 import { handleModalAction } from '../actions/modalActions'
-import { updateGamePayload } from '../actions/gameActions'
+import { updateGamePayload, resetGameAction } from '../actions/gameActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { analyticsAction, fetchAnalyticsDataAction } from '../actions/analyticsActions'
 import { updateChatChannelAction, clearAllChatsAction } from '../actions/chatActions'
+import { loadActiveGamesAction } from '../actions/activeGamesActions'
 
 class SideBar extends Component {
   componentDidMount() {
@@ -29,6 +30,8 @@ class SideBar extends Component {
   handleViewAllGamesClick = (pathname) => {
     if (pathname === '/allGames') {
       this.props.dispatch(push('/'))
+      this.props.dispatch(loadActiveGamesAction([]))
+      this.props.dispatch(resetGameAction())
     } else {
       this.props.dispatch(clearAllChatsAction())
       this.props.dispatch(updateChatChannelAction('GroupChatChannel'))

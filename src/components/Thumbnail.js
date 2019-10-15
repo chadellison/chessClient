@@ -27,7 +27,10 @@ class Thumbnail extends Component {
   }
 
   statusText() {
-    if (this.props.thumbnailGame.attributes.status === 'active') {
+    const {outcome, status} = this.props.thumbnailGame.attributes
+    if (outcome) {
+      return <h3 className='statusTitle'>{outcome}</h3>
+    } else if (status === 'active') {
       return <h3 className='statusTitle'>In Progress</h3>
     } else {
       return <h3 className='statusTitle'>Awaiting Player</h3>
