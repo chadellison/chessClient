@@ -10,7 +10,11 @@ export function* watchFetchAnalyticsData() {
 }
 
 export function* fetchAnalyticsData(action) {
-  const body = JSON.stringify({ pieces: action.pieces, turn: action.turn, moves: action.moves })
+  const body = JSON.stringify({
+    pieces: action.pieces,
+    turn: action.turn,
+    notation: action.notation
+  });
   try {
     const response = yield call(postData, '/api/v1/analytics', body)
     yield put(updatePieChartDataAction(response.data.attributes))

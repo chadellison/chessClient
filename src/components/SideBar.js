@@ -8,8 +8,7 @@ import Analytics from './Analytics'
 import { NavTitle } from './NavTitle'
 import SideBarContent from './SideBarContent'
 import { handleModalAction } from '../actions/modalActions'
-import { updateGamePayload, resetGameAction } from '../actions/gameActions'
-import { mapPiecesToBoard } from '../helpers/boardLogic'
+import { resetGameAction } from '../actions/gameActions'
 import { analyticsAction, fetchAnalyticsDataAction } from '../actions/analyticsActions'
 import { updateChatChannelAction, clearAllChatsAction } from '../actions/chatActions'
 import { loadActiveGamesAction } from '../actions/activeGamesActions'
@@ -39,16 +38,10 @@ class SideBar extends Component {
     }
   }
 
-  movesWithCount = () => {
-    return this.props.game.attributes.moves.map((move, index) => {
-      return { value: move, move_count: index + 1 }
-    })
-  }
-
   handleFetchAnalytics = () => {
     let {game} = this.props
     let gameTurnCode = game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
-    this.props.dispatch(fetchAnalyticsDataAction(game.pieces, gameTurnCode, this.movesWithCount()))
+    this.props.dispatch(fetchAnalyticsDataAction(game.pieces, gameTurnCode, game.attributes.notation))
   }
 
   handleAnalytics = () => {
@@ -56,18 +49,6 @@ class SideBar extends Component {
       this.handleFetchAnalytics()
     }
     this.props.dispatch(analyticsAction(!this.props.analytics.active))
-  }
-
-  handlePreviousBoard = (e) => {
-    let endIndex = parseInt(e.target.id, 10) + 1
-    let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
-    this.props.dispatch(updateGamePayload({previousSetup: previousSetup}))
-
-    let gamePieces = Object.values(mapPiecesToBoard(previousSetup, this.props.game))
-    if (this.props.analytics.active) {
-      let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
-      this.props.dispatch(fetchAnalyticsDataAction(gamePieces, gameTurnCode, this.movesWithCount()))
-    }
   }
 
   render() {

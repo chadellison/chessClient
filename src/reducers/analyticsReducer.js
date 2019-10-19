@@ -18,8 +18,8 @@ const analyticsReducer = (state = initialState, action) => {
       return {...state, active: action.active }
     case 'UPDATE_PIE_CHART_DATA':
       const chartData = [
-        { value: action.analyticsData.outcomes.white_wins, color: '#cd853f' },
-        { value: action.analyticsData.outcomes.black_wins, color: '#8b4513' },
+        { value: action.analyticsData.outcomes.whiteWins, color: '#cd853f' },
+        { value: action.analyticsData.outcomes.blackWins, color: '#8b4513' },
         { value: action.analyticsData.outcomes.draws, color: '#333333' },
       ]
       return {...state, pieChartData: chartData }

@@ -4,10 +4,6 @@ import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { fetchAnalyticsDataAction } from '../actions/analyticsActions'
 import { connect } from 'react-redux'
 
-const movesWithCount = (moves) => {
-  return moves.map((move, index) => ({ value: move, move_count: index + 1 }))
-}
-
 const handlePreviousBoard = (e, updateGamePayload, fetchAnalyticsDataAction, game, analytics) => {
   let endIndex = parseInt(e.target.id, 10) + 1
   let previousSetup = game.attributes.moves.slice(0, endIndex)
@@ -15,8 +11,9 @@ const handlePreviousBoard = (e, updateGamePayload, fetchAnalyticsDataAction, gam
 
   let gamePieces = Object.values(mapPiecesToBoard(previousSetup, game))
   if (analytics.active) {
-    let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
-    fetchAnalyticsDataAction(gamePieces, gameTurnCode, movesWithCount(game.attributes.moves))
+    const gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
+    const notation = game.attributes.notation.split('.').slice(0, endIndex).join('.')
+    fetchAnalyticsDataAction(gamePieces, gameTurnCode, notation)
   }
 }
 
