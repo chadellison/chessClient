@@ -10,7 +10,7 @@
     "ajv": "^6.10.2",
     "bootstrap": "^4.3.1",
     "history": "^4.10.1",
-    "jquery": "^1.12.4",
+    "jquery": "^3.4.0",
     "npm": "^6.11.3",
     "react": "^16.9.0",
     "react-bootstrap": "^0.32.4",
