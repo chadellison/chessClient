@@ -19,6 +19,7 @@ export const clearChatAction = () => {
 }
 
 export const updateChatChannelAction = (channel) => {
+  console.log('Switched chat channel to: ', channel)
   return {
     type: 'UPDATE_CHAT_CHANNEL',
     channel: channel

@@ -3,8 +3,7 @@ import '../styles/board.css'
 import { connect } from 'react-redux'
 import Square from './Square'
 import AnalyticsLineChart from './AnalyticsLineChart'
-import { push } from 'react-router-redux'
-import { updateGamePayload } from '../actions/gameActions'
+import { updateGamePayload, findGameAction } from '../actions/gameActions'
 import { updateChatChannelAction } from '../actions/chatActions'
 import { createGameSocketAction } from '../actions/socketActions'
 import { handleModalAction } from '../actions/modalActions'
@@ -21,16 +20,12 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    let gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
-    let currentGame = this.props.activeGames.filter((game) => game.id === gameId)[0]
-    if (gameId && (!currentGame || !this.userAllowed(currentGame))) {
-      this.props.dispatch(push('/'))
-    }
-
-    if (currentGame) {
-      this.createGameSocket()
-      this.props.dispatch(updateGamePayload(currentGame))
+    const gameId = parseInt(this.props.routing.location.pathname.split('/')[2], 10)
+    if (gameId) {
+      this.props.dispatch(findGameAction(gameId))
       this.props.dispatch(updateChatChannelAction('ChatChannel'))
+    } else {
+      this.props.dispatch(updateChatChannelAction('GroupChatChannel'))
     }
   }
 
@@ -76,18 +71,7 @@ class Board extends Component {
     this.props.sockets.gameSocket.update(gameData)
   }
 
-  userAllowed(currentGame) {
-    let whitePlayerId = currentGame.attributes.whitePlayer.id
-    let blackPlayerId = currentGame.attributes.blackPlayer.id
-    let userId = this.props.user.id
-
-    if (userId && ([whitePlayerId, blackPlayerId].includes(userId) ||
-      currentGame.attributes.gameType === 'machine vs machine')) {
-        return true
-    }
-  }
-
-  renderBoard = () => {
+  renderSquares = () => {
     let {game} = this.props
     let gamePieces = mapPiecesToBoard(game.previousSetup, game)
     let userId = this.props.user.id
@@ -119,8 +103,8 @@ class Board extends Component {
     return(
       <div onClick={this.handleCancelPreviousSetup}
         className="board col-lg-6 col-md-12">
-        {this.renderBoard()}
-        <AnalyticsLineChart lineChartData={this.props.analytics.lineChartData} />
+        {this.renderSquares()}
+        <AnalyticsLineChart />
       </div>
     )
   }

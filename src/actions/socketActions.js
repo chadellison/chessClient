@@ -1,5 +1,5 @@
 export const createChatSocketAction = (subscription) => {
-  console.log('subscribed to ', JSON.parse(subscription.identifier).channel)
+  console.log('subscribed to:', JSON.parse(subscription.identifier).channel)
   return {
     type: 'HANDLE_CHAT_SOCKET',
     payload: subscription
@@ -7,9 +7,17 @@ export const createChatSocketAction = (subscription) => {
 }
 
 export const createGameSocketAction = (subscription) => {
-  console.log('subscribed to game')
+  console.log('subscribed to:', JSON.parse(subscription.identifier).channel)
   return {
     type: 'HANDLE_GAME_SOCKET',
+    payload: subscription
+  }
+}
+
+export const createAllGamesSocketAction = (subscription) => {
+  console.log('subscribed to:', JSON.parse(subscription.identifier).channel)
+  return {
+    type: 'HANDLE_ALL_GAMES_SOCKET',
     payload: subscription
   }
 }

@@ -5,6 +5,7 @@ import moveAudio from '../audio/moveAudio.wav'
 import { updateGamePayload, updateTurnAction } from '../actions/gameActions'
 import { handleModalAction } from '../actions/modalActions'
 import { nextTurn, updateBoard, updateAttributes } from '../helpers/boardLogic'
+import { PromoteOption } from './PromoteOption'
 
 class PromotePawnModal extends Component {
   constructor() {
@@ -60,38 +61,10 @@ class PromotePawnModal extends Component {
       <div className='modalContainer' hidden={!this.props.modals.promotePawn}>
         <div className={`promotePawnModal ${this.backgroundColor()} col-sm-offset-4 col-md-4`}>
           <div className='row'>
-            <i
-              id={'knight'}
-              className={
-                `glyphicon glyphicon-knight
-                  promotePawn piece-${turn}`
-              }
-              onClick={(e) => this.handlePawnPromotion(e)}
-            />
-            <i
-              id={'bishop'}
-              className={
-                `glyphicon glyphicon-bishop
-                  promotePawn piece-${turn}`
-              }
-              onClick={(e) => this.handlePawnPromotion(e)}
-            />
-            <i
-              id={'rook'}
-              className={
-                `glyphicon glyphicon-tower
-                  promotePawn piece-${turn}`
-              }
-              onClick={(e) => this.handlePawnPromotion(e)}
-            />
-            <i
-              id={'queen'}
-              className={
-                `glyphicon glyphicon-queen
-                  promotePawn piece-${turn}`
-              }
-              onClick={(e) => this.handlePawnPromotion(e)}
-            />
+            <PromoteOption id={'knight'} turn={turn} onClick={this.handlePawnPromotion} icon={'knight'}/>
+            <PromoteOption id={'bishop'} turn={turn} onClick={this.handlePawnPromotion} icon={'bishop'}/>
+            <PromoteOption id={'rook'} turn={turn} onClick={this.handlePawnPromotion} icon={'tower'}/>
+            <PromoteOption id={'queen'} turn={turn} onClick={this.handlePawnPromotion} icon={'queen'}/>
           </div>
         </div>
       </div>

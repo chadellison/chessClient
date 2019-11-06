@@ -36,19 +36,11 @@ class LoginModal extends Component {
     }
   }
 
-  displaySpinner() {
-    if(this.props.modals.spinnerActive) {
-      return <Spinner />
-    } else {
-      return ''
-    }
-  }
-
   render() {
     return (
       <div className='modalContainer' hidden={!this.props.modals.login}>
         <form className='loginModal col-sm-offset-5 col-md-2' onSubmit={(e) => this.handleLogin(e)}>
-          {this.displaySpinner()}
+          <Spinner hidden={!this.props.modals.spinnerActive} />
           {this.invalidCredentials()}
           <h4 className='emailTitle'>Email</h4>
           <input className='emailInput' id='emailInput'></input>

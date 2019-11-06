@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../styles/miniSquare.css'
 
 const miniSquare = (squareColor) => {
@@ -20,31 +20,31 @@ const pieceStyle = (pieceColor) => {
   }
 }
 
-export default class MiniSquare extends Component {
-  findPieceType() {
-    if (this.props.piece.pieceType === 'rook') {
-      return 'tower'
-    } else {
-      return this.props.piece.pieceType
-    }
-  }
-
-  miniPiece() {
-    if (this.props.piece) {
-      return(
-        <span className={`glyphicon glyphicon-${this.findPieceType()}`} style={pieceStyle(this.props.piece.color)}>
-        </span>
-      )
-    } else {
-      return null
-    }
-  }
-
-  render() {
-    return(
-      <div style={miniSquare(this.props.value)}>
-        {this.miniPiece()}
-      </div>
-    )
+const findPieceType = (piece) => {
+  if (piece.pieceType === 'rook') {
+    return 'tower'
+  } else {
+    return piece.pieceType
   }
 }
+
+const miniPiece = (piece) => {
+  if (piece) {
+    return(
+      <span className={`glyphicon glyphicon-${findPieceType(piece)}`} style={pieceStyle(piece.color)}>
+      </span>
+    )
+  } else {
+    return null
+  }
+}
+
+export const MiniSquare = ({piece, value}) => {
+  return (
+    <div style={miniSquare(value)}>
+      {miniPiece(piece)}
+    </div>
+  )
+}
+
+export default MiniSquare;

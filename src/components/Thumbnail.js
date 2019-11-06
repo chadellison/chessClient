@@ -27,7 +27,10 @@ class Thumbnail extends Component {
   }
 
   statusText() {
-    if (this.props.thumbnailGame.attributes.status === 'active') {
+    const {outcome, status} = this.props.thumbnailGame.attributes
+    if (outcome) {
+      return <h3 className='statusTitle'>{outcome}</h3>
+    } else if (status === 'active') {
       return <h3 className='statusTitle'>In Progress</h3>
     } else {
       return <h3 className='statusTitle'>Awaiting Player</h3>
@@ -56,10 +59,6 @@ class Thumbnail extends Component {
     }
   }
 
-  handleEnterGame = () => {
-    this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`))
-  }
-
   render() {
     return(
       <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12 thumbnailCard'>
@@ -69,8 +68,8 @@ class Thumbnail extends Component {
             {this.renderPlayers()}
             {this.renderBoard()}
             <div className='enterGameButton'
-              onClick={this.handleEnterGame}>
-                Join
+              onClick={() => this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`))}>
+                {this.props.buttonContent}
             </div>
           </div>
         </div>

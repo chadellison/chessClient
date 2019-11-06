@@ -19,12 +19,12 @@ export const clearFocusSquare = () => {
   }
 }
 
-export const fetchAnalyticsDataAction = (pieces, turn, moves) => {
+export const fetchAnalyticsDataAction = (pieces, turn, notation) => {
   return {
     type: 'FETCH_ANALYTICS_DATA',
     pieces: pieces,
     turn: turn,
-    moves: moves
+    notation: notation
   }
 }
 
