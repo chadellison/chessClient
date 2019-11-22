@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { handleModalAction, spinnerAction } from '../actions/modalActions'
 import { loginAction, updateUserAction, signUpAction } from '../actions/userActions'
 import Spinner from './Spinner'
+import {LoginForm} from './LoginForm'
+import {SignUpForm} from './SignUpForm'
 
 class LoginModal extends Component {
   handleCancel = (e) => {
@@ -51,7 +53,7 @@ class LoginModal extends Component {
   }
 
   displaySpinner() {
-    if(this.props.modals.spinnerActive) {
+    if (this.props.modals.spinnerActive) {
       return <Spinner />
     } else {
       return ''
@@ -72,56 +74,17 @@ class LoginModal extends Component {
             />
             <label htmlFor="signUpTab" className="tab">Sign Up</label>
         		<div className="login-form">
-        			<form className="sign-in-htm" onSubmit={(e) => this.handleLogin(e)}>
-                {this.displaySpinner()}
-                {this.invalidCredentials('Incorrect email or password')}
-        				<div className="group">
-        					<label htmlFor="email" className="label">Email</label>
-        					<input id="emailInput" type="text" className="input"/>
-        				</div>
-        				<div className="group">
-        					<label htmlFor="passwordInput" className="label">Password</label>
-        					<input id="passwordInput" type="password" className="input" data-type="password"/>
-        				</div>
-        				<div className="group">
-        					<input id="check" type="checkbox" className="check" checked={this.props.user.loggedIn}/>
-        					<label htmlFor="check"><span className="icon"></span> Keep me Signed in</label>
-        				</div>
-        				<div className="group">
-        					<input type="submit" className="button" value="Sign In"/>
-        				</div>
-        				<div className="hr"></div>
-        				<div className="foot-lnk">
-                  <a href="" onClick={(e) => this.handleCancel(e)}>Cancel</a>
-        				</div>
-        			</form>
-        			<form className="sign-up-htm" onSubmit={(e) => this.handleSignUp(e)}>
-                {this.displaySpinner()}
-                {this.invalidCredentials('Submission failed, please try again')}
-        				<div className="group">
-        					<label htmlFor="emailSignUpInput" className="label">Email</label>
-        					<input id="emailSignUpInput" type="text" className="input"/>
-        				</div>
-        				<div className="group">
-        					<label htmlFor="passwordSignUpInput" className="label">Password</label>
-        					<input id="passwordSignUpInput" type="password" className="input" data-type="password"/>
-        				</div>
-        				<div className="group">
-        					<label htmlFor="firstNameSignUpInput" className="label">First Name</label>
-        					<input id="firstNameSignUpInput" type="text" className="input" data-type="text"/>
-        				</div>
-        				<div className="group">
-        					<label htmlFor="lastNameSignUpInput" className="label">Last Name</label>
-        					<input id="lastNameSignUpInput" type="text" className="input"/>
-        				</div>
-        				<div className="group">
-        					<input type="submit" className="button" value="Sign Up"/>
-        				</div>
-        				<div className="hr"></div>
-        				<div className="foot-lnk">
-        					<label htmlFor="tab-1">Already Member?</label>
-        				</div>
-        			</form>
+        			<LoginForm
+                spinnerActive={this.props.modals.spinnerActive}
+                handleLogin={this.handleLogin}
+                loginFailed={this.props.user.loginFailed}
+                handleCancel={this.handleCancel}
+              />
+              <SignUpForm
+                spinnerActive={this.props.modals.spinnerActive}
+                handleSignUp={this.handleSignUp}
+                signUpFailed={this.props.user.signUpFailed}
+              />
         		</div>
         	</div>
         </div>
