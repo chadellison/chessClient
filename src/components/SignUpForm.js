@@ -31,9 +31,6 @@ export const SignUpForm = ({
         <input type="submit" className="button" value="Sign Up"/>
       </div>
       <div className="hr"></div>
-      <div className="foot-lnk">
-        <label htmlFor="tab-1">Already Member?</label>
-      </div>
     </form>
   );
 }
