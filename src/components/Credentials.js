@@ -38,10 +38,7 @@ class Credentials extends Component {
             onClick={() => this.props.dispatch(handleModalAction({login: true}))}
           />
           <div className='login' onClick={() => this.props.dispatch(handleModalAction({login: true}))}>
-            Login
-          </div>
-          <div className='signUp' onClick={() => this.props.dispatch(handleModalAction({signUp: true}))}>
-            Sign Up
+            Sign in
           </div>
         </div>
       )

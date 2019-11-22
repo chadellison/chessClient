@@ -6,7 +6,6 @@ import SideBar from './SideBar'
 import GameInfo from './GameInfo'
 import ActiveGames from './ActiveGames'
 import LoginModal from './LoginModal'
-import SignUpModal from './SignUpModal'
 import CreateGameModal from './CreateGameModal'
 import PromotePawnModal from './PromotePawnModal'
 import GameOverModal from './GameOverModal'
@@ -16,7 +15,6 @@ export const Layout = () => {
   return(
     <div className='container-fluid justify-content-center layout'>
       <LoginModal />
-      <SignUpModal />
       <CreateGameModal />
       <PromotePawnModal />
       <GameOverModal />
