@@ -9,7 +9,12 @@ class LoginModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
     this.props.dispatch(handleModalAction({login: false}))
-    this.props.dispatch(updateUserAction({loginFailed: false}))
+    this.props.dispatch(updateUserAction({loginFailed: false, signUpFailed: false}))
+  }
+
+  handleCredentialCategory = (category) => {
+    this.props.dispatch(handleModalAction({[category]: true}))
+    this.props.dispatch(updateUserAction({loginFailed: false, signUpFailed: false}))
   }
 
   handleLogin = (e) => {
@@ -58,29 +63,29 @@ class LoginModal extends Component {
       <div className='modalContainer' hidden={!this.props.modals.login && !this.props.modals.signUp}>
         <div className="login-wrap loginModal">
         	<div className="login-html">
-        		<input id="tab-1" type="radio" name="tab" className="sign-in" checked={this.props.modals.login}
-              onChange={() => this.props.dispatch(handleModalAction({login: true}))}
+        		<input id="signInTab" type="radio" name="tab" className="sign-in" checked={this.props.modals.login}
+              onChange={() => this.handleCredentialCategory('login')}
             />
-            <label for="tab-1" className="tab">Sign In</label>
-        		<input id="tab-2" type="radio" name="tab" className="sign-up" checked={this.props.modals.signUp}
-              onChange={() => this.props.dispatch(handleModalAction({signUp: true}))}
+            <label htmlFor="signInTab" className="tab">Sign In</label>
+        		<input id="signUpTab" type="radio" name="tab" className="sign-up" checked={this.props.modals.signUp}
+              onChange={() => this.handleCredentialCategory('signUp')}
             />
-            <label for="tab-2" className="tab">Sign Up</label>
+            <label htmlFor="signUpTab" className="tab">Sign Up</label>
         		<div className="login-form">
         			<form className="sign-in-htm" onSubmit={(e) => this.handleLogin(e)}>
                 {this.displaySpinner()}
                 {this.invalidCredentials('Incorrect email or password')}
         				<div className="group">
-        					<label for="email" className="label">Email</label>
+        					<label htmlFor="email" className="label">Email</label>
         					<input id="emailInput" type="text" className="input"/>
         				</div>
         				<div className="group">
-        					<label for="passwordInput" className="label">Password</label>
+        					<label htmlFor="passwordInput" className="label">Password</label>
         					<input id="passwordInput" type="password" className="input" data-type="password"/>
         				</div>
         				<div className="group">
-        					<input id="check" type="checkbox" className="check" checked/>
-        					<label for="check"><span className="icon"></span> Keep me Signed in</label>
+        					<input id="check" type="checkbox" className="check" checked={this.props.user.loggedIn}/>
+        					<label htmlFor="check"><span className="icon"></span> Keep me Signed in</label>
         				</div>
         				<div className="group">
         					<input type="submit" className="button" value="Sign In"/>
@@ -94,19 +99,19 @@ class LoginModal extends Component {
                 {this.displaySpinner()}
                 {this.invalidCredentials('Submission failed, please try again')}
         				<div className="group">
-        					<label for="emailSignUpInput" className="label">Email</label>
+        					<label htmlFor="emailSignUpInput" className="label">Email</label>
         					<input id="emailSignUpInput" type="text" className="input"/>
         				</div>
         				<div className="group">
-        					<label for="passwordSignUpInput" className="label">Password</label>
+        					<label htmlFor="passwordSignUpInput" className="label">Password</label>
         					<input id="passwordSignUpInput" type="password" className="input" data-type="password"/>
         				</div>
         				<div className="group">
-        					<label for="firstNameSignUpInput" className="label">First Name</label>
+        					<label htmlFor="firstNameSignUpInput" className="label">First Name</label>
         					<input id="firstNameSignUpInput" type="text" className="input" data-type="text"/>
         				</div>
         				<div className="group">
-        					<label for="lastNameSignUpInput" className="label">Last Name</label>
+        					<label htmlFor="lastNameSignUpInput" className="label">Last Name</label>
         					<input id="lastNameSignUpInput" type="text" className="input"/>
         				</div>
         				<div className="group">
@@ -114,7 +119,7 @@ class LoginModal extends Component {
         				</div>
         				<div className="hr"></div>
         				<div className="foot-lnk">
-        					<label for="tab-1">Already Member?</label>
+        					<label htmlFor="tab-1">Already Member?</label>
         				</div>
         			</form>
         		</div>
