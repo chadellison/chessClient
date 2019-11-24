@@ -21,10 +21,6 @@ export const LoginForm = ({
         <input id="passwordInput" type="password" className="input" data-type="password"/>
       </div>
       <div className="group">
-        <input id="check" type="checkbox" className="check" checked={false}/>
-        <label htmlFor="check"><span className="icon"></span> Keep me Signed in</label>
-      </div>
-      <div className="group">
         <input type="submit" className="button" value="Sign In"/>
       </div>
       <div className="hr"></div>
