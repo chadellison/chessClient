@@ -77,9 +77,9 @@ class GameInfo extends Component {
   render() {
     return (
       <div hidden={this.props.routing.location.pathname === '/games'} className='gameInfo col-lg-3 col-md-12'>
+        {this.renderGear()}
+        {this.renderOpponent()}
         <div className='gameInfoBackground'>
-          {this.renderGear()}
-          {this.renderOpponent()}
           <h3 className='moveLogTitle'>
             Move Log
           </h3>
@@ -89,8 +89,8 @@ class GameInfo extends Component {
             selectedMove={this.props.moveLog.selectedMove}
           />
           <hr/>
-          {this.renderPlayerInfo()}
         </div>
+        {this.renderPlayerInfo()}
       </div>
     )
   }

@@ -1,16 +1,17 @@
 .gameInfo {
-  margin-top: 6rem;
+  margin-top: 3rem;
 }
 
 .gameInfoBackground {
-  box-shadow: 0 0 8px 0 rgba(0,0,0, 0.3);
+  /* box-shadow: 0 0 8px 0 rgba(0,0,0, 0.3); */
+  box-shadow: 5px 10px 20px rgba(0,0,0,.6);
   background: #29323f;
 }
 
 .moveLogTitle {
   font-family: 'Pacifico', Sans, Lato, Droid Sans;
   /* background: #a0aaba; */
-  background: #29323f;
+  /* background: #29323f; */
   /* color: #FFF; */
   color: #fcee6d;
   height: 3em;

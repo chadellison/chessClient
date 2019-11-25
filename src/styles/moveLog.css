@@ -6,7 +6,8 @@
   overflow-y: scroll;
   overflow-x: hidden;
   height: 30rem;
-  color: white;
+  color: #a6a9b3;
+  background: #29323f;
 }
 
 .moveColumn {
@@ -17,6 +18,8 @@
 .move {
   font-size: 16px;
   margin: .5rem;
+  text-align: left;
+  color: #a6a9b3;
 }
 
 .move:hover {

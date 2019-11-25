@@ -8,6 +8,7 @@ import { updateGamePayload } from '../actions/gameActions'
 import { updateChatChannelAction } from '../actions/chatActions'
 import { createGameSocketAction } from '../actions/socketActions'
 import { handleModalAction } from '../actions/modalActions'
+import { updateSelectedMoveAction } from '../actions/moveLogActions'
 import { rows, columns } from '../helpers/boardLogic'
 import { WEBSOCKET_HOST } from '../config/endpoints.js'
 import moveAudio from '../audio/moveAudio.wav'
@@ -60,6 +61,7 @@ class Board extends Component {
             this.moveAudio.play()
           }
           this.props.dispatch(updateGamePayload(data))
+          this.props.dispatch(updateSelectedMoveAction(this.props.game.attributes.moves.length))
           if (data.attributes.outcome) {
             this.props.dispatch(handleModalAction({gameOver: true}))
           }

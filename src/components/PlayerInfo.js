@@ -20,9 +20,13 @@ export default class PlayerInfo extends Component {
     let game = this.props.game
     return(
       <div className="playerInfo">
-        <img src={game.attributes[this.props.playerColor] ? findGravater(game.attributes[this.props.playerColor], game) : ''}
-          className='playerGravatar' alt='gravatar'/>
-        <div className='playerName'>{this.playerName()}</div>
+        <div className="col-xs-6">
+          <img src={game.attributes[this.props.playerColor] ? findGravater(game.attributes[this.props.playerColor], game) : ''}
+            className='playerGravatar' alt='gravatar'/>
+        </div>
+        <div className="col-xs-6">
+          <div className='playerName'>{this.playerName()}</div>
+        </div>
       </div>
     )
   }
