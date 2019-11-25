@@ -4,12 +4,15 @@
 
 .gameInfoBackground {
   box-shadow: 0 0 8px 0 rgba(0,0,0, 0.3);
+  background: #29323f;
 }
 
 .moveLogTitle {
   font-family: 'Pacifico', Sans, Lato, Droid Sans;
-  background: #a0aaba;
-  color: #FFF;
+  /* background: #a0aaba; */
+  background: #29323f;
+  /* color: #FFF; */
+  color: #fcee6d;
   height: 3em;
   font-size: 18px;
   display: flex;

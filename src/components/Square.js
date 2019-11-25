@@ -5,6 +5,7 @@ import moveAudio from '../audio/moveAudio.wav'
 import { connect } from 'react-redux'
 import { updateGamePayload, updateTurnAction, selectPieceAction } from '../actions/gameActions'
 import { handleModalAction } from '../actions/modalActions'
+import { updateSelectedMoveAction } from '../actions/moveLogActions'
 import MoveLogic from '../helpers/moveLogic'
 import { nextTurn, updateBoard, updateAttributes } from '../helpers/boardLogic'
 
@@ -34,6 +35,7 @@ class Square extends Component {
       const attributes = updateAttributes(this.props.game, this.props.id)
       this.props.dispatch(updateGamePayload({pieces: updateBoard(this.props.game, this.props.id), attributes: attributes}))
       this.props.dispatch(updateTurnAction(nextTurn(this.props.game.attributes.currentTurn)))
+      this.props.dispatch(updateSelectedMoveAction(this.props.game.attributes.moves.length))
       this.handleActiveGame()
     }
   }

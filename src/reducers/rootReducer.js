@@ -7,6 +7,7 @@ import modalReducer from './modalReducer'
 import userReducer from './userReducer'
 import socketReducer from './socketReducer'
 import analyticsReducer from './analyticsReducer'
+import moveLogReducer from './moveLogReducer'
 
 export default combineReducers({
   routing: routerReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   modals: modalReducer,
   user: userReducer,
   sockets: socketReducer,
-  analytics: analyticsReducer
+  analytics: analyticsReducer,
+  moveLog: moveLogReducer,
 })

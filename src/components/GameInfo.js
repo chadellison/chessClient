@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import '../styles/gameInfo.css'
 import { connect } from 'react-redux'
-import MoveLog from './MoveLog'
+import {MoveLog} from './MoveLog'
 import Gear from './Gear'
 import PlayerInfo from './PlayerInfo'
 import { updateGamePayload } from '../actions/gameActions'
+import { updateSelectedMoveAction } from '../actions/moveLogActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { fetchAnalyticsDataAction } from '../actions/analyticsActions'
 
 
 class GameInfo extends Component {
-  handlePreviousBoard = (e) => {
-    let endIndex = parseInt(e.target.id, 10) + 1
+  handlePreviousBoard = (id) => {
+    let endIndex = parseInt(id, 10) + 1
     let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
     this.props.dispatch(updateGamePayload({previousSetup: previousSetup}))
 
@@ -26,6 +27,11 @@ class GameInfo extends Component {
     return this.props.game.attributes.moves.map((move, index) => {
       return { value: move, move_count: index + 1 }
     })
+  }
+
+  handleSelectedMove = (selectedMove) => {
+    this.handlePreviousBoard(selectedMove)
+    this.props.dispatch(updateSelectedMoveAction(selectedMove + 1))
   }
 
   renderGear() {
@@ -47,9 +53,21 @@ class GameInfo extends Component {
 
   renderPlayerInfo(color) {
     if (this.props.game.attributes.status) {
-      const {active} = this.props.analytics
       return (
-        <PlayerInfo playerColor={color} game={this.props.game} analyticsActive={active}/>
+        <PlayerInfo playerColor={this.findColor()} game={this.props.game} />
+      )
+    } else {
+      return ''
+    }
+  }
+
+  renderOpponent() {
+    if (this.props.game.attributes.status) {
+      return (
+        <PlayerInfo
+          playerColor={this.findOpponentColor()}
+          game={this.props.game}
+        />
       )
     } else {
       return ''
@@ -61,23 +79,25 @@ class GameInfo extends Component {
       <div hidden={this.props.routing.location.pathname === '/games'} className='gameInfo col-lg-3 col-md-12'>
         <div className='gameInfoBackground'>
           {this.renderGear()}
-          {this.renderPlayerInfo(this.findOpponentColor())}
+          {this.renderOpponent()}
           <h3 className='moveLogTitle'>
             Move Log
           </h3>
-          <MoveLog game={this.props.game}
-            handlePreviousBoard={this.handlePreviousBoard}
+          <MoveLog
+            game={this.props.game}
+            handleSelectedMove={this.handleSelectedMove}
+            selectedMove={this.props.moveLog.selectedMove}
           />
           <hr/>
-          {this.renderPlayerInfo(this.findColor())}
+          {this.renderPlayerInfo()}
         </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({routing, user, game, sideBar, analytics}) => {
-  return {routing, user, game, sideBar, analytics}
+const mapStateToProps = ({routing, user, game, analytics, moveLog}) => {
+  return {routing, user, game, analytics, moveLog}
 }
 
 export default connect(mapStateToProps)(GameInfo)

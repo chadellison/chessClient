@@ -1,18 +1,12 @@
 .moveLog {
   margin-top: 1em;
-  background: #e8e1cf;
+  background: #29323f;
   margin-left: 5%;
   margin-right: 5%;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 30rem;
-}
-
-.lineBreak {
-  margin-top: 2rem;
-  border: 1px solid #262638;
-  border-radius: 50%;
-  width: 80%;
+  color: white;
 }
 
 .moveColumn {
@@ -22,14 +16,18 @@
 
 .move {
   font-size: 16px;
-  padding: .5rem;
-  transform-origin: 50% 50%;
-	animation: scale .6s;
+  margin: .5rem;
 }
 
 .move:hover {
   cursor: pointer;
-  color: #2c66b2;
+  border-bottom: 3px solid #fcee6d;
+}
+
+.selectedMove {
+  border-bottom: 3px solid #fcee6d;
+  color: #fcee6d;
+  transition: ease-in .5s;
 }
 
 @keyframes scale {

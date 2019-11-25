@@ -1,38 +1,45 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../styles/moveLog.css'
 
-export default class MoveLog extends Component {
-  renderMoves() {
-    let gameNotation = this.props.game.attributes.notation
-    let gameMoves = []
+const selectedMoveClass = (index, selectedMove) => {
+  if (index + 1 === selectedMove) {
+    return ' selectedMove'
+  } else {
+    return ''
+  }
+}
 
-    if (gameNotation) {
-      let moves = gameNotation.slice(0, gameNotation.length - 1).split('.')
-      gameMoves = moves.map((notation, index) => {
-        return(
-          <div key={`${index}Notation`} id={index}
-            onClick={this.props.handlePreviousBoard}
-            className='col-xs-6 move'>
+const renderMoves = (game, handleSelectedMove, selectedMove) => {
+  let gameNotation = game.attributes.notation
+  let gameMoves = []
+
+  if (gameNotation) {
+    let moves = gameNotation.slice(0, gameNotation.length - 1).split('.')
+    gameMoves = moves.map((notation, index) => {
+      return(
+        <div key={`${index}Notation`}
+          className='col-xs-6'>
+            <span className={`move${selectedMoveClass(index, selectedMove)}`}
+              onClick={() => handleSelectedMove(index)} id={index}>
               {`${index + 1}. ${notation}`}
-          </div>
-        )
-      })
-    }
-    return (
-      <div>
-        <div className='col-xs-6 moveColumn'>White</div>
-        <div className='col-xs-6 moveColumn'>Black</div>
-        <hr className="lineBreak"/>
-        {gameMoves}
-      </div>
-    )
+            </span>
+        </div>
+      )
+    })
   }
+  return (
+    <div>
+      <div className='col-xs-6 moveColumn'>White</div>
+      <div className='col-xs-6 moveColumn'>Black</div>
+      {gameMoves}
+    </div>
+  )
+}
 
-  render() {
-    return (
-      <div className='moveLog'>
-        {this.renderMoves()}
-      </div>
-    )
-  }
+export const MoveLog = ({game, handleSelectedMove, selectedMove}) => {
+  return (
+    <div className='moveLog'>
+      {renderMoves(game, handleSelectedMove, selectedMove)}
+    </div>
+  )
 }
