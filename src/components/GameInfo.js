@@ -2,13 +2,11 @@ import React, { Component } from 'react'
 import '../styles/gameInfo.css'
 import { connect } from 'react-redux'
 import {MoveLog} from './MoveLog'
-import Gear from './Gear'
 import PlayerInfo from './PlayerInfo'
 import { updateGamePayload } from '../actions/gameActions'
 import { updateSelectedMoveAction } from '../actions/moveLogActions'
 import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { fetchAnalyticsDataAction } from '../actions/analyticsActions'
-
 
 class GameInfo extends Component {
   handlePreviousBoard = (id) => {
@@ -34,15 +32,6 @@ class GameInfo extends Component {
     this.props.dispatch(updateSelectedMoveAction(selectedMove + 1))
   }
 
-  renderGear() {
-    const {currentTurn, aiPlayer, outcome} = this.props.game.attributes
-    if (currentTurn === aiPlayer.color && !outcome) {
-      return <Gear/>
-    } else {
-      return ''
-    }
-  }
-
   findOpponentColor() {
     return this.props.game.attributes.whitePlayer.id === this.props.user.id ? 'blackPlayer' : 'whitePlayer'
   }
@@ -54,7 +43,10 @@ class GameInfo extends Component {
   renderPlayerInfo(color) {
     if (this.props.game.attributes.status) {
       return (
-        <PlayerInfo playerColor={this.findColor()} game={this.props.game} />
+        <PlayerInfo
+          playerColor={this.findColor()}
+          game={this.props.game}
+        />
       )
     } else {
       return ''
@@ -62,7 +54,8 @@ class GameInfo extends Component {
   }
 
   renderOpponent() {
-    if (this.props.game.attributes.status) {
+    const {status} = this.props.game.attributes
+    if (status) {
       return (
         <PlayerInfo
           playerColor={this.findOpponentColor()}
@@ -77,7 +70,6 @@ class GameInfo extends Component {
   render() {
     return (
       <div hidden={this.props.routing.location.pathname === '/games'} className='gameInfo col-lg-3 col-md-12'>
-        {this.renderGear()}
         {this.renderOpponent()}
         <div className='gameInfoBackground'>
           <h3 className='moveLogTitle'>
