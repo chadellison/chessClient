@@ -30,7 +30,6 @@
 .selectedMove {
   border-bottom: 3px solid #fcee6d;
   color: #fcee6d;
-  transition: ease-in .5s;
 }
 
 @keyframes scale {

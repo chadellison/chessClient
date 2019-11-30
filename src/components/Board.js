@@ -114,6 +114,7 @@ class Board extends Component {
   handleCancelPreviousSetup = () => {
     if (this.props.game.previousSetup) {
       this.props.dispatch(updateGamePayload({previousSetup: null}))
+      this.props.dispatch(updateSelectedMoveAction(this.props.game.attributes.moves.length))
     }
   }
 
