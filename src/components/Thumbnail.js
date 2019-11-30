@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/thumbnail.css'
-import MiniSquare from './MiniSquare'
+import { MiniSquare } from './MiniSquare'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { rows, columns, findGravater, mapPiecesToBoard } from '../helpers/boardLogic'
@@ -57,7 +57,7 @@ class Thumbnail extends Component {
   }
 
   handleEnterGame = () => {
-    this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`))
+    this.props.dispatch(push(`/games/${this.props.thumbnailGame.id}`));
   }
 
   render() {

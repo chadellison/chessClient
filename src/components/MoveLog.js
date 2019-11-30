@@ -9,7 +9,7 @@ const selectedMoveClass = (index, selectedMove) => {
   }
 }
 
-const renderMoves = (game, handleSelectedMove, selectedMove) => {
+const renderMoves = (game, handlePreviousBoard, selectedMove) => {
   let gameNotation = game.attributes.notation
   let gameMoves = []
 
@@ -20,7 +20,7 @@ const renderMoves = (game, handleSelectedMove, selectedMove) => {
         <div key={`${index}Notation`}
           className='col-xs-6'>
             <span className={`move${selectedMoveClass(index, selectedMove)}`}
-              onClick={() => handleSelectedMove(index)} id={index}>
+              onClick={() => handlePreviousBoard(index)} id={index}>
               {`${index + 1}. ${notation}`}
             </span>
         </div>
@@ -36,10 +36,10 @@ const renderMoves = (game, handleSelectedMove, selectedMove) => {
   )
 }
 
-export const MoveLog = ({game, handleSelectedMove, selectedMove}) => {
+export const MoveLog = ({game, handlePreviousBoard, selectedMove}) => {
   return (
     <div className='moveLog'>
-      {renderMoves(game, handleSelectedMove, selectedMove)}
+      {renderMoves(game, handlePreviousBoard, selectedMove)}
     </div>
   )
 }

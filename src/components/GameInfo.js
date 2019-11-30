@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/gameInfo.css'
 import { connect } from 'react-redux'
-import {MoveLog} from './MoveLog'
+import { MoveLog } from './MoveLog'
+import { MoveControls } from './MoveControls'
 import PlayerInfo from './PlayerInfo'
 import { updateGamePayload } from '../actions/gameActions'
 import { updateSelectedMoveAction } from '../actions/moveLogActions'
@@ -13,7 +14,7 @@ class GameInfo extends Component {
     let endIndex = parseInt(id, 10) + 1
     let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
     this.props.dispatch(updateGamePayload({previousSetup: previousSetup}))
-
+    this.props.dispatch(updateSelectedMoveAction(endIndex))
     let gamePieces = Object.values(mapPiecesToBoard(previousSetup, this.props.game))
     if (this.props.analytics.active) {
       let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
@@ -27,10 +28,10 @@ class GameInfo extends Component {
     })
   }
 
-  handleSelectedMove = (selectedMove) => {
-    this.handlePreviousBoard(selectedMove)
-    this.props.dispatch(updateSelectedMoveAction(selectedMove + 1))
-  }
+  // handleSelectedMove = (selectedMove) => {
+  //   this.handlePreviousBoard(selectedMove)
+  //   this.props.dispatch(updateSelectedMoveAction(selectedMove + 1))
+  // }
 
   findOpponentColor() {
     return this.props.game.attributes.whitePlayer.id === this.props.user.id ? 'blackPlayer' : 'whitePlayer'
@@ -77,11 +78,16 @@ class GameInfo extends Component {
           </h3>
           <MoveLog
             game={this.props.game}
-            handleSelectedMove={this.handleSelectedMove}
+            handlePreviousBoard={this.handlePreviousBoard}
             selectedMove={this.props.moveLog.selectedMove}
           />
           <hr/>
         </div>
+        <MoveControls
+          handlePreviousBoard={this.handlePreviousBoard}
+          selectedMove={this.props.moveLog.selectedMove}
+          totalMoveCount={this.props.game.attributes.moves.length}
+        />
         {this.renderPlayerInfo()}
       </div>
     )
