@@ -2,7 +2,7 @@
   transform-origin: 50% 50%;
 	animation: scale .6s;
   margin-top: 3rem;
-  position: fixed;
+  text-align: center;
   z-index: 10;
 }
 

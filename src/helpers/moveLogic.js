@@ -1,4 +1,8 @@
-import {LETTER_KEY, PIECE_CODE} from './boardLogic'
+import {LETTER_KEY} from './boardLogic'
+
+const PIECE_CODE = {
+    k: 'K', q: 'Q', b: 'B', n: 'N', r: 'R', p: ''
+}
 
 export default class MoveLogic {
   createNotation(game, piece, newPosition, pieceType) {
@@ -9,27 +13,41 @@ export default class MoveLogic {
 
     let notation = PIECE_CODE[piece.pieceType]
     notation += this.findStartNotation(piece, newPosition, game.pieces)
-    notation += this.capturePiece(notation, newPosition, piece, game.pieces)
+    notation += this.handleCaptureNotation(notation, newPosition, piece, game.pieces)
     notation += newPosition
-    notation += this.upgradedPawn(piece, pieceType)
+    notation += this.handlePawnPromotion(piece, pieceType)
     return notation + '.'
   }
 
-  upgradedPawn(piece, pieceType) {
-    if (pieceType && pieceType !== piece.pieceType) {
+  updateNotation = (pieces, piece, newPosition, promotionType) => {
+    const pieceType = piece.piece_type.toLowerCase()
+    if (pieceType === 'k' && newPosition[0] &&
+      Math.abs(LETTER_KEY[piece.position[0]] - LETTER_KEY[newPosition[0]]) === 2) {
+        return newPosition[0] === 'c' ? 'O-O-O ' : 'O-O '
+    }
+
+    let notation = PIECE_CODE[pieceType]
+    notation += this.findStartNotation(piece, newPosition, pieces)
+    notation += this.handleCaptureNotation(notation, newPosition, piece, pieces)
+    notation += newPosition
+    notation += this.handlePawnPromotion(piece, pieceType)
+    return notation + ' '
+  };
+
+  handlePawnPromotion(piece, pieceType) {
+    if (pieceType && pieceType !== piece.piece_type) {
       return '=' + PIECE_CODE[pieceType]
     } else {
       return ''
     }
   }
 
-  capturePiece(notation, newPosition, piece, pieces) {
+  handleCaptureNotation(notation, newPosition, piece, pieces) {
     if (this.isOccuppied(pieces, newPosition)) {
       return notation === '' ? piece.position[0] + 'x' : 'x'
-    } else if(piece.pieceType === 'pawn' && piece.position[0] !== newPosition[0]) {
+    } else if (piece.piece_type.toLowerCase() === 'p' && piece.position[0] !== newPosition[0]) {
       return notation === '' ? piece.position[0] + 'x' : 'x'
-    }
-    else {
+    } else {
       return ''
     }
   }
@@ -38,19 +56,18 @@ export default class MoveLogic {
     return pieces.filter((piece) => piece.position === position).length > 0
   }
 
-  findStartNotation(piece, newPosition, gamePieces) {
-    let pieces = JSON.parse(JSON.stringify(gamePieces))
+  findStartNotation(piece, newPosition, pieces) {
     let startNotation = ''
 
-    let filteredPieces = pieces.filter((gamePiece) => {
+    const filteredPieces = pieces.filter((gamePiece) => {
       return (gamePiece.color === piece.color &&
-        gamePiece.pieceType === piece.pieceType &&
-        this.isValidMove(gamePiece, newPosition, pieces))
-    })
+        gamePiece.piece_type === piece.piece_type &&
+        gamePiece.valid_moves.includes(newPosition))
+    });
 
     if (filteredPieces.length > 1) {
-      let gamePieces = this.sameColumnPieces(pieces, piece)
-      if (gamePieces.length > 1) {
+      const samePieceTypes = this.sameColumnPieces(filteredPieces, piece)
+      if (samePieceTypes.length > 1) {
         startNotation = piece.position[1]
       } else {
         startNotation = piece.position[0]
@@ -60,8 +77,8 @@ export default class MoveLogic {
     return startNotation
   }
 
-  sameColumnPieces(samePieces, piece) {
-    return samePieces.filter((gamePiece) => {
+  sameColumnPieces(samePieceTypes, piece) {
+    return samePieceTypes.filter((gamePiece) => {
       return gamePiece.position[0] === piece.position[0]
     })
   }

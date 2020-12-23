@@ -62,7 +62,7 @@ class LoginModal extends Component {
 
   render() {
     return (
-      <div className='modalContainer' hidden={!this.props.modals.login && !this.props.modals.signUp}>
+      <div className='modalContainer'>
         <div className="login-wrap loginModal">
         	<div className="login-html">
         		<input id="signInTab" type="radio" name="tab" className="sign-in" checked={this.props.modals.login}

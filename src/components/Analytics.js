@@ -4,8 +4,8 @@ import AnalysisKey from './AnalysisKey'
 import PieChart from 'react-simple-pie-chart'
 
 export default class Analytics extends Component {
-  componentWillUpdate(newProps) {
-    if (this.props.notation !== newProps.notation) {
+  componentDidUpdate(oldProps) {
+    if (oldProps.notation !== this.props.notation) {
       this.props.handleFetchAnalytics()
     }
   }

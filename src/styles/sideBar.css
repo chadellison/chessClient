@@ -3,8 +3,7 @@
 }
 
 .sideBarTitle {
-  font-family: 'Pacifico', Sans, Lato, Droid Sans;
-  background: #a0aaba;
+  background: #29323f;
   color: #FFF;
   height: 3em;
   font-size: 25px;
@@ -18,7 +17,6 @@
 }
 
 .navButton {
-  font-family: 'Pacifico', Sans, Lato, Droid Sans;
   color: #5f646d;
   height: 2.2em;
   font-size: 20px;
@@ -37,4 +35,5 @@
   cursor: pointer;
   background: #646a72;
   color: #FFF;
+  transition: all 0.2s ease-in-out 0s;
 }

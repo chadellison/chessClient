@@ -28,14 +28,7 @@ export const selectPieceAction = (piece) => {
   }
 }
 
-export const updateTurnAction = (nextTurn) => {
-  return {
-    type: 'NEXT_TURN',
-    currentTurn: nextTurn
-  }
-}
-
-export const updateGamePayload = (payload) => {
+export const updateGameAction = (payload) => {
   return {
     type: 'UPDATE_GAME',
     payload: payload

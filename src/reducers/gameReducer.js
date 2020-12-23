@@ -1,30 +1,19 @@
-import jsonPieces from '../json/pieces'
-
-const defaultGame = {
-  pieces: jsonPieces,
-  attributes: {
-    currentTurn: 'white',
-    whitePlayer: {},
-    blackPlayer: {},
-    aiPlayer: {},
-    notation: '',
-    moves: []
-  },
-  selected: {}
+const DEFAULT_GAME_STATE = {
+  id: 'default',
+  notation: '',
+  selected: {},
+  promotedPawn: {},
+  previousSetup: ''
 }
 
-const gameReducer = (state = defaultGame, action) => {
+const gameReducer = (state = DEFAULT_GAME_STATE, action) => {
   switch (action.type) {
-    case 'NEXT_TURN':
-      let attributes = state.attributes
-      attributes = Object.assign({}, attributes, {currentTurn: action.currentTurn})
-      return {...state, attributes: attributes}
     case 'SELECT_PIECE':
       return {...state, selected: action.selected}
     case 'UPDATE_GAME':
       return Object.assign({}, state, action.payload)
     case 'RESET_GAME':
-      return defaultGame
+      return DEFAULT_GAME_STATE
     default:
       return state
   }

@@ -1,55 +1,64 @@
 import React, { Component } from 'react'
 import '../styles/chat.css'
 import { connect } from 'react-redux'
-import { WEBSOCKET_HOST } from '../config/endpoints.js'
-import Cable from 'actioncable'
+// import { WEBSOCKET_HOST } from '../config/endpoints.js'
+import socketWrapper from '../socketWrapper'
+// import Cable from 'actioncable'
 import {clearChatAction, addChatAction, updateChatFieldAction, clearAllChatsAction} from '../actions/chatActions'
-import {createChatSocketAction} from '../actions/socketActions'
+// import {createChatSocketAction} from '../actions/socketActions'
 
 class Chat extends Component {
   componentDidMount() {
-    this.createChatSocket()
+    socketWrapper.createChatSocket(
+      this.props.game.id,
+      this.props.chat.channel,
+      (chatData) => this.props.addChatAction(chatData)
+    );
   }
 
   componentDidUpdate(oldProps) {
-    if(oldProps.game.id !== this.props.game.id) {
+    if (oldProps.game.id !== this.props.game.id) {
       console.log('Unsubscribed from game chat')
-      oldProps.sockets.chatSocket.unsubscribe()
-      this.props.dispatch(clearAllChatsAction())
-      this.createChatSocket()
+      socketWrapper.chatSocket.unsubscribe()
+      this.props.clearAllChatsAction()
+      socketWrapper.createChatSocket(
+        this.props.game.id,
+        this.props.chat.channel,
+        (chatData) => this.props.addChatAction(chatData)
+      );
     }
   }
 
-  createChatSocket() {
-    let cable = Cable.createConsumer(WEBSOCKET_HOST)
-    let gameId = this.props.game.id
-    let chatSocket = cable.subscriptions.create({ channel: this.props.chat.channel, game_id: gameId },
-    {
-      connected: () => {},
-      received: (data) => this.props.dispatch(addChatAction(data)),
-      create: function(chatContent) {
-        this.perform('create', {
-          content: chatContent,
-          game_id: gameId
-        })
-      }
-    })
-    this.props.dispatch(createChatSocketAction(chatSocket))
-  }
+  // createChatSocket() {
+  //   let cable = Cable.createConsumer(WEBSOCKET_HOST)
+  //   let gameId = this.props.game.id
+  //   let chatSocket = cable.subscriptions.create({ channel: this.props.chat.channel, game_id: gameId },
+  //   {
+  //     connected: () => {},
+  //     received: (data) => this.props.dispatch(addChatAction(data)),
+  //     create: function(chatContent) {
+  //       this.perform('create', {
+  //         content: chatContent,
+  //         game_id: gameId
+  //       })
+  //     }
+  //   })
+  //   this.props.dispatch(createChatSocketAction(chatSocket))
+  // }
 
   handleSendEvent = (e) => {
     e.preventDefault()
 
     if (this.props.chat.currentChatMessage) {
       let message = this.sender() + this.props.chat.currentChatMessage
-      this.props.sockets.chatSocket.create(message)
-      this.props.dispatch(clearChatAction(''))
+      socketWrapper.chatSocket.create(message)
+      this.props.clearChatAction('')
     }
   }
 
-  updateCurrentChatMessage = (e) => {
-    this.props.dispatch(updateChatFieldAction(e.target.value))
-  }
+  // updateCurrentChatMessage = (e) => {
+  //   this.props.updateChatFieldAction(e.target.value)
+  // }
 
   sender() {
     if (this.props.user.id) {
@@ -60,9 +69,9 @@ class Chat extends Component {
   }
 
   renderChatLog = () => {
-    return this.props.chat.chatLogs.map((message) => {
+    return this.props.chat.chatLogs.map((message, index) => {
       return (
-        <div key={`chat_${message.id}`} className='chat'>
+        <div key={`chat-${index}`} className='chat'>
           <span className='chat-message'>{message.content}</span>
         </div>
       )
@@ -79,7 +88,7 @@ class Chat extends Component {
         <form className='inputForm' onSubmit={(e) => this.handleSendEvent(e)}>
           <input
             value={ this.props.chat.currentChatMessage }
-            onChange={ (e) => this.updateCurrentChatMessage(e) }
+            onChange={ (e) => this.props.updateChatFieldAction(e.target.value) }
             type='text'
             placeholder=''
             className='chat-input' />
@@ -90,8 +99,15 @@ class Chat extends Component {
   }
 }
 
-const mapStateToProps = ({chat, sockets, game, user}) => {
-  return {chat, sockets, game, user}
+const mapStateToProps = ({chat, game, user}) => {
+  return {chat, game, user}
 }
 
-export default connect(mapStateToProps)(Chat)
+const mapDispatchToProps = {
+  clearChatAction,
+  addChatAction,
+  updateChatFieldAction,
+  clearAllChatsAction,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)

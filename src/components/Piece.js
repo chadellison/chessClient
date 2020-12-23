@@ -1,16 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { DragDropContainer } from 'react-drag-drop-container'
 import { connect } from 'react-redux'
-import { selectPieceAction } from '../actions/gameActions'
+import { updateGameAction } from '../actions/gameActions'
+import { updateSelectedMoveAction } from '../actions/moveLogActions'
+import socketWrapper from '../socketWrapper'
 
-const PIECE_KEY = { 'pawn': 'pawn', 'knight': 'knight', 'bishop': 'bishop',
-  'rook': 'tower', 'queen': 'queen', 'king': 'king'
+const PIECE_KEY = { 'p': 'pawn', 'n': 'knight', 'b': 'bishop',
+  'r': 'tower', 'q': 'queen', 'k': 'king'
 }
 
-const pieceStyle = (props) => {
-  const pieceSize = props.analytics.active ? '2.5vw' : '3.5vw'
-  const isFocusPiece = props.analytics.focusPiece === props.piece.positionIndex
-  let color = props.piece.color === 'black' ? '#262638' : '#e3e3ed'
+const pieceStyle = (analytics, piece) => {
+  const pieceSize = analytics.active ? '2.5vw' : '3.5vw'
+  const isFocusPiece = analytics.focusPiece === piece.sqaure_index
+  let color = piece.color === 'b' ? '#262638' : '#e3e3ed'
   if (isFocusPiece) {
     color = '#ffbdde'
   }
@@ -23,28 +25,39 @@ const pieceStyle = (props) => {
   }
 }
 
-class Piece extends Component {
-  renderPiece = () => {
-    const {piece} = this.props
-    return (
-      <DragDropContainer
-        targetKey='dropSquare'
-        dragData={{piece: piece}}
-        returnToBase={true}
-        onDragStart={() => this.props.dispatch(selectPieceAction(piece))}>
-        <i
-          id={piece.positionIndex}
-          style={pieceStyle(this.props)}
-          className={`glyphicon glyphicon-${PIECE_KEY[piece.pieceType]}`}
-        />
-      </DragDropContainer>
-    )
+const handlePieceSelection = (piece, game, sockets, updateGameAction, updateSelectedMoveAction) => {
+  if (game.previousSetup) {
+    updateGameAction({...game, previousSetup: '', notation: game.previousSetup, selected: {}});
+    updateSelectedMoveAction(game.previousSetup.split(' ').length - 2)
+    socketWrapper.gameSocket.update({game_id: game.id, notation: game.previousSetup});
+  } else {
+    updateGameAction({...game, selected: piece});
   }
-  render() {return this.renderPiece()}
 }
 
-const mapStateToProps = ({game, analytics}) => {
-  return {game, analytics}
+const Piece = ({analytics, updateGameAction, piece, game, sockets, updateSelectedMoveAction}) => {
+  return (
+    <DragDropContainer
+      targetKey='dropSquare'
+      dragData={{piece: piece}}
+      returnToBase={true}
+      onDragStart={() => handlePieceSelection(piece, game, sockets, updateGameAction, updateSelectedMoveAction)}>
+      <i
+        id={piece.square_index}
+        style={pieceStyle(analytics, piece)}
+        className={`glyphicon glyphicon-${PIECE_KEY[piece.piece_type.toLowerCase()]}`}
+      />
+    </DragDropContainer>
+  )
 }
 
-export default connect(mapStateToProps)(Piece)
+const mapStateToProps = ({analytics, sockets, game}) => {
+  return {analytics, sockets, game}
+}
+
+const mapDispatchToProps = {
+  updateGameAction,
+  updateSelectedMoveAction,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Piece)

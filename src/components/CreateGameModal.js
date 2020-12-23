@@ -3,13 +3,13 @@ import '../styles/createGameModal.css'
 import { connect } from 'react-redux'
 import Spinner from './Spinner'
 import { handleModalAction, spinnerAction } from '../actions/modalActions'
-import { createGameAction, updateGamePayload, machineVsMachineGameAction } from '../actions/gameActions'
+import { createGameAction, updateGameAction, machineVsMachineGameAction } from '../actions/gameActions'
 
 class CreateGameModal extends Component {
   handleCancel = (e) => {
     e.preventDefault()
     this.props.dispatch(handleModalAction({createGame: false}))
-    this.props.dispatch(updateGamePayload({errors: false}))
+    this.props.dispatch(updateGameAction({errors: false}))
   }
 
   handleCreateGame = (e) => {
@@ -22,7 +22,7 @@ class CreateGameModal extends Component {
     } else {
       this.props.dispatch(createGameAction(gameData, this.props.user.token))
     }
-    this.props.dispatch(updateGamePayload({errors: false}))
+    this.props.dispatch(updateGameAction({errors: false}))
     this.props.dispatch(spinnerAction(true))
   }
 
@@ -46,7 +46,7 @@ class CreateGameModal extends Component {
 
   render() {
     return (
-      <div className='modalContainer' hidden={!this.props.modals.createGame}>
+      <div className='modalContainer'>
         <form className='createGameModal col-sm-offset-4 col-md-4' onSubmit={(e) => this.handleCreateGame(e)}>
           {this.submissionFailed()}
           {this.displaySpinner()}

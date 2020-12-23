@@ -1,13 +1,7 @@
 import React from 'react'
 import Spinner from './Spinner'
 
-export const LoginForm = ({
-  spinnerActive,
-  handleLogin,
-  loginFailed,
-  handleCancel
-}) => {
-
+export const LoginForm = ({spinnerActive, handleLogin, loginFailed, handleCancel}) => {
   return (
     <form className="sign-in-htm" onSubmit={(e) => handleLogin(e)}>
       {spinnerActive ? <Spinner /> : ''}

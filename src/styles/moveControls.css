@@ -1,9 +1,23 @@
 .moveControls {
   margin-bottom: 1rem;
+  padding-top: 10px;
 }
 
 .moveControlIcon {
-  width: 3rem;
-  font-size: 20px;
+  font-size: 180%;
+}
+
+#button_fbw, #button_bw, #button_play, #button_fw, #button_ffw {
+  border: 2px solid #29323f;
+  padding: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 15%;
   color: #29323f;
+}
+
+#button_fbw:hover, #button_bw:hover, #button_play:hover, #button_fw:hover, #button_ffw:hover {
+  background-color: #29323f;
+  color: #a6a9b3;
+  transition: all 0.2s ease-in-out 0s;
 }

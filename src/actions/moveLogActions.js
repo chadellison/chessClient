@@ -1,6 +1,6 @@
-export const updateSelectedMoveAction = (selectedMove) => {
+export const updateSelectedMoveAction = (index) => {
   return {
     type: 'UPDATE_SELECTED_MOVE',
-    selectedMove,
+    index,
   }
 }

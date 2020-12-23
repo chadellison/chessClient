@@ -5,7 +5,7 @@ const HEADERS = {
   'Content-Type': 'application/json'
 }
 
-export const getData = async (path, action) => {
+export const getData = async (path) => {
   try {
     const response = await fetch(`${API_HOST}${path}`, {
       method: 'GET',

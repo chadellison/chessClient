@@ -4,29 +4,31 @@ import { connect } from 'react-redux'
 import { MoveLog } from './MoveLog'
 import { MoveControls } from './MoveControls'
 import PlayerInfo from './PlayerInfo'
-import { updateGamePayload } from '../actions/gameActions'
+import { updateGameAction } from '../actions/gameActions'
 import { updateSelectedMoveAction } from '../actions/moveLogActions'
-import { mapPiecesToBoard } from '../helpers/boardLogic'
+// import { mapPiecesToBoard } from '../helpers/boardLogic'
 import { fetchAnalyticsDataAction } from '../actions/analyticsActions'
+import socketWrapper from '../socketWrapper'
 
 class GameInfo extends Component {
-  handlePreviousBoard = (id) => {
-    let endIndex = parseInt(id, 10) + 1
-    let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
-    this.props.dispatch(updateGamePayload({previousSetup: previousSetup}))
-    this.props.dispatch(updateSelectedMoveAction(endIndex))
-    let gamePieces = Object.values(mapPiecesToBoard(previousSetup, this.props.game))
-    if (this.props.analytics.active) {
-      let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
-      this.props.dispatch(fetchAnalyticsDataAction(gamePieces, gameTurnCode, this.movesWithCount()))
+  handlePreviousBoard = (index) => {
+    const { game } = this.props;
+    const previousSetup = game.previousSetup ? game.previousSetup : game.notation;
+    const splitMoves = previousSetup.split(' ');
+    if (this.props.moveLog.index !== index && index >= 0 && index < splitMoves.length - 1) {
+      const newNotation = (splitMoves.slice(0, index + 1)).join(' ')
+      this.props.fetchAnalyticsDataAction(newNotation)
+      this.props.updateGameAction({...game, previousSetup})
+      socketWrapper.gameSocket.update({game_id: game.id, notation: newNotation});
+      this.props.updateSelectedMoveAction(index);
     }
   }
 
-  movesWithCount = () => {
-    return this.props.game.attributes.moves.map((move, index) => {
-      return { value: move, move_count: index + 1 }
-    })
-  }
+  // movesWithCount = () => {
+  //   return this.props.game.attributes.moves.map((move, index) => {
+  //     return { value: move, move_count: index + 1 }
+  //   })
+  // }
 
   // handleSelectedMove = (selectedMove) => {
   //   this.handlePreviousBoard(selectedMove)
@@ -42,51 +44,47 @@ class GameInfo extends Component {
   }
 
   renderPlayerInfo(color) {
-    if (this.props.game.attributes.status) {
-      return (
-        <PlayerInfo
-          playerColor={this.findColor()}
-          game={this.props.game}
-        />
-      )
-    } else {
+    // if (this.props.game.attributes.status) {
+    //   return (
+    //     <PlayerInfo
+    //       playerColor={this.findColor()}
+    //       game={this.props.game}
+    //     />
+    //   )
+    // } else {
       return ''
-    }
+    // }
   }
 
   renderOpponent() {
-    const {status} = this.props.game.attributes
-    if (status) {
-      return (
-        <PlayerInfo
-          playerColor={this.findOpponentColor()}
-          game={this.props.game}
-        />
-      )
-    } else {
+    // const {status} = this.props.game.attributes
+    // if (status) {
+    //   return (
+    //     <PlayerInfo
+    //       playerColor={this.findOpponentColor()}
+    //       game={this.props.game}
+    //     />
+    //   )
+    // } else {
       return ''
-    }
+    // }
   }
 
   render() {
+    const {previousSetup, notation} = this.props.game;
+    const moveCount = previousSetup ? previousSetup.split(' ').length - 1 : notation.split(' ').length - 1
     return (
       <div hidden={this.props.routing.location.pathname === '/games'} className='gameInfo col-lg-3 col-md-12'>
         {this.renderOpponent()}
-        <div className='gameInfoBackground'>
-          <h3 className='moveLogTitle'>
-            Move Log
-          </h3>
-          <MoveLog
-            game={this.props.game}
-            handlePreviousBoard={this.handlePreviousBoard}
-            selectedMove={this.props.moveLog.selectedMove}
-          />
-          <hr/>
-        </div>
+        <MoveLog
+          game={this.props.game}
+          handlePreviousBoard={this.handlePreviousBoard}
+          selectedMove={this.props.moveLog.index}
+        />
         <MoveControls
           handlePreviousBoard={this.handlePreviousBoard}
-          selectedMove={this.props.moveLog.selectedMove}
-          totalMoveCount={this.props.game.attributes.moves.length}
+          selectedMove={this.props.moveLog.index}
+          totalMoveCount={moveCount}
         />
         {this.renderPlayerInfo()}
       </div>
@@ -94,8 +92,14 @@ class GameInfo extends Component {
   }
 }
 
-const mapStateToProps = ({routing, user, game, analytics, moveLog}) => {
-  return {routing, user, game, analytics, moveLog}
+const mapStateToProps = ({routing, user, game, analytics, moveLog, sockets}) => {
+  return {routing, user, game, analytics, moveLog, sockets}
 }
 
-export default connect(mapStateToProps)(GameInfo)
+const mapDispatchToProps = {
+  updateGameAction,
+  updateSelectedMoveAction,
+  fetchAnalyticsDataAction,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameInfo)

@@ -1,5 +1,5 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
-import {postData} from './apiHelper'
+import {getData} from './apiHelper'
 import {
   updatePieChartDataAction,
   updateLineChartDataAction
@@ -10,9 +10,8 @@ export function* watchFetchAnalyticsData() {
 }
 
 export function* fetchAnalyticsData(action) {
-  const body = JSON.stringify({ pieces: action.pieces, turn: action.turn, moves: action.moves })
   try {
-    const response = yield call(postData, '/api/v1/analytics', body)
+    const response = yield call(getData, `/api/v1/analytics?notation=${action.notation}`)
     yield put(updatePieChartDataAction(response.data.attributes))
     yield put(updateLineChartDataAction(response.data.attributes))
   }

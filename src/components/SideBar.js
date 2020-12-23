@@ -5,21 +5,22 @@ import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import Credentials from './Credentials'
 import Analytics from './Analytics'
+import { resetBoardAction } from '../actions/boardActions'
+import { updateSelectedMoveAction } from '../actions/moveLogActions'
 import { handleModalAction } from '../actions/modalActions'
-import { resetGameAction, joinGameAction, updateGamePayload } from '../actions/gameActions'
-import { mapPiecesToBoard } from '../helpers/boardLogic'
+import { resetGameAction, joinGameAction } from '../actions/gameActions'
 import { analyticsAction, fetchAnalyticsDataAction } from '../actions/analyticsActions'
 
 class SideBar extends Component {
   componentDidMount() {
-    this.handleFetchAnalytics()
+    this.props.fetchAnalyticsDataAction(this.props.game.notation)
   }
 
   handleAllGamesButton = () => {
     if (this.props.user.token) {
       this.props.dispatch(push('/games'))
     } else {
-      this.props.dispatch(handleModalAction({login: true}))
+      this.props.handleModalAction({login: true})
     }
   }
 
@@ -29,17 +30,11 @@ class SideBar extends Component {
     })
   }
 
-  handleFetchAnalytics = () => {
-    let {game} = this.props
-    let gameTurnCode = game.attributes.moves.length % 2 === 0 ? 'w' : 'b'
-    this.props.dispatch(fetchAnalyticsDataAction(game.pieces, gameTurnCode, this.movesWithCount()))
-  }
-
   handleAnalytics = () => {
     if (!this.props.analytics.active) {
-      this.handleFetchAnalytics()
+      fetchAnalyticsDataAction(this.props.game.notation)
     }
-    this.props.dispatch(analyticsAction(!this.props.analytics.active))
+    this.props.analyticsAction(!this.props.analytics.active)
   }
 
   allGamesText() {
@@ -50,11 +45,17 @@ class SideBar extends Component {
     }
   }
 
+  resetGame = () => {
+    this.props.resetGameAction();
+    this.props.resetBoardAction();
+    this.props.updateSelectedMoveAction(0);
+  }
+
   resetButton() {
     return (
       <div className='navButton'
-        onClick={() => this.props.dispatch(resetGameAction())}
-        hidden={this.props.game.id}>
+        onClick={this.resetGame}
+        hidden={this.props.game.id !== 'default'}>
         <i className='glyphicon glyphicon-triangle-left navIcon'/>
         <span>Reset</span>
       </div>
@@ -71,19 +72,7 @@ class SideBar extends Component {
   }
 
   handleJoinGame = () => {
-    this.props.dispatch(joinGameAction(this.props.user.token))
-  }
-
-  handlePreviousBoard = (e) => {
-    let endIndex = parseInt(e.target.id, 10) + 1
-    let previousSetup = this.props.game.attributes.moves.slice(0, endIndex)
-    this.props.dispatch(updateGamePayload({previousSetup: previousSetup}))
-
-    let gamePieces = Object.values(mapPiecesToBoard(previousSetup, this.props.game))
-    if (this.props.analytics.active) {
-      let gameTurnCode = previousSetup.length % 2 === 0 ? 'w' : 'b'
-      this.props.dispatch(fetchAnalyticsDataAction(gamePieces, gameTurnCode, this.movesWithCount()))
-    }
+    this.props.joinGameAction(this.props.user.token)
   }
 
   analyticsText() {
@@ -98,7 +87,7 @@ class SideBar extends Component {
     if (this.props.routing.location.pathname === '/games') {
       return (
         <div>
-          <div className='navButton' onClick={() => this.props.dispatch(handleModalAction({createGame: true}))}>
+          <div className='navButton' onClick={() => this.props.handleModalAction({createGame: true})}>
             <i className='glyphicon glyphicon-plus navIcon'/>
             <span className='navText'>Create Game</span>
           </div>
@@ -135,8 +124,8 @@ class SideBar extends Component {
             <span>{this.analyticsText()}</span>
           </div>
           <Analytics pieChartData={this.props.analytics.pieChartData}
-            notation={this.props.game.attributes.notation}
-            handleFetchAnalytics={this.handleFetchAnalytics}
+            notation={this.props.game.notation}
+            handleFetchAnalytics={() => this.props.fetchAnalyticsDataAction(this.props.game.notation)}
           />
         </div>
       )
@@ -163,4 +152,14 @@ const mapStateToProps = ({routing, user, game, sideBar, analytics}) => {
   return {routing, user, game, sideBar, analytics}
 }
 
-export default connect(mapStateToProps)(SideBar)
+const mapDispatchToProps = {
+  fetchAnalyticsDataAction,
+  analyticsAction,
+  resetGameAction,
+  joinGameAction,
+  handleModalAction,
+  updateSelectedMoveAction,
+  resetBoardAction,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar)

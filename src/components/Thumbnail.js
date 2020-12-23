@@ -3,27 +3,29 @@ import '../styles/thumbnail.css'
 import { MiniSquare } from './MiniSquare'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { rows, columns, findGravater, mapPiecesToBoard } from '../helpers/boardLogic'
+import { rows, columns, findGravater } from '../helpers/boardLogic'
 
 class Thumbnail extends Component {
   renderBoard = () => {
-    let gamePieces = mapPiecesToBoard(null, this.props.thumbnailGame)
-
-    let gameId = this.props.thumbnailGame.id
-    let userId = this.props.user.id
-    let blackPlayerId = this.props.thumbnailGame.attributes.blackPlayer.id
-
-    return rows(userId, blackPlayerId).map((row, rowIndex) => {
-      let eachRow = columns(userId, blackPlayerId).map((column, columnIndex) => {
-        return (
-          <MiniSquare key={`miniSquare${rowIndex + columnIndex + gameId}`}
-            value={rowIndex + columnIndex + 1}
-            piece={gamePieces[column + row]}
-          />
-        )
-      })
-      return <div key={`row${rowIndex + gameId}`} className='row justify-content-center'>{eachRow}</div>
-    })
+    // let gamePieces = mapPiecesToBoard(null, this.props.thumbnailGame)
+    //
+    // let gameId = this.props.thumbnailGame.id
+    // let userId = this.props.user.id
+    // let blackPlayerId = this.props.thumbnailGame.attributes.blackPlayer.id
+    //
+    // return rows(userId, blackPlayerId).map((row, rowIndex) => {
+    //   let eachRow = columns(userId, blackPlayerId).map((column, columnIndex) => {
+    //     return (
+    //       <MiniSquare key={`miniSquare${rowIndex + columnIndex + gameId}`}
+    //         value={rowIndex + columnIndex + 1}
+    //         piece={gamePieces[column + row]}
+    //       />
+    //     )
+    //   })
+    //   return <div key={`row${rowIndex + gameId}`} className='row justify-content-center'>{eachRow}</div>
+    // })
+    console.log('you need to do this')
+    return <div></div>
   }
 
   statusText() {

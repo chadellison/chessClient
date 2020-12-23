@@ -1,7 +1,7 @@
-const moveLogReducer = (state = { selectedMove: 0 }, action) => {
+const moveLogReducer = (state = { index: 0 }, action) => {
   switch (action.type) {
     case 'UPDATE_SELECTED_MOVE':
-      return { selectedMove: action.selectedMove }
+      return { index: action.index }
     default:
       return state
   }

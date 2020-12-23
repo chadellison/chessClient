@@ -1,5 +1,5 @@
 import MoveLogic from './moveLogic'
-import jsonPieces from '../json/pieces'
+// import jsonPieces from '../json/pieces'
 
 export const PIECE_CODE = {
     king: 'K', queen: 'Q', bishop: 'B', knight: 'N', rook: 'R', pawn: ''
@@ -106,27 +106,28 @@ export const updatePiece = (piece, newPosition) => {
   return piece
 }
 
-export const mapPiecesToBoard = (previousSetup, game) => {
-  let gamePieces = {}
-
-  if (previousSetup) {
-    let clonedGame = JSON.parse(JSON.stringify(game))
-    clonedGame.pieces = JSON.parse(JSON.stringify(jsonPieces))
-
-    previousSetup.forEach((move) => {
-      clonedGame.selected = findPiece(move, clonedGame.pieces)
-      clonedGame.pieces = updateBoard(clonedGame, findPosition(move))
-    })
-
-    clonedGame.pieces.forEach((piece) => gamePieces[piece.position] = piece)
-  } else {
-    game.pieces.forEach((piece) => {
-      gamePieces[piece.position] = piece
-    })
-  }
-
-  return gamePieces
-}
+// export const mapPiecesToBoard = (previousSetup, game) => {
+  // let gamePieces = {}
+  //
+  // if (previousSetup) {
+  //   let clonedGame = JSON.parse(JSON.stringify(game))
+  //   clonedGame.pieces = JSON.parse(JSON.stringify(jsonPieces))
+  //
+  //   previousSetup.forEach((move) => {
+  //     clonedGame.selected = findPiece(move, clonedGame.pieces)
+  //     clonedGame.pieces = updateBoard(clonedGame, findPosition(move))
+  //   })
+  //
+  //   clonedGame.pieces.forEach((piece) => gamePieces[piece.position] = piece)
+  // } else {
+  //   game.pieces.forEach((piece) => {
+  //     gamePieces[piece.position] = piece
+  //   })
+  // }
+  //
+  // return gamePieces
+//   []
+// }
 
 export const findPosition = (move) => {
   return move.length === 3 ? move[1] + move[2] : move[2] + move[3]
